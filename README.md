@@ -16,11 +16,15 @@ OR
 #### Bug list (please add bug in this list if you found a bug):
 | Method Affected | Description | Date Added | Status | Last Updated |
 | --------------- |:-----------:|:----------:|:------:|:------------:| 
-| ~~updateUserPassword~~ | method returned "User password updated successfully." even if the old password is wrong. | 18-02-2020 | Closed | 19-02-2020 | 
+| updateUserPassword | method returned "User password updated successfully." even if the old password is wrong. | 18-02-2020 | In Test | 19-02-2020 | 
 
-#### Bug Status (please refer to this when adding a bug)
+#### Bug Status (please refer to this when adding or modifying a bug)
 | Status | Description | Example |
 | ------ |:-----------:|:-------:|
 | Open | Use this status when adding a new but not vital bug. | Wrong status code returned, wrong response from endpoints. |
 | Critical | Use this status when adding a vital bug that need to solved immediately. | Login method error, unexpected NPE |  
-| Closed | Use this status if bug is already fixed. | Solved bug. |
+| In Development | Use this status when bug is on progress to be solved | |
+| In Test | Use this status if bug is already solved but not yet tested. | |
+| Closed | Use this status if bug is already fixed and tested. | |
+| Rejected | Use this status if bug is a false alarm or not a bug. | |
+| Re-Open | Use this status if bug that already **Closed** give same behavior as before. | |
