@@ -6,7 +6,7 @@ This is a backend project for accomplishing Blibli Future Program 4.0 phase 2. U
 How to use it:
 1. Clone the project,
 2. Run BlibliExperienceApplication,
-3. Check the docs in http://localhost:8080/experience/swagger-ui.html#
+3. Check the docs in [swagger-ui](http://localhost:8080/experience/swagger-ui.html#)
 
 How to get user Id for accessing other method:
 1. Post a user on **registerUser** endpoint
