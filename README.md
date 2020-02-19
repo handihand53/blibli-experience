@@ -13,7 +13,5 @@ This is a backend project for accomplishing Blibli Future Program 4.0 phase 2. U
 OR
 2. Login a user on **loginUser** endpoint
 
-#### Bug list:
-1. No handler for error.
-2. **updateUserPassword** still return "User password updated successfully." even if your old password is wrong. 
-  But no data change in DB, only wrong return.
+#### Bug list (please add bug in this list if you found a bug):
+1. 
