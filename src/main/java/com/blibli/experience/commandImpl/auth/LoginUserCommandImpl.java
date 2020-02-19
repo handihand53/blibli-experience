@@ -5,6 +5,7 @@ import com.blibli.experience.entity.User;
 import com.blibli.experience.model.request.auth.LoginUserRequest;
 import com.blibli.experience.model.response.auth.LoginUserResponse;
 import com.blibli.experience.repository.UserRepository;
+import javassist.NotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,12 +31,10 @@ public class LoginUserCommandImpl implements LoginUserCommand {
   @Override
   public Mono<LoginUserResponse> execute(LoginUserRequest request) {
     return userRepository.getFirstByEmail(request.getEmail())
-        .map(user -> {
-          if(isPasswordMatch(user, request.getPassword())) {
-            return toResponse(user);
-          }
-          return new LoginUserResponse();
-        });
+        .switchIfEmpty(Mono.error(new NotFoundException("User not found!")))
+        .filter(user -> isPasswordMatch(user, request.getPassword()))
+        .switchIfEmpty(Mono.error(new RuntimeException("Wrong password!")))
+        .map(this::toResponse);
   }
 
   private Boolean isPasswordMatch(User user, String password) {
