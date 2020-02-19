@@ -1,5 +1,8 @@
 # blibli-experience
 
+This is a backend project for accomplishing Blibli Future Program 4.0 phase 2. Using Spring Boot, Asynchronous Java Framework - 
+  Project Reactor and Command Pattern provided by Blibli.com. 
+
 How to use it:
 1. Clone the project,
 2. Run BlibliExperienceApplication,
