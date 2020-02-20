@@ -3,7 +3,6 @@ package com.blibli.experience.commandImpl.auth;
 import com.blibli.experience.entity.User;
 import com.blibli.experience.enums.GenderType;
 import com.blibli.experience.model.request.auth.RegisterUserRequest;
-import com.blibli.experience.model.request.user.UpdateUserPasswordRequest;
 import com.blibli.experience.model.response.auth.RegisterUserResponse;
 import com.blibli.experience.repository.UserRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -17,7 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -26,19 +25,17 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 class RegisterUserCommandImplTest {
 
-  @InjectMocks
-  RegisterUserCommandImpl registerUserCommand;
-
-  @Mock
-  UserRepository userRepository;
-
-  private User user;
-  private RegisterUserRequest request;
-  private RegisterUserResponse response;
   private final UUID randomUUID = UUID.randomUUID();
   private final GenderType genderType = GenderType.PRIA;
   private final LocalDate birthDate = LocalDate.now();
   private final LocalDateTime createdAt = LocalDateTime.now();
+  @InjectMocks
+  RegisterUserCommandImpl registerUserCommand;
+  @Mock
+  UserRepository userRepository;
+  private User user;
+  private RegisterUserRequest request;
+  private RegisterUserResponse response;
 
   @BeforeEach
   void setUp() {

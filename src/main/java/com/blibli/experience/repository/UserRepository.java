@@ -10,8 +10,8 @@ import java.util.UUID;
 @Repository
 public interface UserRepository extends ReactiveMongoRepository<User, String> {
 
-  Mono<User> getFirstById(UUID id);
+  Mono<User> findFirstById(UUID id);
 
-  Mono<User> getFirstByEmail(String email);
+  Mono<User> findFirstByEmail(String email);
 
 }

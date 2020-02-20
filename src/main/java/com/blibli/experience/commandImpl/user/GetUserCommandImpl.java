@@ -24,7 +24,7 @@ public class GetUserCommandImpl implements GetUserCommand {
 
   @Override
   public Mono<GetUserResponse> execute(UUID id) {
-    return userRepository.getFirstById(id)
+    return userRepository.findFirstById(id)
         .switchIfEmpty(Mono.error(new NotFoundException("User not found!")))
         .map(this::toResponse);
   }

@@ -2,6 +2,7 @@ package com.blibli.experience.commandImpl.auth;
 
 import com.blibli.experience.command.auth.RegisterUserCommand;
 import com.blibli.experience.entity.User;
+import com.blibli.experience.enums.UserRole;
 import com.blibli.experience.model.request.auth.RegisterUserRequest;
 import com.blibli.experience.model.response.auth.RegisterUserResponse;
 import com.blibli.experience.repository.UserRepository;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -34,19 +37,26 @@ public class RegisterUserCommandImpl implements RegisterUserCommand {
 
   @Override
   public Mono<RegisterUserResponse> execute(RegisterUserRequest request) {
-    return Mono.fromCallable(() -> registerUser(request))
+    return Mono.fromCallable(() -> toUser(request))
         .flatMap(user -> userRepository.save(user))
         .map(this::toResponse);
   }
 
-  private User registerUser(RegisterUserRequest request) {
+  private User toUser(RegisterUserRequest request) {
     User user = User.builder()
         .id(UUID.randomUUID())
         .createdAt(LocalDateTime.now())
         .build();
     BeanUtils.copyProperties(request, user);
     user.setPassword(passwordEncoder().encode(user.getPassword()));
+    user.setUserRole(getUserRoles());
     return user;
+  }
+
+  private List<UserRole> getUserRoles() {
+    List<UserRole> userRoles = new ArrayList<>();
+    userRoles.add(UserRole.USER);
+    return userRoles;
   }
 
   private RegisterUserResponse toResponse(User user) {

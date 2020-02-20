@@ -28,7 +28,7 @@ public class UpdateUserPasswordCommandImpl implements UpdateUserPasswordCommand 
 
   @Override
   public Mono<String> execute(UpdateUserPasswordRequest request) {
-    return userRepository.getFirstById(request.getId())
+    return userRepository.findFirstById(request.getId())
         .switchIfEmpty(Mono.error(new NotFoundException("User not found!")))
         .filter(user -> isPasswordMatch(user, request.getPassword()))
         .switchIfEmpty(Mono.error(new RuntimeException("Wrong password!")))

@@ -1,6 +1,7 @@
 package com.blibli.experience.entity;
 
 import com.blibli.experience.enums.GenderType;
+import com.blibli.experience.enums.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,6 +14,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -30,21 +32,22 @@ public class User {
   public static final String PHONE_NUMBER = "phoneNumber";
   public static final String GENDER = "gender";
   public static final String BIRTH_DATE = "birthDate";
+  public static final String ROLE = "role";
   public static final String CREATED_AT = "createdAt";
 
   @Id
-  @Field(value = User.ID)
+  @Field(value = ID)
   private UUID id;
 
-  @Field(value = User.EMAIL)
+  @Field(value = EMAIL)
   @Indexed(unique = true)
   @Length(max = 254)
   private String email;
 
-  @Field(value = User.PASSWORD)
+  @Field(value = PASSWORD)
   private String password;
 
-  @Field(value = User.FULL_NAME)
+  @Field(value = FULL_NAME)
   @Length(max = 30)
   private String fullName;
 
@@ -55,10 +58,13 @@ public class User {
   @Length(max = 15)
   private String phoneNumber;
 
-  @Field(value = User.GENDER)
+  @Field(value = GENDER)
   private GenderType gender;
 
-  @Field(value = User.CREATED_AT)
+  @Field(value = ROLE)
+  private List<UserRole> userRole;
+
+  @Field(value = CREATED_AT)
   private LocalDateTime createdAt;
 
 }

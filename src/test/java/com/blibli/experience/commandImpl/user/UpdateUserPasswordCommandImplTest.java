@@ -9,10 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import reactor.core.publisher.Mono;
-import reactor.test.StepVerifier;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -26,18 +23,16 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 class UpdateUserPasswordCommandImplTest {
 
-  @InjectMocks
-  UpdateUserPasswordCommandImpl updateUserPasswordCommand;
-
-  @Mock
-  UserRepository userRepository;
-
-  private User user;
-  private UpdateUserPasswordRequest request;
   private final UUID randomUUID = UUID.randomUUID();
   private final GenderType genderType = GenderType.PRIA;
   private final LocalDate birthDate = LocalDate.now();
   private final LocalDateTime createdAt = LocalDateTime.now();
+  @InjectMocks
+  UpdateUserPasswordCommandImpl updateUserPasswordCommand;
+  @Mock
+  UserRepository userRepository;
+  private User user;
+  private UpdateUserPasswordRequest request;
 
   @BeforeEach
   void setUp() {
@@ -66,7 +61,7 @@ class UpdateUserPasswordCommandImplTest {
 
   @Test
   void execute() {
-    when(userRepository.getFirstById(randomUUID))
+    when(userRepository.findFirstById(randomUUID))
         .thenReturn(Mono.just(user));
     when(userRepository.save(user))
         .thenReturn(Mono.just(user));
@@ -75,7 +70,7 @@ class UpdateUserPasswordCommandImplTest {
     String expected = "User password updated successfully.";
     assertEquals(expected, result);
 
-    verify(userRepository).getFirstById(randomUUID);
+    verify(userRepository).findFirstById(randomUUID);
     verify(userRepository).save(user);
   }
 }

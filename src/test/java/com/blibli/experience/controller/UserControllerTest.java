@@ -39,21 +39,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 class UserControllerTest {
 
-  @MockBean
-  private CommandExecutor commandExecutor;
-
-  @Autowired
-  private MockMvc mockMvc;
-
-  private UpdateUserPasswordRequest updateUserPasswordRequest;
-  private GetUserResponse getUserResponse;
-  private HttpHeaders httpHeaders;
   private final String request = "request";
   private final String response = "response";
   private final UUID randomUUID = UUID.randomUUID();
   private final GenderType genderType = GenderType.PRIA;
   private final LocalDate birthDate = LocalDate.now();
   private final LocalDateTime createdAt = LocalDateTime.now();
+  @MockBean
+  private CommandExecutor commandExecutor;
+  @Autowired
+  private MockMvc mockMvc;
+  private UpdateUserPasswordRequest updateUserPasswordRequest;
+  private GetUserResponse getUserResponse;
+  private HttpHeaders httpHeaders;
 
   @BeforeEach
   void setUp() {

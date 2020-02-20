@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import reactor.core.publisher.Mono;
-import reactor.test.StepVerifier;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -24,18 +23,16 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 class GetUserCommandImplTest {
 
-  @InjectMocks
-  private GetUserCommandImpl getUserCommand;
-
-  @Mock
-  private UserRepository userRepository;
-
-  private User user;
-  private GetUserResponse response;
   private final UUID randomUUID = UUID.randomUUID();
   private final GenderType genderType = GenderType.PRIA;
   private final LocalDate birthDate = LocalDate.now();
   private final LocalDateTime createdAt = LocalDateTime.now();
+  @InjectMocks
+  private GetUserCommandImpl getUserCommand;
+  @Mock
+  private UserRepository userRepository;
+  private User user;
+  private GetUserResponse response;
 
   @BeforeEach
   void setUp() {
@@ -68,12 +65,12 @@ class GetUserCommandImplTest {
 
   @Test
   void execute() {
-    when(userRepository.getFirstById(randomUUID))
+    when(userRepository.findFirstById(randomUUID))
         .thenReturn(Mono.just(user));
 
     GetUserResponse result = getUserCommand.execute(randomUUID).block();
     assertEquals(response, result);
 
-    verify(userRepository).getFirstById(randomUUID);
+    verify(userRepository).findFirstById(randomUUID);
   }
 }

@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDate;
 
 @Data
 @Builder
@@ -18,11 +18,10 @@ public class RegisterUserRequest {
   private String email;
 
   @NotBlank
+  @Length(max = 254)
   private String password;
 
   @NotBlank
   private String fullName;
-
-  private LocalDate birthDate;
 
 }
