@@ -11,7 +11,8 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -47,6 +48,9 @@ public class User {
   @Length(max = 30)
   private String fullName;
 
+  @Field(value = BIRTH_DATE)
+  private LocalDate birthDate;
+
   @Field(value = PHONE_NUMBER)
   @Length(max = 15)
   private String phoneNumber;
@@ -54,10 +58,7 @@ public class User {
   @Field(value = User.GENDER)
   private GenderType gender;
 
-  @Field(value = BIRTH_DATE)
-  private Date birthDate;
-
   @Field(value = User.CREATED_AT)
-  private String createdAt;
+  private LocalDateTime createdAt;
 
 }

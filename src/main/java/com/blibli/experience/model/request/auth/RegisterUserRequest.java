@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -21,5 +22,7 @@ public class RegisterUserRequest {
 
   @NotBlank
   private String fullName;
+
+  private LocalDate birthDate;
 
 }

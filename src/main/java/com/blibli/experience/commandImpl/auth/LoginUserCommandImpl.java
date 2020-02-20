@@ -24,9 +24,9 @@ public class LoginUserCommandImpl implements LoginUserCommand {
   }
 
   @Autowired
-  PasswordEncoder passwordEncoder() {
+  private PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
-  };
+  }
 
   @Override
   public Mono<LoginUserResponse> execute(LoginUserRequest request) {

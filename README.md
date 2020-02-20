@@ -16,7 +16,7 @@ OR
 #### Bug list (please add bug in this list if you found a bug):
 | Method Affected | Description | Date Added | Status | Last Updated |
 | --------------- |:-----------:|:----------:|:------:|:------------:| 
-| updateUserPassword | method returned "User password updated successfully." even if the old password is wrong. | 18-02-2020 | In Test | 19-02-2020 | 
+| updateUserPassword | method returned "User password updated successfully." even if the old password is wrong. | 18-02-2020 | Closed | 20-02-2020 | 
 
 #### Bug Status (please refer to this when adding or modifying a bug)
 | Status | Description | Example |

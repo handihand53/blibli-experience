@@ -6,7 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -16,11 +17,11 @@ import java.util.UUID;
 public class GetUserResponse {
 
   private UUID id;
-  private String fullName;
   private String email;
-  private Date birthDate;
+  private String fullName;
+  private LocalDate birthDate;
   private String phoneNumber;
   private GenderType gender;
-  private Date createdAt;
+  private LocalDateTime createdAt;
 
 }

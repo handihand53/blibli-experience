@@ -5,7 +5,6 @@ import com.blibli.experience.entity.User;
 import com.blibli.experience.model.request.user.UpdateUserPasswordRequest;
 import com.blibli.experience.repository.UserRepository;
 import javassist.NotFoundException;
-import org.reactivestreams.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,9 +22,9 @@ public class UpdateUserPasswordCommandImpl implements UpdateUserPasswordCommand 
   }
 
   @Autowired
-  PasswordEncoder passwordEncoder() {
+  private PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
-  };
+  }
 
   @Override
   public Mono<String> execute(UpdateUserPasswordRequest request) {
@@ -34,11 +33,11 @@ public class UpdateUserPasswordCommandImpl implements UpdateUserPasswordCommand 
         .filter(user -> isPasswordMatch(user, request.getPassword()))
         .switchIfEmpty(Mono.error(new RuntimeException("Wrong password!")))
         .map(user -> {
-            user.setPassword(passwordEncoder().encode(request.getNewPassword()));
-            return user;
-          })
+          user.setPassword(passwordEncoder().encode(request.getNewPassword()));
+          return user;
+        })
         .flatMap(user -> userRepository.save(user)
-          .thenReturn("User password updated successfully."));
+            .thenReturn("User password updated successfully."));
   }
 
   private Boolean isPasswordMatch(User user, String password) {

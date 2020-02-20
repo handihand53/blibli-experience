@@ -28,9 +28,9 @@ public class RegisterUserCommandImpl implements RegisterUserCommand {
   }
 
   @Autowired
-  PasswordEncoder passwordEncoder() {
+  private PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
-  };
+  }
 
   @Override
   public Mono<RegisterUserResponse> execute(RegisterUserRequest request) {
@@ -42,7 +42,7 @@ public class RegisterUserCommandImpl implements RegisterUserCommand {
   private User registerUser(RegisterUserRequest request) {
     User user = User.builder()
         .id(UUID.randomUUID())
-        .createdAt(LocalDateTime.now().toString())
+        .createdAt(LocalDateTime.now())
         .build();
     BeanUtils.copyProperties(request, user);
     user.setPassword(passwordEncoder().encode(user.getPassword()));
