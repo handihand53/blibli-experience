@@ -31,19 +31,12 @@ public class PostProductRequest {
   private Integer stock;
 
   private String brand;
-
   private String barcode;
-
   private String description;
-
   private Double weight;
-
   private String volume;
-
-  private ProductStatus productStatus;
-
-  private ProductCategory productCategory;
-
+  private ProductStatus status;
+  private ProductCategory category;
   private List<ProductTag> tags;
 
 }

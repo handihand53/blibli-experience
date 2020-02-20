@@ -2,6 +2,7 @@ package com.blibli.experience.entity;
 
 import com.blibli.experience.enums.GenderType;
 import com.blibli.experience.enums.UserRole;
+import com.blibli.experience.model.form.AddressForm;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,6 +30,7 @@ public class User {
   public static final String EMAIL = "email";
   public static final String PASSWORD = "password";
   public static final String FULL_NAME = "fullName";
+  public static final String ADDRESS = "address";
   public static final String PHONE_NUMBER = "phoneNumber";
   public static final String GENDER = "gender";
   public static final String BIRTH_DATE = "birthDate";
@@ -50,6 +52,9 @@ public class User {
   @Field(value = FULL_NAME)
   @Length(max = 30)
   private String fullName;
+
+  @Field(value = ADDRESS)
+  private List<AddressForm> addressForms;
 
   @Field(value = BIRTH_DATE)
   private LocalDate birthDate;

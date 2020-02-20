@@ -17,7 +17,7 @@ OR
 | Method Affected | Description | Date Added | Status | Last Updated |
 | --------------- |:-----------:|:----------:|:------:|:------------:| 
 | updateUserPassword | method returned "User password updated successfully." even if the old password is wrong. | 18-02-2020 | Closed | 20-02-2020 | 
-
+| postProduct | cn
 #### Bug Status (please refer to this when adding or modifying a bug)
 | Status | Description | Example |
 | ------ |:-----------:|:-------:|
