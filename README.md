@@ -17,7 +17,7 @@ OR
 | Method Affected | Description | Date Added | Status | Last Updated |
 | --------------- |:-----------:|:----------:|:------:|:------------:| 
 | updateUserPassword | method returned "User password updated successfully." even if the old password is wrong. | 18-02-2020 | Closed | 20-02-2020 | 
-| postProduct | cn
+| postProduct | method error when 1 id post multiple product due to indexed email | 20-02-2020 | Open | 20-02-2020
 #### Bug Status (please refer to this when adding or modifying a bug)
 | Status | Description | Example |
 | ------ |:-----------:|:-------:|
