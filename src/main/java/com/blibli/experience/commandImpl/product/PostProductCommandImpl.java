@@ -1,6 +1,7 @@
 package com.blibli.experience.commandImpl.product;
 
 import com.blibli.experience.command.product.PostProductCommand;
+import com.blibli.experience.entity.document.Shop;
 import com.blibli.experience.entity.form.ShopForm;
 import com.blibli.experience.entity.document.Product;
 import com.blibli.experience.entity.document.User;
@@ -41,7 +42,7 @@ public class PostProductCommandImpl implements PostProductCommand {
   private Product toProduct(PostProductRequest request, ShopForm form) {
     Product product = Product.builder()
         .id(UUID.randomUUID())
-        .merchant(form)
+        .shop(form)
         .createdAt(LocalDateTime.now())
         .build();
     BeanUtils.copyProperties(request, product);
@@ -50,7 +51,7 @@ public class PostProductCommandImpl implements PostProductCommand {
 
   private ShopForm toShopForm(Shop shop) {
     ShopForm shopForm = new ShopForm();
-    BeanUtils.copyProperties(user, shopForm);
+    BeanUtils.copyProperties(shop, shopForm);
     return shopForm;
   }
 
