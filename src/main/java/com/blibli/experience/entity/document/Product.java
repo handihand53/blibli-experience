@@ -1,6 +1,6 @@
-package com.blibli.experience.entity;
+package com.blibli.experience.entity.document;
 
-import com.blibli.experience.model.form.MerchantForm;
+import com.blibli.experience.entity.form.ShopForm;
 import com.blibli.experience.enums.ProductCategory;
 import com.blibli.experience.enums.ProductStatus;
 import com.blibli.experience.enums.ProductTag;
@@ -54,7 +54,7 @@ public class Product {
   private Integer price;
 
   @Field(value = MERCHANT)
-  private MerchantForm merchant;
+  private ShopForm shop;
 
   @Field(value = STOCK)
   private Integer stock;

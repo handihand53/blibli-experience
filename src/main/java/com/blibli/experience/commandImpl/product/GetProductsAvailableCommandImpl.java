@@ -1,7 +1,7 @@
 package com.blibli.experience.commandImpl.product;
 
 import com.blibli.experience.command.product.GetProductsAvailableCommand;
-import com.blibli.experience.entity.Product;
+import com.blibli.experience.entity.document.Product;
 import com.blibli.experience.model.response.product.GetProductAvailableResponse;
 import com.blibli.experience.repository.ProductRepository;
 import javassist.NotFoundException;

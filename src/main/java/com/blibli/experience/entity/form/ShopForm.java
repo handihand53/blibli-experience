@@ -1,18 +1,19 @@
-package com.blibli.experience.model.form;
+package com.blibli.experience.entity.form;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddressForm {
+public class ShopForm {
 
-  private String detail;
-  private String city;
-  private String province;
+  private UUID id;
+  private String name;
 
 }

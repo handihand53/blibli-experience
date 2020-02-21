@@ -1,7 +1,7 @@
 package com.blibli.experience.commandImpl.user;
 
 import com.blibli.experience.command.user.UpdateUserPasswordCommand;
-import com.blibli.experience.entity.User;
+import com.blibli.experience.entity.document.User;
 import com.blibli.experience.model.request.user.UpdateUserPasswordRequest;
 import com.blibli.experience.repository.UserRepository;
 import javassist.NotFoundException;

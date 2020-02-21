@@ -1,6 +1,6 @@
 package com.blibli.experience.commandImpl.auth;
 
-import com.blibli.experience.entity.User;
+import com.blibli.experience.entity.document.User;
 import com.blibli.experience.enums.GenderType;
 import com.blibli.experience.model.request.auth.RegisterUserRequest;
 import com.blibli.experience.model.response.auth.RegisterUserResponse;

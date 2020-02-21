@@ -1,7 +1,7 @@
 package com.blibli.experience.commandImpl.auth;
 
 import com.blibli.experience.command.auth.LoginUserCommand;
-import com.blibli.experience.entity.User;
+import com.blibli.experience.entity.document.User;
 import com.blibli.experience.model.request.auth.LoginUserRequest;
 import com.blibli.experience.model.response.auth.LoginUserResponse;
 import com.blibli.experience.repository.UserRepository;

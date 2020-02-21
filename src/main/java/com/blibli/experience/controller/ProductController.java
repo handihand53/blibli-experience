@@ -34,7 +34,8 @@ public class ProductController {
     this.commandExecutor = commandExecutor;
   }
 
-  @PostMapping(value = ApiPath.PRODUCT, consumes = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping(value = ApiPath.PRODUCT,
+      consumes = MediaType.APPLICATION_JSON_VALUE)
   public Mono<Response<String>> postProduct(@RequestBody PostProductRequest request) {
     return commandExecutor.execute(PostProductCommand.class, request)
         .map(ResponseHelper::ok)

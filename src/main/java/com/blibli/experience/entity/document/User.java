@@ -1,8 +1,8 @@
-package com.blibli.experience.entity;
+package com.blibli.experience.entity.document;
 
 import com.blibli.experience.enums.GenderType;
 import com.blibli.experience.enums.UserRole;
-import com.blibli.experience.model.form.AddressForm;
+import com.blibli.experience.entity.form.AddressForm;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,6 +34,7 @@ public class User {
   public static final String PHONE_NUMBER = "phoneNumber";
   public static final String GENDER = "gender";
   public static final String BIRTH_DATE = "birthDate";
+  public static final String IDENTITY_ID = "identityId";
   public static final String ROLE = "role";
   public static final String CREATED_AT = "createdAt";
 
@@ -66,8 +67,13 @@ public class User {
   @Field(value = GENDER)
   private GenderType gender;
 
+  @Field(value = IDENTITY_ID)
+  @Indexed(unique = true)
+  @Length(max = 16)
+  private String identityId;
+
   @Field(value = ROLE)
-  private List<UserRole> userRole;
+  private List<UserRole> roles;
 
   @Field(value = CREATED_AT)
   private LocalDateTime createdAt;

@@ -1,8 +1,9 @@
 package com.blibli.experience.commandImpl.auth;
 
 import com.blibli.experience.command.auth.RegisterUserCommand;
-import com.blibli.experience.entity.User;
+import com.blibli.experience.entity.document.User;
 import com.blibli.experience.enums.UserRole;
+import com.blibli.experience.entity.form.AddressForm;
 import com.blibli.experience.model.request.auth.RegisterUserRequest;
 import com.blibli.experience.model.response.auth.RegisterUserResponse;
 import com.blibli.experience.repository.UserRepository;
@@ -49,14 +50,23 @@ public class RegisterUserCommandImpl implements RegisterUserCommand {
         .build();
     BeanUtils.copyProperties(request, user);
     user.setPassword(passwordEncoder().encode(user.getPassword()));
-    user.setUserRole(getUserRoles());
+    user.setRoles(getRoles());
+    user.setAddressForms(getAddress());
     return user;
   }
 
-  private List<UserRole> getUserRoles() {
-    List<UserRole> userRoles = new ArrayList<>();
-    userRoles.add(UserRole.USER);
-    return userRoles;
+  private List<AddressForm> getAddress() {
+    List<AddressForm> addressForms = new ArrayList<>();
+    addressForms.add(AddressForm.builder()
+        .province("DKI Jakarta")
+        .build());
+    return addressForms;
+  }
+
+  private List<UserRole> getRoles() {
+    List<UserRole> roles = new ArrayList<>();
+    roles.add(UserRole.USER);
+    return roles;
   }
 
   private RegisterUserResponse toResponse(User user) {
