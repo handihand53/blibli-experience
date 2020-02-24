@@ -38,23 +38,24 @@ class GetUserCommandImplTest {
   void setUp() {
     initMocks(this);
     user = User.builder()
-        .id(randomUUID)
-        .email("email@gmail.com")
-        .password("password")
-        .fullName("Full Name")
-        .birthDate(birthDate)
-        .phoneNumber("08126107686")
-        .gender(genderType)
-        .createdAt(createdAt)
+        .userId(randomUUID)
+        .userEmail("email@gmail.com")
+        .userPassword("password")
+        .userName("User Name")
+        .userBirthDate(birthDate)
+        .userPhoneNumber("08126107686")
+        .userGender(genderType)
+        .userCreatedAt(createdAt)
+        .userIdentityId("01679765443368363")
         .build();
     response = GetUserResponse.builder()
-        .id(randomUUID)
-        .email("email@gmail.com")
-        .fullName("Full Name")
-        .birthDate(birthDate)
-        .phoneNumber("08126107686")
-        .gender(genderType)
-        .createdAt(createdAt)
+        .userId(randomUUID)
+        .userEmail("email@gmail.com")
+        .userName("Full Name")
+        .userBirthDate(birthDate)
+        .userPhoneNumber("08126107686")
+        .userGender(genderType)
+        .userCreatedAt(createdAt)
         .build();
   }
 
@@ -65,12 +66,12 @@ class GetUserCommandImplTest {
 
   @Test
   void execute() {
-    when(userRepository.findFirstById(randomUUID))
+    when(userRepository.findFirstByUserId(randomUUID))
         .thenReturn(Mono.just(user));
 
     GetUserResponse result = getUserCommand.execute(randomUUID).block();
     assertEquals(response, result);
 
-    verify(userRepository).findFirstById(randomUUID);
+    verify(userRepository).findFirstByUserId(randomUUID);
   }
 }

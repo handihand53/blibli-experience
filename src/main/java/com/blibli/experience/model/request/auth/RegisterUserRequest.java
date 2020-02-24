@@ -15,13 +15,13 @@ import javax.validation.constraints.NotBlank;
 public class RegisterUserRequest {
 
   @NotBlank
-  private String email;
+  private String userEmail;
 
   @NotBlank
   @Length(max = 254)
-  private String password;
+  private String userPassword;
 
   @NotBlank
-  private String fullName;
+  private String userName;
 
 }

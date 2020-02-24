@@ -45,22 +45,13 @@ public class RegisterUserCommandImpl implements RegisterUserCommand {
 
   private User toUser(RegisterUserRequest request) {
     User user = User.builder()
-        .id(UUID.randomUUID())
-        .createdAt(LocalDateTime.now())
+        .userId(UUID.randomUUID())
+        .userCreatedAt(LocalDateTime.now())
         .build();
     BeanUtils.copyProperties(request, user);
-    user.setPassword(passwordEncoder().encode(user.getPassword()));
-    user.setRoles(getRoles());
-    user.setAddressForms(getAddress());
+    user.setUserPassword(passwordEncoder().encode(user.getUserPassword()));
+    user.setUserRoles(getRoles());
     return user;
-  }
-
-  private List<AddressForm> getAddress() {
-    List<AddressForm> addressForms = new ArrayList<>();
-    addressForms.add(AddressForm.builder()
-        .province("DKI Jakarta")
-        .build());
-    return addressForms;
   }
 
   private List<UserRole> getRoles() {

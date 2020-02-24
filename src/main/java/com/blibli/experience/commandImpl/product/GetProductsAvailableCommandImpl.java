@@ -24,7 +24,7 @@ public class GetProductsAvailableCommandImpl implements GetProductsAvailableComm
 
   @Override
   public Mono<List<GetProductAvailableResponse>> execute(Integer count) {
-    return productRepository.findAllByStockGreaterThanEqual(1)
+    return productRepository.findAllByProductStockGreaterThanEqual(1)
         .switchIfEmpty(Mono.error(new NotFoundException("Product not found!")))
         .take(count)
         .map(this::toResponse)

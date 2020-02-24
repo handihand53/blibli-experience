@@ -4,9 +4,9 @@ import com.blibli.experience.command.product.PostProductCommand;
 import com.blibli.experience.entity.document.Shop;
 import com.blibli.experience.entity.form.ShopForm;
 import com.blibli.experience.entity.document.Product;
-import com.blibli.experience.entity.document.User;
 import com.blibli.experience.model.request.product.PostProductRequest;
 import com.blibli.experience.repository.ProductRepository;
+import com.blibli.experience.repository.ShopRepository;
 import com.blibli.experience.repository.UserRepository;
 import javassist.NotFoundException;
 import org.springframework.beans.BeanUtils;
@@ -21,29 +21,29 @@ import java.util.UUID;
 public class PostProductCommandImpl implements PostProductCommand {
 
   private ProductRepository productRepository;
-  private UserRepository userRepository;
+  private ShopRepository shopRepository;
 
-  @Autowired
-  public PostProductCommandImpl(ProductRepository productRepository, UserRepository userRepository) {
+  public PostProductCommandImpl(ProductRepository productRepository,
+      ShopRepository shopRepository) {
     this.productRepository = productRepository;
-    this.userRepository = userRepository;
+    this.shopRepository = shopRepository;
   }
 
   @Override
   public Mono<String> execute(PostProductRequest request) {
-    return userRepository.findFirstById(request.getMerchantId())
-        .switchIfEmpty(Mono.error(new NotFoundException("User not found!")))
+    return shopRepository.findFirstByShopId(request.getShopId())
+        .switchIfEmpty(Mono.error(new NotFoundException("Shop not found!")))
         .map(this::toShopForm)
-        .map(merchant -> toProduct(request, merchant))
+        .map(shopForm -> toProduct(request, shopForm))
         .flatMap(product -> productRepository.save(product)
           .thenReturn("Post product successful!"));
   }
 
   private Product toProduct(PostProductRequest request, ShopForm form) {
     Product product = Product.builder()
-        .id(UUID.randomUUID())
-        .shop(form)
-        .createdAt(LocalDateTime.now())
+        .productId(UUID.randomUUID())
+        .productShopForm(form)
+        .productCreatedAt(LocalDateTime.now())
         .build();
     BeanUtils.copyProperties(request, product);
     return product;

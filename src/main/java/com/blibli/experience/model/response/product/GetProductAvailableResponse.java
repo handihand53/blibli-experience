@@ -18,14 +18,14 @@ import java.util.UUID;
 @NoArgsConstructor
 public class GetProductAvailableResponse {
 
-  private UUID id;
-  private String name;
-  private Integer price;
-  private String barcode;
-  private List<String> imagePath;
-  private ProductCategory category;
-  private ProductStatus status;
-  private List<ProductTag> tags;
-  private LocalDateTime createdAt;
+  private UUID productId;
+  private String productName;
+  private Integer productPrice;
+  private String productBarcode;
+  private List<String> productImagePath;
+  private ProductCategory productCategory;
+  private ProductStatus productStatus;
+  private List<ProductTag> productTags;
+  private LocalDateTime productCreatedAt;
 
 }

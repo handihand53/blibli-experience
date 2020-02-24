@@ -10,6 +10,6 @@ import java.util.UUID;
 @Repository
 public interface ProductRepository extends ReactiveMongoRepository<Product, UUID> {
 
-  Flux<Product> findAllByStockGreaterThanEqual(Integer minimumStock);
+  Flux<Product> findAllByProductStockGreaterThanEqual(Integer minimumStock);
 
 }

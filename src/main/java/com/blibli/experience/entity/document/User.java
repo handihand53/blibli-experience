@@ -40,42 +40,42 @@ public class User {
 
   @Id
   @Field(value = ID)
-  private UUID id;
+  private UUID userId;
 
   @Field(value = EMAIL)
   @Indexed(unique = true)
   @Length(max = 254)
-  private String email;
+  private String userEmail;
 
   @Field(value = PASSWORD)
-  private String password;
+  private String userPassword;
 
   @Field(value = FULL_NAME)
   @Length(max = 30)
-  private String fullName;
+  private String userName;
 
   @Field(value = ADDRESS)
-  private List<AddressForm> addressForms;
+  private List<AddressForm> userAddressForms;
 
   @Field(value = BIRTH_DATE)
-  private LocalDate birthDate;
+  private LocalDate userBirthDate;
 
   @Field(value = PHONE_NUMBER)
   @Length(max = 15)
-  private String phoneNumber;
+  private String userPhoneNumber;
 
   @Field(value = GENDER)
-  private GenderType gender;
+  private GenderType userGender;
 
   @Field(value = IDENTITY_ID)
   @Indexed(unique = true)
   @Length(max = 16)
-  private String identityId;
+  private String userIdentityId;
 
   @Field(value = ROLE)
-  private List<UserRole> roles;
+  private List<UserRole> userRoles;
 
   @Field(value = CREATED_AT)
-  private LocalDateTime createdAt;
+  private LocalDateTime userCreatedAt;
 
 }

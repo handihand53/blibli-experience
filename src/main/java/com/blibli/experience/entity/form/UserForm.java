@@ -1,4 +1,4 @@
-package com.blibli.experience.model.response.auth;
+package com.blibli.experience.entity.form;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,10 +11,9 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterUserResponse {
+public class UserForm {
 
-  private UUID userId;
-  private String userEmail;
-  private String userName;
+  private UUID id;
+  private String name;
 
 }

@@ -14,12 +14,12 @@ import java.util.UUID;
 @NoArgsConstructor
 public class UpdateUserPasswordRequest {
 
-  private UUID id;
+  private UUID userId;
 
   @NotBlank
-  private String password;
+  private String userPassword;
 
   @NotBlank
-  private String newPassword;
+  private String userNewPassword;
 
 }

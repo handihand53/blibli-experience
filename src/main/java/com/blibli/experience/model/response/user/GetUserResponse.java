@@ -16,12 +16,12 @@ import java.util.UUID;
 @NoArgsConstructor
 public class GetUserResponse {
 
-  private UUID id;
-  private String email;
-  private String fullName;
-  private LocalDate birthDate;
-  private String phoneNumber;
-  private GenderType gender;
-  private LocalDateTime createdAt;
+  private UUID userId;
+  private String userEmail;
+  private String userName;
+  private LocalDate userBirthDate;
+  private String userPhoneNumber;
+  private GenderType userGender;
+  private LocalDateTime userCreatedAt;
 
 }

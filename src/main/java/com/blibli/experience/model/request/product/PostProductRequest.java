@@ -19,24 +19,24 @@ import java.util.UUID;
 @NoArgsConstructor
 public class PostProductRequest {
 
-  private UUID merchantId;
+  private UUID shopId;
 
   @NotBlank
-  private String name;
+  private String productName;
 
   @NotNull
-  private Integer price;
+  private Integer productPrice;
 
   @NotNull
-  private Integer stock;
+  private Integer productStock;
 
-  private String brand;
-  private String barcode;
-  private String description;
-  private Double weight;
-  private String volume;
-  private ProductStatus status;
-  private ProductCategory category;
-  private List<ProductTag> tags;
+  private String productBrand;
+  private String productBarcode;
+  private String productDescription;
+  private Double productWeight;
+  private String productVolume;
+  private ProductStatus productStatus;
+  private ProductCategory productCategory;
+  private List<ProductTag> productTags;
 
 }

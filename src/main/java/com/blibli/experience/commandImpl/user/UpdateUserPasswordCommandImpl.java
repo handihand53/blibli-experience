@@ -28,12 +28,12 @@ public class UpdateUserPasswordCommandImpl implements UpdateUserPasswordCommand 
 
   @Override
   public Mono<String> execute(UpdateUserPasswordRequest request) {
-    return userRepository.findFirstById(request.getId())
+    return userRepository.findFirstByUserId(request.getUserId())
         .switchIfEmpty(Mono.error(new NotFoundException("User not found!")))
-        .filter(user -> isPasswordMatch(user, request.getPassword()))
+        .filter(user -> isPasswordMatch(user, request.getUserPassword()))
         .switchIfEmpty(Mono.error(new RuntimeException("Wrong password!")))
         .map(user -> {
-          user.setPassword(passwordEncoder().encode(request.getNewPassword()));
+          user.setUserPassword(passwordEncoder().encode(request.getUserNewPassword()));
           return user;
         })
         .flatMap(user -> userRepository.save(user)
@@ -41,7 +41,7 @@ public class UpdateUserPasswordCommandImpl implements UpdateUserPasswordCommand 
   }
 
   private Boolean isPasswordMatch(User user, String password) {
-    return passwordEncoder().matches(password, user.getPassword());
+    return passwordEncoder().matches(password, user.getUserPassword());
   }
 
 }

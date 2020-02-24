@@ -30,15 +30,15 @@ public class LoginUserCommandImpl implements LoginUserCommand {
 
   @Override
   public Mono<LoginUserResponse> execute(LoginUserRequest request) {
-    return userRepository.findFirstByEmail(request.getEmail())
+    return userRepository.findFirstByUserEmail(request.getUserEmail())
         .switchIfEmpty(Mono.error(new NotFoundException("User not found!")))
-        .filter(user -> isPasswordMatch(user, request.getPassword()))
+        .filter(user -> isPasswordMatch(user, request.getUserPassword()))
         .switchIfEmpty(Mono.error(new RuntimeException("Wrong password!")))
         .map(this::toResponse);
   }
 
   private Boolean isPasswordMatch(User user, String password) {
-    return passwordEncoder().matches(password, user.getPassword());
+    return passwordEncoder().matches(password, user.getUserPassword());
   }
 
   private LoginUserResponse toResponse(User user) {

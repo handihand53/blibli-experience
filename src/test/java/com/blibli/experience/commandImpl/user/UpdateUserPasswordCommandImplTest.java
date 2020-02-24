@@ -38,19 +38,20 @@ class UpdateUserPasswordCommandImplTest {
   void setUp() {
     initMocks(this);
     user = User.builder()
-        .id(randomUUID)
-        .email("email@gmail.com")
-        .password("$2a$10$2a0RGB.YJNiNbhBkDnsbhubBRgr5Ys5hZqLOvRpRVnx34B3aVPGta")
-        .fullName("Full Name")
-        .birthDate(birthDate)
-        .phoneNumber("08126107686")
-        .gender(genderType)
-        .createdAt(createdAt)
+        .userId(randomUUID)
+        .userEmail("email@gmail.com")
+        .userPassword("password")
+        .userName("User Name")
+        .userBirthDate(birthDate)
+        .userPhoneNumber("08126107686")
+        .userGender(genderType)
+        .userCreatedAt(createdAt)
+        .userIdentityId("01679765443368363")
         .build();
     request = UpdateUserPasswordRequest.builder()
-        .id(randomUUID)
-        .password("password")
-        .newPassword("newPassword")
+        .userId(randomUUID)
+        .userPassword("password")
+        .userNewPassword("newPassword")
         .build();
   }
 
@@ -61,7 +62,7 @@ class UpdateUserPasswordCommandImplTest {
 
   @Test
   void execute() {
-    when(userRepository.findFirstById(randomUUID))
+    when(userRepository.findFirstByUserId(randomUUID))
         .thenReturn(Mono.just(user));
     when(userRepository.save(user))
         .thenReturn(Mono.just(user));
@@ -70,7 +71,7 @@ class UpdateUserPasswordCommandImplTest {
     String expected = "User password updated successfully.";
     assertEquals(expected, result);
 
-    verify(userRepository).findFirstById(randomUUID);
+    verify(userRepository).findFirstByUserId(randomUUID);
     verify(userRepository).save(user);
   }
 }

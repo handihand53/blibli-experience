@@ -41,24 +41,25 @@ class RegisterUserCommandImplTest {
   void setUp() {
     initMocks(this);
     user = User.builder()
-        .id(randomUUID)
-        .email("email@gmail.com")
-        .password("password")
-        .fullName("Full Name")
-        .birthDate(birthDate)
-        .phoneNumber("08126107686")
-        .gender(genderType)
-        .createdAt(createdAt)
+        .userId(randomUUID)
+        .userEmail("email@gmail.com")
+        .userPassword("password")
+        .userName("User Name")
+        .userBirthDate(birthDate)
+        .userPhoneNumber("08126107686")
+        .userGender(genderType)
+        .userCreatedAt(createdAt)
+        .userIdentityId("01679765443368363")
         .build();
     request = RegisterUserRequest.builder()
-        .email("email@gmail.com")
-        .password("password")
-        .fullName("Full Name")
+        .userEmail("email@gmail.com")
+        .userPassword("password")
+        .userName("User Name")
         .build();
     response = RegisterUserResponse.builder()
-        .id(randomUUID)
-        .email("email@gmail.com")
-        .fullName("Full Name")
+        .userId(randomUUID)
+        .userEmail("email@gmail.com")
+        .userName("User Name")
         .build();
   }
 

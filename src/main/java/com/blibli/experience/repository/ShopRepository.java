@@ -1,0 +1,13 @@
+package com.blibli.experience.repository;
+
+import com.blibli.experience.entity.document.Shop;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+import reactor.core.publisher.Mono;
+
+import java.util.UUID;
+
+public interface ShopRepository extends ReactiveMongoRepository<Shop, UUID> {
+
+  Mono<Shop> findFirstByShopId(UUID id);
+
+}

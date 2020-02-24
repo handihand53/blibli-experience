@@ -1,6 +1,7 @@
 package com.blibli.experience.entity.document;
 
 import com.blibli.experience.entity.form.ShopForm;
+import com.blibli.experience.entity.form.UserForm;
 import com.blibli.experience.enums.ProductCategory;
 import com.blibli.experience.enums.ProductStatus;
 import com.blibli.experience.enums.ProductTag;
@@ -28,7 +29,8 @@ public class Product {
   public static final String ID = "id";
   public static final String NAME = "name";
   public static final String PRICE = "price";
-  public static final String MERCHANT = "merchant";
+  public static final String SHOP = "shop";
+  public static final String USER = "user";
   public static final String BRAND = "brand";
   public static final String BARCODE = "barcode";
   public static final String DESCRIPTION = "description";
@@ -44,53 +46,56 @@ public class Product {
 
   @Id
   @Field(value = ID)
-  private UUID id;
+  private UUID productId;
 
   @Field(value = NAME)
   @Length(max = 254)
-  private String name;
+  private String productName;
 
   @Field(value = PRICE)
-  private Integer price;
+  private Integer productPrice;
 
-  @Field(value = MERCHANT)
-  private ShopForm shop;
+  @Field(value = SHOP)
+  private ShopForm productShopForm;
+
+  @Field
+  private UserForm productUserForm;
 
   @Field(value = STOCK)
-  private Integer stock;
+  private Integer productStock;
 
   @Field(value = BRAND)
-  private String brand;
+  private String productBrand;
 
   @Field(value = BARCODE)
   @Length(max = 100)
-  private String barcode;
+  private String productBarcode;
 
   @Field(value = DESCRIPTION)
-  private String description;
+  private String productDescription;
 
   @Field(value = BID_PRICE)
-  private Integer bidPrice;
+  private Integer productBidPrice;
 
   @Field(value = WEIGHT)
-  private Double weight;
+  private Double productWeight;
 
   @Field(value = VOLUME)
-  private String volume;
+  private String productVolume;
 
   @Field(value = STATUS)
-  private ProductStatus status;
+  private ProductStatus productStatus;
 
   @Field(value = CATEGORY)
-  private ProductCategory category;
+  private ProductCategory productCategory;
 
   @Field(value = IMAGE_PATH)
-  private List<String> imagePaths;
+  private List<String> productImagePaths;
 
   @Field(value = TAG)
-  private List<ProductTag> tags;
+  private List<ProductTag> productTags;
 
   @Field(value = CREATED_AT)
-  private LocalDateTime createdAt;
+  private LocalDateTime productCreatedAt;
 
 }

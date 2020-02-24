@@ -57,18 +57,18 @@ class UserControllerTest {
   void setUp() {
     initMocks(this);
     updateUserPasswordRequest = UpdateUserPasswordRequest.builder()
-        .id(randomUUID)
-        .password("password")
-        .newPassword("newPassword")
+        .userId(randomUUID)
+        .userPassword("password")
+        .userNewPassword("newPassword")
         .build();
     getUserResponse = GetUserResponse.builder()
-        .id(randomUUID)
-        .email("email@gmail.com")
-        .fullName("Full Name")
-        .birthDate(birthDate)
-        .phoneNumber("08126107686")
-        .gender(genderType)
-        .createdAt(createdAt)
+        .userId(randomUUID)
+        .userEmail("email@gmail.com")
+        .userName("User Name")
+        .userBirthDate(birthDate)
+        .userPhoneNumber("08126107686")
+        .userGender(genderType)
+        .userCreatedAt(createdAt)
         .build();
     httpHeaders = new HttpHeaders();
   }
