@@ -1,10 +1,12 @@
 package com.blibli.experience.controller;
 
 import com.blibli.experience.ApiPath;
+import com.blibli.experience.command.product.GetProductDetailCommand;
 import com.blibli.experience.command.product.GetProductsAvailableCommand;
 import com.blibli.experience.command.product.PostProductCommand;
 import com.blibli.experience.model.request.product.PostProductRequest;
 import com.blibli.experience.model.response.product.GetProductAvailableResponse;
+import com.blibli.experience.model.response.product.GetProductDetailResponse;
 import com.blibli.oss.command.CommandExecutor;
 import com.blibli.oss.common.response.Response;
 import com.blibli.oss.common.response.ResponseHelper;
@@ -18,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
 
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -42,8 +46,15 @@ public class ProductController {
         .subscribeOn(Schedulers.elastic());
   }
 
+  @GetMapping(value = ApiPath.PRODUCT)
+  public Mono<Response<GetProductDetailResponse>> getDetailProduct(@RequestParam UUID id) {
+    return commandExecutor.execute(GetProductDetailCommand.class, id)
+        .map(ResponseHelper::ok)
+        .subscribeOn(Schedulers.elastic());
+  }
+
   @GetMapping(value = ApiPath.PRODUCT_AVAILABLE)
-  public Mono<Response<List<GetProductAvailableResponse>>> getAvailableProduct(@RequestParam Integer count) {
+  public Mono<Response<List<GetProductAvailableResponse>>> getAvailableProducts(@RequestParam Integer count) {
     return commandExecutor.execute(GetProductsAvailableCommand.class, count)
         .map(ResponseHelper::ok)
         .subscribeOn(Schedulers.elastic());
