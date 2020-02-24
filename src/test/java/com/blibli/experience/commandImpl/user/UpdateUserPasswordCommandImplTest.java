@@ -27,10 +27,13 @@ class UpdateUserPasswordCommandImplTest {
   private final GenderType genderType = GenderType.PRIA;
   private final LocalDate birthDate = LocalDate.now();
   private final LocalDateTime createdAt = LocalDateTime.now();
+
   @InjectMocks
   UpdateUserPasswordCommandImpl updateUserPasswordCommand;
+
   @Mock
   UserRepository userRepository;
+
   private User user;
   private UpdateUserPasswordRequest request;
 
@@ -40,7 +43,7 @@ class UpdateUserPasswordCommandImplTest {
     user = User.builder()
         .userId(randomUUID)
         .userEmail("email@gmail.com")
-        .userPassword("password")
+        .userPassword("$2a$10$2a0RGB.YJNiNbhBkDnsbhubBRgr5Ys5hZqLOvRpRVnx34B3aVPGta")
         .userName("User Name")
         .userBirthDate(birthDate)
         .userPhoneNumber("08126107686")

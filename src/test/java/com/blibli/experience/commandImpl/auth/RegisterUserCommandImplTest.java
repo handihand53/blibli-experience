@@ -29,10 +29,13 @@ class RegisterUserCommandImplTest {
   private final GenderType genderType = GenderType.PRIA;
   private final LocalDate birthDate = LocalDate.now();
   private final LocalDateTime createdAt = LocalDateTime.now();
+
   @InjectMocks
   RegisterUserCommandImpl registerUserCommand;
+
   @Mock
   UserRepository userRepository;
+
   private User user;
   private RegisterUserRequest request;
   private RegisterUserResponse response;

@@ -27,9 +27,12 @@ class GetUserCommandImplTest {
   private final GenderType genderType = GenderType.PRIA;
   private final LocalDate birthDate = LocalDate.now();
   private final LocalDateTime createdAt = LocalDateTime.now();
+
   @InjectMocks
   private GetUserCommandImpl getUserCommand;
+
   @Mock
+
   private UserRepository userRepository;
   private User user;
   private GetUserResponse response;
@@ -51,7 +54,7 @@ class GetUserCommandImplTest {
     response = GetUserResponse.builder()
         .userId(randomUUID)
         .userEmail("email@gmail.com")
-        .userName("Full Name")
+        .userName("User Name")
         .userBirthDate(birthDate)
         .userPhoneNumber("08126107686")
         .userGender(genderType)
