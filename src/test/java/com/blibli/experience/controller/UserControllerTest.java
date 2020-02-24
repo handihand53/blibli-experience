@@ -1,11 +1,11 @@
 package com.blibli.experience.controller;
 
 import com.blibli.experience.ApiPath;
-import com.blibli.experience.command.user.GetUserCommand;
+import com.blibli.experience.command.user.GetUserDetailCommand;
 import com.blibli.experience.command.user.UpdateUserPasswordCommand;
 import com.blibli.experience.enums.GenderType;
 import com.blibli.experience.model.request.user.UpdateUserPasswordRequest;
-import com.blibli.experience.model.response.user.GetUserResponse;
+import com.blibli.experience.model.response.user.GetUserDetailResponse;
 import com.blibli.oss.command.CommandExecutor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -50,7 +50,7 @@ class UserControllerTest {
   @Autowired
   private MockMvc mockMvc;
   private UpdateUserPasswordRequest updateUserPasswordRequest;
-  private GetUserResponse getUserResponse;
+  private GetUserDetailResponse getUserDetailResponse;
   private HttpHeaders httpHeaders;
 
   @BeforeEach
@@ -61,7 +61,7 @@ class UserControllerTest {
         .userPassword("password")
         .userNewPassword("newPassword")
         .build();
-    getUserResponse = GetUserResponse.builder()
+    getUserDetailResponse = GetUserDetailResponse.builder()
         .userId(randomUUID)
         .userEmail("email@gmail.com")
         .userName("User Name")
@@ -75,8 +75,8 @@ class UserControllerTest {
 
   @Test
   void getUserData() throws Exception {
-    when(commandExecutor.execute(GetUserCommand.class, randomUUID))
-        .thenReturn(Mono.just(getUserResponse));
+    when(commandExecutor.execute(GetUserDetailCommand.class, randomUUID))
+        .thenReturn(Mono.just(getUserDetailResponse));
 
     MockHttpServletRequestBuilder requestBuilder = get(ApiPath.USER + "?id=" + randomUUID)
         .headers(httpHeaders)
@@ -85,7 +85,7 @@ class UserControllerTest {
     mockMvc.perform(asyncDispatch(mockMvc.perform(requestBuilder).andReturn()))
         .andExpect(status().isOk());
 
-    verify(commandExecutor).execute(GetUserCommand.class, randomUUID);
+    verify(commandExecutor).execute(GetUserDetailCommand.class, randomUUID);
   }
 
   @Test

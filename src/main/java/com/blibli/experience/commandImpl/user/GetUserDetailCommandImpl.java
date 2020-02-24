@@ -1,8 +1,8 @@
 package com.blibli.experience.commandImpl.user;
 
-import com.blibli.experience.command.user.GetUserCommand;
+import com.blibli.experience.command.user.GetUserDetailCommand;
 import com.blibli.experience.entity.document.User;
-import com.blibli.experience.model.response.user.GetUserResponse;
+import com.blibli.experience.model.response.user.GetUserDetailResponse;
 import com.blibli.experience.repository.UserRepository;
 import javassist.NotFoundException;
 import org.springframework.beans.BeanUtils;
@@ -13,24 +13,24 @@ import reactor.core.publisher.Mono;
 import java.util.UUID;
 
 @Service
-public class GetUserCommandImpl implements GetUserCommand {
+public class GetUserDetailCommandImpl implements GetUserDetailCommand {
 
   private UserRepository userRepository;
 
   @Autowired
-  public GetUserCommandImpl(UserRepository userRepository) {
+  public GetUserDetailCommandImpl(UserRepository userRepository) {
     this.userRepository = userRepository;
   }
 
   @Override
-  public Mono<GetUserResponse> execute(UUID id) {
+  public Mono<GetUserDetailResponse> execute(UUID id) {
     return userRepository.findFirstByUserId(id)
         .switchIfEmpty(Mono.error(new NotFoundException("User not found!")))
         .map(this::toResponse);
   }
 
-  private GetUserResponse toResponse(User user) {
-    GetUserResponse response = new GetUserResponse();
+  private GetUserDetailResponse toResponse(User user) {
+    GetUserDetailResponse response = new GetUserDetailResponse();
     BeanUtils.copyProperties(user, response);
     return response;
   }

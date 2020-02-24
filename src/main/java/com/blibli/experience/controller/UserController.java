@@ -1,10 +1,10 @@
 package com.blibli.experience.controller;
 
 import com.blibli.experience.ApiPath;
-import com.blibli.experience.command.user.GetUserCommand;
+import com.blibli.experience.command.user.GetUserDetailCommand;
 import com.blibli.experience.command.user.UpdateUserPasswordCommand;
 import com.blibli.experience.model.request.user.UpdateUserPasswordRequest;
-import com.blibli.experience.model.response.user.GetUserResponse;
+import com.blibli.experience.model.response.user.GetUserDetailResponse;
 import com.blibli.oss.command.CommandExecutor;
 import com.blibli.oss.common.response.Response;
 import com.blibli.oss.common.response.ResponseHelper;
@@ -35,8 +35,8 @@ public class UserController {
   }
 
   @GetMapping(value = ApiPath.USER)
-  public Mono<Response<GetUserResponse>> getUserData(@RequestParam UUID id) {
-    return commandExecutor.execute(GetUserCommand.class, id)
+  public Mono<Response<GetUserDetailResponse>> getUserData(@RequestParam UUID id) {
+    return commandExecutor.execute(GetUserDetailCommand.class, id)
         .map(ResponseHelper::ok)
         .subscribeOn(Schedulers.elastic());
   }

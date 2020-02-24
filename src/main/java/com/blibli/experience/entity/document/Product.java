@@ -42,6 +42,7 @@ public class Product {
   public static final String CATEGORY = "category";
   public static final String IMAGE_PATH = "imagePath";
   public static final String BARTER_PREFERENCE = "barterPreference";
+  public static final String ACCESSORY = "accessory";
   public static final String TAG = "tag";
   public static final String CREATED_AT = "createdAt";
 
@@ -59,7 +60,7 @@ public class Product {
   @Field(value = SHOP)
   private ShopForm productShopForm;
 
-  @Field
+  @Field(value = USER)
   private UserForm productUserForm;
 
   @Field(value = STOCK)
@@ -72,11 +73,14 @@ public class Product {
   @Length(max = 100)
   private String productBarcode;
 
+  @Field(value = STATUS)
+  private ProductStatus productStatus;
+
+  @Field(value = CATEGORY)
+  private ProductCategory productCategory;
+
   @Field(value = DESCRIPTION)
   private String productDescription;
-
-  @Field(value = BID_PRICE)
-  private Integer productBidPrice;
 
   @Field(value = WEIGHT)
   private Double productWeight;
@@ -84,20 +88,20 @@ public class Product {
   @Field(value = VOLUME)
   private String productVolume;
 
-  @Field(value = STATUS)
-  private ProductStatus productStatus;
-
-  @Field(value = CATEGORY)
-  private ProductCategory productCategory;
-
   @Field(value = IMAGE_PATH)
   private List<String> productImagePaths;
 
-  @Field(value = BARTER_PREFERENCE)
-  private String barterPreference;
-
   @Field(value = TAG)
   private List<ProductTag> productTags;
+
+  @Field(value = ACCESSORY)
+  private String productAccessory;
+
+  @Field(value = BARTER_PREFERENCE)
+  private String productBarterPreference;
+
+  @Field(value = BID_PRICE)
+  private Integer productBidPrice;
 
   @Field(value = CREATED_AT)
   private LocalDateTime productCreatedAt;

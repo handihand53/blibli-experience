@@ -2,7 +2,7 @@ package com.blibli.experience.commandImpl.user;
 
 import com.blibli.experience.entity.document.User;
 import com.blibli.experience.enums.GenderType;
-import com.blibli.experience.model.response.user.GetUserResponse;
+import com.blibli.experience.model.response.user.GetUserDetailResponse;
 import com.blibli.experience.repository.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-class GetUserCommandImplTest {
+class GetUserDetailCommandImplTest {
 
   private final UUID randomUUID = UUID.randomUUID();
   private final GenderType genderType = GenderType.PRIA;
@@ -29,13 +29,13 @@ class GetUserCommandImplTest {
   private final LocalDateTime createdAt = LocalDateTime.now();
 
   @InjectMocks
-  private GetUserCommandImpl getUserCommand;
+  private GetUserDetailCommandImpl getUserCommand;
 
   @Mock
 
   private UserRepository userRepository;
   private User user;
-  private GetUserResponse response;
+  private GetUserDetailResponse response;
 
   @BeforeEach
   void setUp() {
@@ -51,7 +51,7 @@ class GetUserCommandImplTest {
         .userCreatedAt(createdAt)
         .userIdentityId("01679765443368363")
         .build();
-    response = GetUserResponse.builder()
+    response = GetUserDetailResponse.builder()
         .userId(randomUUID)
         .userEmail("email@gmail.com")
         .userName("User Name")
@@ -72,7 +72,7 @@ class GetUserCommandImplTest {
     when(userRepository.findFirstByUserId(randomUUID))
         .thenReturn(Mono.just(user));
 
-    GetUserResponse result = getUserCommand.execute(randomUUID).block();
+    GetUserDetailResponse result = getUserCommand.execute(randomUUID).block();
     assertEquals(response, result);
 
     verify(userRepository).findFirstByUserId(randomUUID);

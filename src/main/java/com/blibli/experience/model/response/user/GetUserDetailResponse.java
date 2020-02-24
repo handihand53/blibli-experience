@@ -14,7 +14,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetUserResponse {
+public class GetUserDetailResponse {
 
   private UUID userId;
   private String userEmail;
