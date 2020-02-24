@@ -4,7 +4,8 @@ public enum ProductTag {
 
   BLIBLIMART("Bliblimart"),
   BARTER("Barter"),
-  BIDDING("Bidding");
+  BIDDING("Bidding"),
+  BARTER_OFFER("Barter Offer");
 
   private String productTag;
 
