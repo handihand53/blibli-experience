@@ -1,8 +1,8 @@
 package com.blibli.experience.commandImpl.product;
 
-import com.blibli.experience.command.product.GetProductDetailCommand;
+import com.blibli.experience.command.product.GetProductDetailWithIdCommand;
 import com.blibli.experience.entity.document.Product;
-import com.blibli.experience.model.response.product.GetProductDetailResponse;
+import com.blibli.experience.model.response.product.GetProductDetailWithIdResponse;
 import com.blibli.experience.repository.ProductRepository;
 import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -15,24 +15,24 @@ import java.util.UUID;
 
 @Slf4j
 @Service
-public class GetProductDetailCommandImpl implements GetProductDetailCommand {
+public class GetProductDetailWithIdCommandImpl implements GetProductDetailWithIdCommand {
 
   private ProductRepository productRepository;
 
   @Autowired
-  public GetProductDetailCommandImpl(ProductRepository productRepository) {
+  public GetProductDetailWithIdCommandImpl(ProductRepository productRepository) {
     this.productRepository = productRepository;
   }
 
   @Override
-  public Mono<GetProductDetailResponse> execute(UUID id) {
+  public Mono<GetProductDetailWithIdResponse> execute(UUID id) {
     return productRepository.findFirstByProductId(id)
         .switchIfEmpty(Mono.error(new NotFoundException("Product not found!")))
         .map(this::toResponse);
   }
 
-  private GetProductDetailResponse toResponse(Product product) {
-    GetProductDetailResponse response = new GetProductDetailResponse();
+  private GetProductDetailWithIdResponse toResponse(Product product) {
+    GetProductDetailWithIdResponse response = new GetProductDetailWithIdResponse();
     BeanUtils.copyProperties(product, response);
     return response;
   }

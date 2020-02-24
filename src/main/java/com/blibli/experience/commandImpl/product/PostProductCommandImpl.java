@@ -7,15 +7,15 @@ import com.blibli.experience.entity.form.ShopForm;
 import com.blibli.experience.model.request.product.PostProductRequest;
 import com.blibli.experience.repository.ProductRepository;
 import com.blibli.experience.repository.ShopRepository;
-import javassist.NotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
-import org.springframework.security.web.firewall.RequestRejectedException;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class PostProductCommandImpl implements PostProductCommand {
 
@@ -39,12 +39,14 @@ public class PostProductCommandImpl implements PostProductCommand {
   }
 
   private ShopForm toShopForm(Shop shop) {
+    log.info("#PostProductCommand - Convert ShopData to ShopForm...");
     ShopForm shopForm = new ShopForm();
     BeanUtils.copyProperties(shop, shopForm);
     return shopForm;
   }
 
   private Product toProduct(PostProductRequest request, ShopForm form) {
+    log.info("#PostProductCommand - Convert request and form to Product object...");
     Product product = Product.builder()
         .productId(UUID.randomUUID())
         .productShopForm(form)

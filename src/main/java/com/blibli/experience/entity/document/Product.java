@@ -11,8 +11,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import sun.util.resources.en.CurrencyNames_en_IE;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -70,6 +72,7 @@ public class Product {
   private String productBrand;
 
   @Field(value = BARCODE)
+  @Indexed(unique = true)
   @Length(max = 100)
   private String productBarcode;
 

@@ -11,20 +11,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetProductDetailResponse {
+public class GetProductDetailWithBarcodeResponse {
 
+  private UUID productId;
   private String productName;
   private String productPrice;
   private ShopForm productShopForm;
   private UserForm productUserForm;
   private Integer productStock;
   private String productBrand;
-  private String productBarcode;
   private ProductCategory productCategory;
   private ProductStatus productStatus;
   private String productDescription;

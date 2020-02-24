@@ -14,6 +14,8 @@ public interface ProductRepository extends ReactiveMongoRepository<Product, UUID
 
   Mono<Product> findFirstByProductId(UUID id);
 
+  Mono<Product> findFirstByProductBarcode(String barcode);
+
   Flux<Product> findAllByProductTagsContaining(ProductTag tag);
 
   Flux<Product> findAllByProductStockGreaterThanEqual(Integer minimumStock);
