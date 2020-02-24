@@ -41,6 +41,7 @@ public class Product {
   public static final String STATUS = "status";
   public static final String CATEGORY = "category";
   public static final String IMAGE_PATH = "imagePath";
+  public static final String BARTER_PREFERENCE = "barterPreference";
   public static final String TAG = "tag";
   public static final String CREATED_AT = "createdAt";
 
@@ -91,6 +92,9 @@ public class Product {
 
   @Field(value = IMAGE_PATH)
   private List<String> productImagePaths;
+
+  @Field(value = BARTER_PREFERENCE)
+  private String barterPreference;
 
   @Field(value = TAG)
   private List<ProductTag> productTags;

@@ -37,7 +37,7 @@ public class UpdateUserPasswordCommandImpl implements UpdateUserPasswordCommand 
           return user;
         })
         .flatMap(user -> userRepository.save(user)
-            .thenReturn("User password updated successfully."));
+            .thenReturn("Success!"));
   }
 
   private Boolean isPasswordMatch(User user, String password) {

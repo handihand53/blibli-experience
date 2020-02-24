@@ -26,6 +26,7 @@ public class Shop {
   public static final String COLLECTION_NAME = "shop";
   public static final String ID = "id";
   public static final String NAME = "name";
+  public static final String USER_ID = "userId";
   public static final String DESCRIPTION = "description";
   public static final String ADDRESS = "address";
   public static final String TAG = "tag";
@@ -39,6 +40,10 @@ public class Shop {
   @Indexed(unique = true)
   @Length(max = 100)
   private String shopName;
+
+  @Field(value = USER_ID)
+  @Indexed(unique = true)
+  private UUID userId;
 
   @Field(value = DESCRIPTION)
   private String shopDescription;

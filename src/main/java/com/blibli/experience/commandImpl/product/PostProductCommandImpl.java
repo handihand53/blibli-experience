@@ -1,16 +1,15 @@
 package com.blibli.experience.commandImpl.product;
 
 import com.blibli.experience.command.product.PostProductCommand;
+import com.blibli.experience.entity.document.Product;
 import com.blibli.experience.entity.document.Shop;
 import com.blibli.experience.entity.form.ShopForm;
-import com.blibli.experience.entity.document.Product;
 import com.blibli.experience.model.request.product.PostProductRequest;
 import com.blibli.experience.repository.ProductRepository;
 import com.blibli.experience.repository.ShopRepository;
-import com.blibli.experience.repository.UserRepository;
 import javassist.NotFoundException;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.firewall.RequestRejectedException;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -32,11 +31,17 @@ public class PostProductCommandImpl implements PostProductCommand {
   @Override
   public Mono<String> execute(PostProductRequest request) {
     return shopRepository.findFirstByShopId(request.getShopId())
-        .switchIfEmpty(Mono.error(new NotFoundException("Shop not found!")))
+        .switchIfEmpty(Mono.error(new Exception("Shop not found!")))
         .map(this::toShopForm)
         .map(shopForm -> toProduct(request, shopForm))
         .flatMap(product -> productRepository.save(product)
-          .thenReturn("Post product successful!"));
+            .thenReturn("Success!"));
+  }
+
+  private ShopForm toShopForm(Shop shop) {
+    ShopForm shopForm = new ShopForm();
+    BeanUtils.copyProperties(shop, shopForm);
+    return shopForm;
   }
 
   private Product toProduct(PostProductRequest request, ShopForm form) {
@@ -49,10 +54,5 @@ public class PostProductCommandImpl implements PostProductCommand {
     return product;
   }
 
-  private ShopForm toShopForm(Shop shop) {
-    ShopForm shopForm = new ShopForm();
-    BeanUtils.copyProperties(shop, shopForm);
-    return shopForm;
-  }
 
 }

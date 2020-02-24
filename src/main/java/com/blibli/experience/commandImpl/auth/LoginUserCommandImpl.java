@@ -6,6 +6,7 @@ import com.blibli.experience.model.request.auth.LoginUserRequest;
 import com.blibli.experience.model.response.auth.LoginUserResponse;
 import com.blibli.experience.repository.UserRepository;
 import javassist.NotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
+@Slf4j
 @Service
 public class LoginUserCommandImpl implements LoginUserCommand {
 
@@ -38,6 +40,7 @@ public class LoginUserCommandImpl implements LoginUserCommand {
   }
 
   private Boolean isPasswordMatch(User user, String password) {
+    log.info("#LoginUserCommand - Checking password...");
     return passwordEncoder().matches(password, user.getUserPassword());
   }
 

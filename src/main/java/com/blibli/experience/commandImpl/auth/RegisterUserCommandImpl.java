@@ -50,12 +50,12 @@ public class RegisterUserCommandImpl implements RegisterUserCommand {
         .build();
     BeanUtils.copyProperties(request, user);
     user.setUserPassword(passwordEncoder().encode(user.getUserPassword()));
-    user.setUserRoles(getRoles());
+    user.setUserRoles(getUserRole(user));
     return user;
   }
 
-  private List<UserRole> getRoles() {
-    List<UserRole> roles = new ArrayList<>();
+  private List<UserRole> getUserRole(User user) {
+    List<UserRole> roles = user.getUserRoles();
     roles.add(UserRole.USER);
     return roles;
   }

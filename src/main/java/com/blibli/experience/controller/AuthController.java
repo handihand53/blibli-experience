@@ -2,10 +2,13 @@ package com.blibli.experience.controller;
 
 import com.blibli.experience.ApiPath;
 import com.blibli.experience.command.auth.LoginUserCommand;
+import com.blibli.experience.command.auth.RegisterShopCommand;
 import com.blibli.experience.command.auth.RegisterUserCommand;
 import com.blibli.experience.model.request.auth.LoginUserRequest;
+import com.blibli.experience.model.request.auth.RegisterShopRequest;
 import com.blibli.experience.model.request.auth.RegisterUserRequest;
 import com.blibli.experience.model.response.auth.LoginUserResponse;
+import com.blibli.experience.model.response.auth.RegisterShopResponse;
 import com.blibli.experience.model.response.auth.RegisterUserResponse;
 import com.blibli.oss.command.CommandExecutor;
 import com.blibli.oss.common.response.Response;
@@ -36,6 +39,7 @@ public class AuthController {
       consumes = MediaType.APPLICATION_JSON_VALUE)
   public Mono<Response<RegisterUserResponse>> registerUser(@RequestBody RegisterUserRequest request) {
     return commandExecutor.execute(RegisterUserCommand.class, request)
+        .log("#CommandExecutor - Executing RegisterUserCommand...")
         .map(ResponseHelper::ok)
         .subscribeOn(Schedulers.elastic());
   }
@@ -44,6 +48,16 @@ public class AuthController {
       consumes = MediaType.APPLICATION_JSON_VALUE)
   public Mono<Response<LoginUserResponse>> loginUser(@RequestBody LoginUserRequest request) {
     return commandExecutor.execute(LoginUserCommand.class, request)
+        .log("#CommandExecutor - Executing LoginUserCommand...")
+        .map(ResponseHelper::ok)
+        .subscribeOn(Schedulers.elastic());
+  }
+
+  @PostMapping(value = ApiPath.REGISTER_SHOP,
+      consumes = MediaType.APPLICATION_JSON_VALUE)
+  public Mono<Response<RegisterShopResponse>> registerShop(@RequestBody RegisterShopRequest request) {
+    return commandExecutor.execute(RegisterShopCommand.class, request)
+        .log("#CommandExecutor - Executing RegisterUserCommand...")
         .map(ResponseHelper::ok)
         .subscribeOn(Schedulers.elastic());
   }

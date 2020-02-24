@@ -71,7 +71,7 @@ class UpdateUserPasswordCommandImplTest {
         .thenReturn(Mono.just(user));
 
     String result = updateUserPasswordCommand.execute(request).block();
-    String expected = "User password updated successfully.";
+    String expected = "Success!";
     assertEquals(expected, result);
 
     verify(userRepository).findFirstByUserId(randomUUID);
