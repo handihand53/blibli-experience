@@ -1,6 +1,7 @@
 package com.blibli.experience.repository;
 
 import com.blibli.experience.entity.document.Product;
+import com.blibli.experience.enums.ProductTag;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
@@ -12,6 +13,8 @@ import java.util.UUID;
 public interface ProductRepository extends ReactiveMongoRepository<Product, UUID> {
 
   Mono<Product> findFirstByProductId(UUID id);
+
+  Flux<Product> findAllByProductTagsContaining(ProductTag tag);
 
   Flux<Product> findAllByProductStockGreaterThanEqual(Integer minimumStock);
 

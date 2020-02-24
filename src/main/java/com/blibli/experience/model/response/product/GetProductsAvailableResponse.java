@@ -16,7 +16,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetProductAvailableResponse {
+public class GetProductsAvailableResponse {
 
   private UUID productId;
   private String productName;
