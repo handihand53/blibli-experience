@@ -14,7 +14,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-import sun.util.resources.en.CurrencyNames_en_IE;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -37,7 +36,7 @@ public class Product {
   public static final String BARCODE = "barcode";
   public static final String DESCRIPTION = "description";
   public static final String STOCK = "stock";
-  public static final String BID_PRICE = "bidPrice";
+  public static final String initialBid = "initialBid";
   public static final String WEIGHT = "weight";
   public static final String VOLUME = "volume";
   public static final String STATUS = "status";
@@ -103,8 +102,8 @@ public class Product {
   @Field(value = BARTER_PREFERENCE)
   private String productBarterPreference;
 
-  @Field(value = BID_PRICE)
-  private Integer productBidPrice;
+  @Field(value = initialBid)
+  private Integer productInitialBid;
 
   @Field(value = CREATED_AT)
   private LocalDateTime productCreatedAt;

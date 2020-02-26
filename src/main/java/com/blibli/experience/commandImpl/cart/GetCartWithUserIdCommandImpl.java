@@ -4,8 +4,6 @@ import com.blibli.experience.command.cart.GetCartWithUserIdCommand;
 import com.blibli.experience.entity.document.Cart;
 import com.blibli.experience.model.response.cart.GetCartWithUserIdResponse;
 import com.blibli.experience.repository.CartRepository;
-import com.blibli.experience.repository.ProductRepository;
-import com.blibli.experience.repository.UserRepository;
 import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;

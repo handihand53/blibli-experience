@@ -37,8 +37,12 @@ public class PostProductRequest {
   private String productDescription;
   private Double productWeight;
   private String productVolume;
+  private String productAccessory;
   private ProductStatus productStatus;
   private ProductCategory productCategory;
   private List<ProductTag> productTags;
+
+  private String productBarterPreference;
+  private Integer productInitialBid;
 
 }
