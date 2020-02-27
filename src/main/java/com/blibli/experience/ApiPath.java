@@ -17,6 +17,7 @@ public class ApiPath {
 
   // SHOP ENDPOINTS
   public static final String SHOP = API + "/shops";
+  public static final String SHOP_BLIBLIMART = SHOP + "/bliblimart";
 
   // PRODUCT ENDPOINTS
   public static final String PRODUCT = API + "/products";

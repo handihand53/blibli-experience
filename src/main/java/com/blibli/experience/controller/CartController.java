@@ -2,6 +2,8 @@ package com.blibli.experience.controller;
 
 import com.blibli.experience.ApiPath;
 import com.blibli.experience.command.cart.GetCartWithUserIdCommand;
+import com.blibli.experience.command.cart.PostProductToCartCommand;
+import com.blibli.experience.model.request.cart.PostProductToCartRequest;
 import com.blibli.experience.model.response.cart.GetCartWithUserIdResponse;
 import com.blibli.oss.command.CommandExecutor;
 import com.blibli.oss.common.response.Response;
@@ -10,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +31,14 @@ public class CartController {
   @Autowired
   public CartController(CommandExecutor commandExecutor) {
     this.commandExecutor = commandExecutor;
+  }
+
+  @PostMapping(value = ApiPath.CARTS)
+  public Mono<Response<String>> postProductToCart(@RequestParam PostProductToCartRequest request) {
+    return commandExecutor.execute(PostProductToCartCommand.class, request)
+        .log("#postProductToCart - Successfully executing command.")
+        .map(ResponseHelper::ok)
+        .subscribeOn(Schedulers.elastic());
   }
 
   @GetMapping(value = ApiPath.CARTS)

@@ -11,7 +11,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -24,6 +25,12 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = Product.COLLECTION_NAME)
+@CompoundIndexes({
+    @CompoundIndex(name = "shop_barcode",
+        def = "{'shop' : 1, 'barcode' : 1}"),
+    @CompoundIndex(name = "shop_name",
+        def = "{'shop' : 1, 'name' : 1}")
+})
 public class Product {
 
   public static final String COLLECTION_NAME = "product";

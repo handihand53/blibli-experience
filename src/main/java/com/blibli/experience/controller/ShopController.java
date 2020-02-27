@@ -2,7 +2,10 @@ package com.blibli.experience.controller;
 
 import com.blibli.experience.ApiPath;
 import com.blibli.experience.command.shop.GetShopDetailCommand;
+import com.blibli.experience.command.shop.GetShopWithTagCommand;
+import com.blibli.experience.enums.ShopTag;
 import com.blibli.experience.model.response.shop.GetShopDetailResponse;
+import com.blibli.experience.model.response.shop.GetShopWithTagResponse;
 import com.blibli.oss.command.CommandExecutor;
 import com.blibli.oss.common.response.Response;
 import com.blibli.oss.common.response.ResponseHelper;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -33,6 +37,13 @@ public class ShopController {
   @GetMapping(value = ApiPath.SHOP)
   public Mono<Response<GetShopDetailResponse>> getShopDetailByUserId(@RequestParam UUID userId) {
     return commandExecutor.execute(GetShopDetailCommand.class, userId)
+        .map(ResponseHelper::ok)
+        .subscribeOn(Schedulers.elastic());
+  }
+
+  @GetMapping(value = ApiPath.SHOP_BLIBLIMART)
+  public Mono<Response<List<GetShopWithTagResponse>>> getBliblimartLocation() {
+    return commandExecutor.execute(GetShopWithTagCommand.class, ShopTag.BLIBLIMART)
         .map(ResponseHelper::ok)
         .subscribeOn(Schedulers.elastic());
   }
