@@ -15,6 +15,9 @@ public class ApiPath {
   public static final String USER = API + "/users";
   public static final String USER_UPDATE_PASSWORD = USER + "/update/password";
 
+  // SHOP ENDPOINTS
+  public static final String SHOP = API + "/shops";
+
   // PRODUCT ENDPOINTS
   public static final String PRODUCT = API + "/products";
   public static final String PRODUCT_WITH_BARCODE = PRODUCT + "/barcode";

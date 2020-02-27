@@ -71,7 +71,6 @@ public class Product {
   private String productBrand;
 
   @Field(value = BARCODE)
-  @Indexed(unique = true)
   @Length(max = 100)
   private String productBarcode;
 

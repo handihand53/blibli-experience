@@ -12,4 +12,6 @@ public interface ShopRepository extends ReactiveMongoRepository<Shop, UUID> {
 
   Mono<Shop> findFirstByShopId(UUID id);
 
+  Mono<Shop> findFirstByUserId(UUID userId);
+
 }

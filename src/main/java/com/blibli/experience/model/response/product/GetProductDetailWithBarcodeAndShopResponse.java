@@ -17,7 +17,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetProductDetailWithBarcodeResponse {
+public class GetProductDetailWithBarcodeAndShopResponse {
 
   private UUID productId;
   private String productName;

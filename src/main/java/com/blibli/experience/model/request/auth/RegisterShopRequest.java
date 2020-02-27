@@ -1,6 +1,7 @@
 package com.blibli.experience.model.request.auth;
 
 import com.blibli.experience.entity.form.AddressForm;
+import com.blibli.experience.enums.ShopTag;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,6 +11,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Data
 @Builder
@@ -42,6 +44,10 @@ public class RegisterShopRequest {
 
   @NotNull
   private AddressForm shopAddress;
+
+  private List<ShopTag> shopTags;
+
+  private Double[] shopLocation;
 
 
 }

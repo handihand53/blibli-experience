@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -30,6 +31,7 @@ public class Shop {
   public static final String DESCRIPTION = "description";
   public static final String ADDRESS = "address";
   public static final String TAG = "tag";
+  public static final String LOCATION = "location";
   public static final String CREATED_AT = "createdAt";
 
   @Id
@@ -53,6 +55,9 @@ public class Shop {
 
   @Field(value = TAG)
   private List<ShopTag> shopTags;
+
+  @GeoSpatialIndexed(name = LOCATION)
+  private Double[] shopLocation;
 
   @Field(value = CREATED_AT)
   private LocalDateTime shopCreatedAt;

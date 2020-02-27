@@ -33,6 +33,8 @@ public class PostProductCommandImpl implements PostProductCommand {
     return shopRepository.findFirstByShopId(request.getShopId())
         .switchIfEmpty(Mono.error(new Exception("Shop not found!")))
         .map(this::toShopForm)
+        .filter(shopForm -> isProductExists(shopForm, request))
+        .switchIfEmpty(Mono.error(new Exception("Product is already registered before.")))
         .map(shopForm -> toProduct(request, shopForm))
         .flatMap(product -> productRepository.save(product)
             .thenReturn("Success!"));
@@ -45,6 +47,10 @@ public class PostProductCommandImpl implements PostProductCommand {
     return shopForm;
   }
 
+  private Boolean isProductExists(ShopForm shopForm, PostProductRequest request) {
+    return productRepository.existsByProductShopFormAndProductBarcode(shopForm, request.getProductBarcode()).block();
+  }
+
   private Product toProduct(PostProductRequest request, ShopForm form) {
     log.info("#PostProductCommand - Convert request and form to Product object...");
     Product product = Product.builder()
@@ -55,6 +61,5 @@ public class PostProductCommandImpl implements PostProductCommand {
     BeanUtils.copyProperties(request, product);
     return product;
   }
-
 
 }
