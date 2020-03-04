@@ -3,10 +3,8 @@ package com.blibli.experience.commandImpl.cart;
 import com.blibli.experience.command.cart.PostProductToCartCommand;
 import com.blibli.experience.entity.document.Cart;
 import com.blibli.experience.entity.document.Product;
-import com.blibli.experience.entity.document.User;
 import com.blibli.experience.entity.form.CartForm;
 import com.blibli.experience.entity.form.CartProductForm;
-import com.blibli.experience.enums.CartTag;
 import com.blibli.experience.model.request.cart.PostProductToCartRequest;
 import com.blibli.experience.repository.CartRepository;
 import com.blibli.experience.repository.ProductRepository;
@@ -40,7 +38,7 @@ public class PostProductToCartCommandImpl implements PostProductToCartCommand {
     return cartRepository.findFirstByUserIdAndCartTag(request.getUserId(), request.getTag())
         .switchIfEmpty(constructCart(request))
         .map(cart -> {
-          cart.setCartForms(toCartForm(request.getProductId()));
+          cart.setCartForms(toCartForm(cart, request.getProductId()));
         });
   }
 
@@ -59,13 +57,45 @@ public class PostProductToCartCommandImpl implements PostProductToCartCommand {
         .build();
   }
 
-  private CartForm toCartForm(Cart cart, UUID productId) {
+  private List<CartForm> toCartForm(Cart cart, UUID productId) {
     Product product = productRepository.findFirstByProductId(productId)
         .switchIfEmpty(Mono.error(new NotFoundException("Product not found!")))
         .block();
-    // Check if the Shop is already exist in this Cart
 
-    // Check if the Product is already exist in corresponding Shop
+    // Check if the Shop is already exist in this Cart
+    if (!isShopExists(cart, product.getProductShopForm().getShopId())) {
+      List<CartForm> cartForms = cart.getCartForms();
+      CartForm cartForm = new CartForm();
+      BeanUtils.copyProperties(product.getProductShopForm(), cartForm);
+      cartForms.add(cartForm);
+
+      // Check if the Product is already exist in corresponding Shop
+      if (!isProductExists(cart, productId)) {
+        List<CartProductForm> cartProductForms = cartForm.getShopProducts();
+        CartProductForm productForm = new CartProductForm();
+        BeanUtils.copyProperties(product, productForm);
+        productForm.setAmount(1);
+        cartProductForms.add(productForm);
+
+      } else {
+        throw new RuntimeException("Product already exists.");
+      }
+
+      return cartForms;
+
+    } else {
+
+      if (!isProductExists(cart, productId)) {
+        List<CartProductForm> cartProductForms = cartForm.getShopProducts();
+        CartProductForm productForm = new CartProductForm();
+        BeanUtils.copyProperties(product, productForm);
+        productForm.setAmount(1);
+        cartProductForms.add(productForm);
+
+      }
+
+    }
+
   }
 
   private CartForm newCartForm(Product product) {
@@ -78,6 +108,15 @@ public class PostProductToCartCommandImpl implements PostProductToCartCommand {
     CartProductForm productForm = new CartProductForm();
     BeanUtils.copyProperties(product, productForm);
     return productForm;
+  }
+
+  private Boolean isShopExists(Cart cart, UUID shopId) {
+    return cartRepository.existsByCartForms_ShopId(cart.getCartId(), shopId).block();
+  }
+
+  private Boolean isProductExists(Cart cart, UUID productId) {
+    return cartRepository.existsByCartForms_ShopProducts_ProductId(cart.getCartId(), productId)
+        .block();
   }
 
 }

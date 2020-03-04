@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -23,7 +22,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @Document(collection = Cart.COLLECTION_NAME)
 @CompoundIndexes({
-    @CompoundIndex(name = "user_tag", def = "{'userId' : 1, 'cartTag' : 1}")
+    @CompoundIndex(name = "user_tag",
+        def = "{'userId' : 1, 'cartTag' : 1}")
 })
 public class Cart {
 
