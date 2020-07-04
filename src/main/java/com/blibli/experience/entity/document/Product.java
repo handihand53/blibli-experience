@@ -114,4 +114,5 @@ public class Product {
   @Field(value = CREATED_AT)
   private LocalDateTime productCreatedAt;
 
+  
 }
