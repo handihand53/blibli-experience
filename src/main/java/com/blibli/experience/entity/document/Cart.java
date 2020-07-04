@@ -1,6 +1,7 @@
 package com.blibli.experience.entity.document;
 
 import com.blibli.experience.entity.form.CartForm;
+import com.blibli.experience.entity.form.CartProductForm;
 import com.blibli.experience.enums.CartTag;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,10 +22,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = Cart.COLLECTION_NAME)
-@CompoundIndexes({
-    @CompoundIndex(name = "user_tag",
-        def = "{'userId' : 1, 'cartTag' : 1}")
-})
 public class Cart {
 
   public static final String COLLECTION_NAME = "cart";
@@ -43,7 +40,7 @@ public class Cart {
   private UUID userId;
 
   @Field(value = PRODUCTS)
-  private List<CartForm> cartForms;
+  private List<CartProductForm> cartProductForms;
 
   @Field(value = TAG)
   private CartTag cartTag;

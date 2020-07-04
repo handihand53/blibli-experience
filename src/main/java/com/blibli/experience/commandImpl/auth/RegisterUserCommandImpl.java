@@ -24,46 +24,46 @@ import java.util.UUID;
 @Service
 public class RegisterUserCommandImpl implements RegisterUserCommand {
 
-  private UserRepository userRepository;
+    private UserRepository userRepository;
 
-  @Autowired
-  public RegisterUserCommandImpl(UserRepository userRepository) {
-    this.userRepository = userRepository;
-  }
+    @Autowired
+    public RegisterUserCommandImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
-  @Autowired
-  private PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
+    @Autowired
+    private PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-  @Override
-  public Mono<RegisterUserResponse> execute(RegisterUserRequest request) {
-    return Mono.fromCallable(() -> toUser(request))
-        .flatMap(user -> userRepository.save(user))
-        .map(this::toResponse);
-  }
+    @Override
+    public Mono<RegisterUserResponse> execute(RegisterUserRequest request) {
+        return Mono.fromCallable(() -> toUser(request))
+                .flatMap(user -> userRepository.save(user))
+                .map(this::toResponse);
+    }
 
-  private User toUser(RegisterUserRequest request) {
-    User user = User.builder()
-        .userId(UUID.randomUUID())
-        .userCreatedAt(LocalDateTime.now())
-        .build();
-    BeanUtils.copyProperties(request, user);
-    user.setUserPassword(passwordEncoder().encode(user.getUserPassword()));
-    user.setUserRoles(getUserRole(user));
-    return user;
-  }
+    private User toUser(RegisterUserRequest request) {
+        User user = User.builder()
+                .userId(UUID.randomUUID())
+                .userCreatedAt(LocalDateTime.now())
+                .build();
+        BeanUtils.copyProperties(request, user);
+        user.setUserPassword(passwordEncoder().encode(user.getUserPassword()));
+        user.setUserRoles(getUserRole());
+        return user;
+    }
 
-  private List<UserRole> getUserRole(User user) {
-    List<UserRole> roles = user.getUserRoles();
-    roles.add(UserRole.USER);
-    return roles;
-  }
+    private List<UserRole> getUserRole() {
+        List<UserRole> roles = new ArrayList<>();
+        roles.add(UserRole.USER);
+        return roles;
+    }
 
-  private RegisterUserResponse toResponse(User user) {
-    RegisterUserResponse response = new RegisterUserResponse();
-    BeanUtils.copyProperties(user, response);
-    return response;
-  }
+    private RegisterUserResponse toResponse(User user) {
+        RegisterUserResponse response = new RegisterUserResponse();
+        BeanUtils.copyProperties(user, response);
+        return response;
+    }
 
 }

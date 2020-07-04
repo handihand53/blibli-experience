@@ -1,6 +1,6 @@
 package com.blibli.experience.model.response.cart;
 
-import com.blibli.experience.entity.form.CartForm;
+import com.blibli.experience.entity.form.CartProductForm;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,6 +16,6 @@ import java.util.UUID;
 public class GetCartWithUserIdResponse {
 
   private UUID cartId;
-  private List<CartForm> cartProducts;
+  private List<CartProductForm> cartProducts;
 
 }
