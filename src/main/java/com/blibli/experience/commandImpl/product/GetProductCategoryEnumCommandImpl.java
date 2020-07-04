@@ -22,7 +22,7 @@ public class GetProductCategoryEnumCommandImpl implements GetProductCategoryEnum
 
   private GetProductCategoryEnumResponse toResponse() {
     GetProductCategoryEnumResponse response = new GetProductCategoryEnumResponse();
-    List<ProductCategory> categories = new ArrayList<ProductCategory>(EnumSet.allOf(ProductCategory.class));
+    List<ProductCategory> categories = new ArrayList<>(EnumSet.allOf(ProductCategory.class));
     response.setCategories(categories);
     return response;
   }

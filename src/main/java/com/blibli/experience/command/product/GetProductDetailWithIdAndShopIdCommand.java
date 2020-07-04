@@ -5,5 +5,5 @@ import com.blibli.oss.command.Command;
 
 import java.util.UUID;
 
-public interface GetProductDetailWithIdCommand extends Command<UUID, GetProductDetailWithIdResponse> {
+public interface GetProductDetailWithIdAndShopIdCommand extends Command<UUID, GetProductDetailWithIdResponse> {
 }

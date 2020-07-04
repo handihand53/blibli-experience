@@ -3,7 +3,7 @@ package com.blibli.experience.controller;
 import com.blibli.experience.ApiPath;
 import com.blibli.experience.command.product.GetProductCategoryEnumCommand;
 import com.blibli.experience.command.product.GetProductDetailWithBarcodeAndShopCommand;
-import com.blibli.experience.command.product.GetProductDetailWithIdCommand;
+import com.blibli.experience.command.product.GetProductDetailWithIdAndShopIdCommand;
 import com.blibli.experience.command.product.GetProductTagEnumCommand;
 import com.blibli.experience.command.product.GetProductsAvailableCommand;
 import com.blibli.experience.command.product.GetProductsWithTagCommand;
@@ -58,7 +58,7 @@ public class ProductController {
 
   @GetMapping(value = ApiPath.PRODUCT)
   public Mono<Response<GetProductDetailWithIdResponse>> getDetailProductWithId(@RequestParam UUID id) {
-    return commandExecutor.execute(GetProductDetailWithIdCommand.class, id)
+    return commandExecutor.execute(GetProductDetailWithIdAndShopIdCommand.class, id)
         .log("#getDetailProductWithId - Successfully executing command.")
         .map(ResponseHelper::ok)
         .subscribeOn(Schedulers.elastic());

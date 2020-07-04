@@ -1,18 +1,12 @@
 package com.blibli.experience.entity.document;
 
-import com.blibli.experience.entity.form.ShopForm;
-import com.blibli.experience.entity.form.UserForm;
 import com.blibli.experience.enums.ProductCategory;
-import com.blibli.experience.enums.ProductStatus;
-import com.blibli.experience.enums.ProductTag;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.CompoundIndex;
-import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -24,34 +18,27 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = Product.COLLECTION_NAME)
-@CompoundIndexes({
-    @CompoundIndex(name = "shop_barcode",
-        def = "{'shop' : 1, 'barcode' : 1}"),
-    @CompoundIndex(name = "shop_name",
-        def = "{'shop' : 1, 'name' : 1}")
-})
-public class Product {
+@Document(collection = ProductMaster.COLLECTION_NAME)
+//@CompoundIndexes({
+//    @CompoundIndex(name = "shop_barcode",
+//        def = "{'shop' : 1, 'barcode' : 1}"),
+//    @CompoundIndex(name = "shop_name",
+//        def = "{'shop' : 1, 'name' : 1}")
+//})
+public class ProductMaster {
 
-  public static final String COLLECTION_NAME = "product";
+  public static final String COLLECTION_NAME = "productMaster";
   public static final String ID = "id";
   public static final String NAME = "name";
-  public static final String PRICE = "price";
-  public static final String SHOP = "shop";
-  public static final String USER = "user";
   public static final String BRAND = "brand";
   public static final String BARCODE = "barcode";
   public static final String DESCRIPTION = "description";
   public static final String STOCK = "stock";
-  public static final String initialBid = "initialBid";
   public static final String WEIGHT = "weight";
   public static final String VOLUME = "volume";
   public static final String STATUS = "status";
   public static final String CATEGORY = "category";
   public static final String IMAGE_PATH = "imagePath";
-  public static final String BARTER_PREFERENCE = "barterPreference";
-  public static final String ACCESSORY = "accessory";
-  public static final String TAG = "tag";
   public static final String CREATED_AT = "createdAt";
 
   @Id
@@ -62,27 +49,12 @@ public class Product {
   @Length(max = 254)
   private String productName;
 
-  @Field(value = PRICE)
-  private Integer productPrice;
-
-  @Field(value = SHOP)
-  private ShopForm productShopForm;
-
-  @Field(value = USER)
-  private UserForm productUserForm;
-
-  @Field(value = STOCK)
-  private Integer productStock;
-
   @Field(value = BRAND)
   private String productBrand;
 
   @Field(value = BARCODE)
   @Length(max = 100)
   private String productBarcode;
-
-  @Field(value = STATUS)
-  private ProductStatus productStatus;
 
   @Field(value = CATEGORY)
   private ProductCategory productCategory;
@@ -99,20 +71,7 @@ public class Product {
   @Field(value = IMAGE_PATH)
   private List<String> productImagePaths;
 
-  @Field(value = TAG)
-  private List<ProductTag> productTags;
-
-  @Field(value = ACCESSORY)
-  private String productAccessory;
-
-  @Field(value = BARTER_PREFERENCE)
-  private String productBarterPreference;
-
-  @Field(value = initialBid)
-  private Integer productInitialBid;
-
   @Field(value = CREATED_AT)
   private LocalDateTime productCreatedAt;
 
-  
 }

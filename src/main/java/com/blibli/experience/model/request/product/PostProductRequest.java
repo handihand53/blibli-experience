@@ -20,17 +20,8 @@ import java.util.UUID;
 @NoArgsConstructor
 public class PostProductRequest {
 
-  @NotNull
-  private UUID shopId;
-
   @NotBlank
   private String productName;
-
-  @NotNull
-  private Integer productPrice;
-
-  @NotNull
-  private Integer productStock;
 
   private String productBrand;
   private String productBarcode;
@@ -38,11 +29,6 @@ public class PostProductRequest {
   private Double productWeight;
   private String productVolume;
   private String productAccessory;
-  private ProductStatus productStatus;
   private ProductCategory productCategory;
-  private List<ProductTag> productTags;
-
-  private String productBarterPreference;
-  private Integer productInitialBid;
 
 }
