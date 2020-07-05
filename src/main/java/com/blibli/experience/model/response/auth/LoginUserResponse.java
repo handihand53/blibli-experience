@@ -13,8 +13,13 @@ import java.util.UUID;
 @NoArgsConstructor
 public class LoginUserResponse {
 
-  private UUID userId;
+  private String userId;
   private String accessToken;
-  private String userName;
+  private String tokenType = "Bearer";
+
+  public LoginUserResponse(String accessToken, String userId) {
+    this.accessToken = accessToken;
+    this.userId = userId;
+  }
 
 }
