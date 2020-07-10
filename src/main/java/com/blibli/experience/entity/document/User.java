@@ -68,7 +68,6 @@ public class User {
   private GenderType userGender;
 
   @Field(value = IDENTITY_ID)
-  @Indexed(unique = true)
   @Length(max = 16)
   private String userIdentityId;
 

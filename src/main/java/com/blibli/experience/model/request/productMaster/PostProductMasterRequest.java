@@ -1,4 +1,4 @@
-package com.blibli.experience.model.request.product;
+package com.blibli.experience.model.request.productMaster;
 
 import com.blibli.experience.enums.ProductCategory;
 import com.blibli.experience.enums.ProductStatus;
@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,17 +19,16 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostProductRequest {
+public class PostProductMasterRequest {
 
-  @NotBlank
+  private UUID productId;
   private String productName;
-
   private String productBrand;
   private String productBarcode;
+  private ProductCategory productCategory;
   private String productDescription;
   private Double productWeight;
   private String productVolume;
-  private String productAccessory;
-  private ProductCategory productCategory;
+  private LocalDateTime productCreatedAt;
 
 }

@@ -53,9 +53,6 @@ public class Shop {
   @Field(value = ADDRESS)
   private AddressForm shopAddress;
 
-  @Field(value = TAG)
-  private List<ShopTag> shopTags;
-
   @GeoSpatialIndexed(name = LOCATION)
   private Double[] shopLocation;
 

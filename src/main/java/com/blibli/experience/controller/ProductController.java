@@ -7,10 +7,8 @@ import com.blibli.experience.command.product.GetProductDetailWithIdAndShopIdComm
 import com.blibli.experience.command.product.GetProductTagEnumCommand;
 import com.blibli.experience.command.product.GetProductsAvailableCommand;
 import com.blibli.experience.command.product.GetProductsWithTagCommand;
-import com.blibli.experience.command.product.PostProductCommand;
 import com.blibli.experience.enums.ProductTag;
 import com.blibli.experience.model.request.product.GetProductDetailWithBarcodeAndShopRequest;
-import com.blibli.experience.model.request.product.PostProductRequest;
 import com.blibli.experience.model.response.product.GetProductCategoryEnumResponse;
 import com.blibli.experience.model.response.product.GetProductDetailWithBarcodeAndShopResponse;
 import com.blibli.experience.model.response.product.GetProductDetailWithIdResponse;
@@ -25,8 +23,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,14 +42,6 @@ public class ProductController {
   @Autowired
   public ProductController(CommandExecutor commandExecutor) {
     this.commandExecutor = commandExecutor;
-  }
-
-  @PostMapping(value = ApiPath.PRODUCT, consumes = MediaType.APPLICATION_JSON_VALUE)
-  public Mono<Response<String>> postProduct(@RequestBody PostProductRequest request) {
-    return commandExecutor.execute(PostProductCommand.class, request)
-        .log("#postProduct - Successfully executing command.")
-        .map(ResponseHelper::ok)
-        .subscribeOn(Schedulers.elastic());
   }
 
   @GetMapping(value = ApiPath.PRODUCT)

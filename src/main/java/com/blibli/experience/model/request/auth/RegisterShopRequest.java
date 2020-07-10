@@ -45,8 +45,6 @@ public class RegisterShopRequest {
   @NotNull
   private AddressForm shopAddress;
 
-  private List<ShopTag> shopTags;
-
   private Double[] shopLocation;
 
 
