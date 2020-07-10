@@ -7,6 +7,7 @@ import com.blibli.experience.model.response.productStock.GetAllProductStockInSho
 import com.blibli.experience.repository.ProductStockRepository;
 import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -31,7 +32,13 @@ public class GetAllProductStockInShopCommandImpl implements GetAllProductStockIn
     }
 
     private Flux<GetAllProductStockInShopResponse> toResponse(Flux<ProductStock> productStockFlux) {
-        productStockFlux.flat
+        return productStockFlux.map(this::toStock);
+    }
+    
+    private GetAllProductStockInShopResponse toStock(ProductStock productStock) {
+        GetAllProductStockInShopResponse response = new GetAllProductStockInShopResponse();
+        BeanUtils.copyProperties(productStock, response);
+        return response;
     }
 
 }

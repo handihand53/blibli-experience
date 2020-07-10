@@ -34,11 +34,10 @@ public class ApiPath {
 
   // ADMIN ENDPOINTS
   public static final String ADMIN = API + "/admin";
-  public static final String ADD_PRODUCT_MASTER = ADMIN + "/productMasters";
+  public static final String ADMIN_PRODUCT_MASTER = ADMIN + "/productMasters";
 
   // MERCHANT ENDPOINTS
   public static final String MERCHANT = API + "/merchant";
-  public static final String ADD_PRODUCT_STOCK = MERCHANT + "/productStocks";
-
+  public static final String MERCHANT_PRODUCT_STOCK = MERCHANT + "/productStocks";
 
 }
