@@ -11,7 +11,9 @@ import java.util.UUID;
 @Repository
 public interface ProductStockRepository extends ReactiveMongoRepository<ProductStock, UUID> {
 
-    Mono<ProductStock> findFirstByProductShopForm_ShopId(UUID id);
+    Mono<ProductStock> findFirstByShopForm_ShopIdAndProductForm_ProductId(UUID shopId, UUID productId);
+
+    Mono<ProductStock> findFirstByStockId(UUID id);
 
     Flux<ProductStock> findAllByShopForm_ShopId(UUID id);
 

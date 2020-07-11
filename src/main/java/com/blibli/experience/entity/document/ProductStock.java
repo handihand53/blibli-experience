@@ -6,12 +6,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -22,7 +22,8 @@ import java.util.UUID;
 @Document(collection = ProductStock.COLLECTION_NAME)
 @CompoundIndexes({
         @CompoundIndex(name = "stock_product",
-                def = "{'shop' : 1, 'product' : 1}")
+                def = "{'shop_shopId' : 1, 'product_productId' : 1}",
+                unique = true)
 })
 public class ProductStock {
 

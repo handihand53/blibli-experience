@@ -1,12 +1,12 @@
 package com.blibli.experience.entity.document;
 
-import com.blibli.experience.entity.form.CartProductForm;
-import com.blibli.experience.enums.CartTag;
+import com.blibli.experience.entity.form.CartStockForm;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -25,7 +25,6 @@ public class Cart {
     public static final String ID = "id";
     public static final String USER_ID = "userId";
     public static final String PRODUCTS = "products";
-    public static final String TAG = "tag";
     public static final String CREATED_AT = "createdAt";
     public static final String LAST_UPDATED = "lastUpdated";
 
@@ -34,13 +33,11 @@ public class Cart {
     private UUID cartId;
 
     @Field(value = USER_ID)
+    @Indexed(unique = true)
     private UUID userId;
 
     @Field(value = PRODUCTS)
-    private List<CartProductForm> cartProductForms;
-
-    @Field(value = TAG)
-    private CartTag cartTag;
+    private List<CartStockForm> cartStockForms;
 
     @Field(value = CREATED_AT)
     private LocalDateTime createdAt;

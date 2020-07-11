@@ -12,7 +12,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetShopWithTagResponse {
+public class GetAllShopLocationResponse {
 
   private UUID shopId;
   private String shopName;

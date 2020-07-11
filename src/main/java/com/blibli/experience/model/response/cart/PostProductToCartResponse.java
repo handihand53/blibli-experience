@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,9 +14,11 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetCartWithUserIdResponse {
+public class PostProductToCartResponse {
 
-  private UUID cartId;
-  private List<CartStockForm> cartProducts;
+    private UUID cartId;
+    private UUID userId;
+    private List<CartStockForm> cartStockForms;
+    private LocalDateTime lastUpdated;
 
 }

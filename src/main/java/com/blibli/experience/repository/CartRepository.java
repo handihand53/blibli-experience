@@ -15,8 +15,6 @@ public interface CartRepository extends ReactiveMongoRepository<Cart, UUID> {
 
   Mono<Cart> findFirstByUserId(UUID id);
 
-  Mono<Cart> findFirstByUserIdAndCartTag(UUID userId, CartTag tag);
-
   @Query(value = "{'_id': ?0, 'cartForms.shopId': ?1}", exists = true)
   Mono<Boolean> existsByCartForms_ShopId(UUID id, UUID shopId);
 

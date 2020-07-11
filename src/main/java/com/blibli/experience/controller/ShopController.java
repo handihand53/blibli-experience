@@ -1,11 +1,10 @@
 package com.blibli.experience.controller;
 
 import com.blibli.experience.ApiPath;
+import com.blibli.experience.command.shop.GetAllShopLocationCommand;
 import com.blibli.experience.command.shop.GetShopDetailCommand;
-import com.blibli.experience.command.shop.GetShopWithTagCommand;
-import com.blibli.experience.enums.ShopTag;
+import com.blibli.experience.model.response.shop.GetAllShopLocationResponse;
 import com.blibli.experience.model.response.shop.GetShopDetailResponse;
-import com.blibli.experience.model.response.shop.GetShopWithTagResponse;
 import com.blibli.oss.command.CommandExecutor;
 import com.blibli.oss.common.response.Response;
 import com.blibli.oss.common.response.ResponseHelper;
@@ -27,25 +26,25 @@ import java.util.UUID;
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 public class ShopController {
 
-  private CommandExecutor commandExecutor;
+    private CommandExecutor commandExecutor;
 
-  @Autowired
-  public ShopController(CommandExecutor commandExecutor) {
-    this.commandExecutor = commandExecutor;
-  }
+    @Autowired
+    public ShopController(CommandExecutor commandExecutor) {
+        this.commandExecutor = commandExecutor;
+    }
 
-  @GetMapping(value = ApiPath.SHOP)
-  public Mono<Response<GetShopDetailResponse>> getShopDetailByUserId(@RequestParam UUID userId) {
-    return commandExecutor.execute(GetShopDetailCommand.class, userId)
-        .map(ResponseHelper::ok)
-        .subscribeOn(Schedulers.elastic());
-  }
+    @GetMapping(value = ApiPath.SHOP)
+    public Mono<Response<GetShopDetailResponse>> getShopDetailByUserId(@RequestParam UUID userId) {
+        return commandExecutor.execute(GetShopDetailCommand.class, userId)
+                .map(ResponseHelper::ok)
+                .subscribeOn(Schedulers.elastic());
+    }
 
-  @GetMapping(value = ApiPath.SHOP_BLIBLIMART)
-  public Mono<Response<List<GetShopWithTagResponse>>> getBliblimartLocation() {
-    return commandExecutor.execute(GetShopWithTagCommand.class, ShopTag.BLIBLIMART)
-        .map(ResponseHelper::ok)
-        .subscribeOn(Schedulers.elastic());
-  }
+    @GetMapping(value = ApiPath.SHOP_BLIBLIMART)
+    public Mono<Response<List<GetAllShopLocationResponse>>> getBliblimartLocation() {
+        return commandExecutor.execute(GetAllShopLocationCommand.class, 100)
+                .map(ResponseHelper::ok)
+                .subscribeOn(Schedulers.elastic());
+    }
 
 }

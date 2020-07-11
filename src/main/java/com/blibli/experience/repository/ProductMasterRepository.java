@@ -13,11 +13,5 @@ public interface ProductMasterRepository extends ReactiveMongoRepository<Product
   Mono<ProductMaster> findFirstByProductId(UUID id);
 
   Mono<ProductMaster> findFirstByProductBarcode(String barcode);
-//
-//  Flux<Product> findAllByProductTagsContaining(ProductTag tag);
-//
-//  Flux<Product> findAllByProductStockGreaterThanEqual(Integer minimumStock);
-//
-//  Mono<Boolean> existsByProductShopFormAndProductBarcode(ShopForm shopForm, String barcode);
 
 }

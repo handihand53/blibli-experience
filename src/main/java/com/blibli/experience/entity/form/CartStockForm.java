@@ -5,17 +5,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 import java.util.UUID;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CartForm {
+public class CartStockForm {
 
-  private UUID shopId;
-  private String shopName;
-  private List<CartStockForm> shopProducts;
+    private UUID stockId;
+    private ShopForm shopForm;
+    private ProductForm productForm;
+    private Integer productStock;
+    private Integer productPrice;
+
 
 }

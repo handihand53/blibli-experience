@@ -1,4 +1,4 @@
-package com.blibli.experience.model.response.productMaster;
+package com.blibli.experience.model.response.product;
 
 import com.blibli.experience.enums.ProductCategory;
 import lombok.AllArgsConstructor;
@@ -6,14 +6,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostProductMasterResponse {
+public class GetProductDetailWithIdAndShopIdResponse {
 
     private UUID productId;
     private String productName;
@@ -23,6 +24,6 @@ public class PostProductMasterResponse {
     private String productDescription;
     private Double productWeight;
     private String productVolume;
-
+    private List<String> productImagePaths;
+    private LocalDateTime productCreatedAt;
 }
-

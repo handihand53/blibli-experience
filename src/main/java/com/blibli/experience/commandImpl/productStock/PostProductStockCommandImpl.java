@@ -60,11 +60,11 @@ public class PostProductStockCommandImpl implements PostProductStockCommand {
         Shop shop = shopRepository.findFirstByShopId(request.getShopId()).block();
         if (shop != null) {
             BeanUtils.copyProperties(shop, shopForm);
+            return shopForm;
         }
         else {
             throw new RuntimeException("Shop not found.");
         }
-        return shopForm;
     }
 
     private ProductForm getProductForm(PostProductStockRequest request) {
@@ -72,11 +72,11 @@ public class PostProductStockCommandImpl implements PostProductStockCommand {
         ProductMaster productMaster = productMasterRepository.findFirstByProductId(request.getProductId()).block();
         if (productMaster != null) {
             BeanUtils.copyProperties(productMaster, productForm);
+            return productForm;
         }
         else {
             throw new RuntimeException("Product master not found.");
         }
-        return productForm;
     }
 
     private PostProductStockResponse toResponse(ProductStock productStock) {

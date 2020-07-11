@@ -29,7 +29,7 @@ public class User {
   public static final String ID = "id";
   public static final String EMAIL = "email";
   public static final String PASSWORD = "password";
-  public static final String FULL_NAME = "fullName";
+  public static final String USER_NAME = "userName";
   public static final String ADDRESS = "address";
   public static final String PHONE_NUMBER = "phoneNumber";
   public static final String GENDER = "gender";
@@ -50,7 +50,7 @@ public class User {
   @Field(value = PASSWORD)
   private String userPassword;
 
-  @Field(value = FULL_NAME)
+  @Field(value = USER_NAME)
   @Length(max = 30)
   private String userName;
 

@@ -1,6 +1,5 @@
 package com.blibli.experience.model.request.cart;
 
-import com.blibli.experience.enums.CartTag;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,12 +14,13 @@ import java.util.UUID;
 @NoArgsConstructor
 public class PostProductToCartRequest {
 
-  @NotNull
-  private UUID userId;
+    @NotNull
+    private UUID userId;
 
-  @NotNull
-  private UUID productId;
+    @NotNull
+    private UUID productId;
 
-  private CartTag tag;
+    @NotNull
+    private UUID stockId;
 
 }
