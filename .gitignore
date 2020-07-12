@@ -29,3 +29,6 @@ build/
 
 ### VS Code ###
 .vscode/
+!/src/main/java/com/blibli/experience/BlibliExperienceApplication.java
+!/src/main/java/com/blibli/experience/configuration/SecurityConfiguration.java
+!/src/main/java/com/blibli/experience/controller/AuthController.java
