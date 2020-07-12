@@ -7,9 +7,11 @@ public class ApiPath {
 
   // AUTH ENDPOINTS
   public static final String AUTH = API + "/auth";
-  public static final String REGISTER = AUTH + "/register";
+  public static final String REGISTER = AUTH + "/user";
+  public static final String REGISTER_SHOP = AUTH + "/shop";
+  public static final String REGISTER_ADMIN = AUTH + "/admin";
   public static final String LOGIN = AUTH + "/login";
-  public static final String REGISTER_SHOP = AUTH + "/shop/register";
+
 
   // USER ENDPOINTS
   public static final String USER = API + "/users";

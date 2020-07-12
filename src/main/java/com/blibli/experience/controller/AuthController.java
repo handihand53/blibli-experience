@@ -1,12 +1,15 @@
 package com.blibli.experience.controller;
 
 import com.blibli.experience.ApiPath;
+import com.blibli.experience.command.auth.RegisterAdminCommand;
 import com.blibli.experience.command.auth.RegisterShopCommand;
 import com.blibli.experience.command.auth.RegisterUserCommand;
 import com.blibli.experience.model.request.auth.LoginUserRequest;
+import com.blibli.experience.model.request.auth.RegisterAdminRequest;
 import com.blibli.experience.model.request.auth.RegisterShopRequest;
 import com.blibli.experience.model.request.auth.RegisterUserRequest;
 import com.blibli.experience.model.response.auth.LoginUserResponse;
+import com.blibli.experience.model.response.auth.RegisterAdminResponse;
 import com.blibli.experience.model.response.auth.RegisterShopResponse;
 import com.blibli.experience.model.response.auth.RegisterUserResponse;
 import com.blibli.experience.security.JwtTokenProvider;
@@ -27,8 +30,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
-
-import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -76,7 +77,16 @@ public class AuthController {
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public Mono<Response<RegisterShopResponse>> registerShop(@RequestBody RegisterShopRequest request) {
         return commandExecutor.execute(RegisterShopCommand.class, request)
-                .log("#CommandExecutor - Executing RegisterUserCommand...")
+                .log("#CommandExecutor - Executing RegisterShopCommand...")
+                .map(ResponseHelper::ok)
+                .subscribeOn(Schedulers.elastic());
+    }
+
+    @PostMapping(value = ApiPath.REGISTER_ADMIN,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<Response<RegisterAdminResponse>> registerAdmin(@RequestBody RegisterAdminRequest request) {
+        return commandExecutor.execute(RegisterAdminCommand.class, request)
+                .log("#CommandExecutor - Executing RegisterAdminCommand...")
                 .map(ResponseHelper::ok)
                 .subscribeOn(Schedulers.elastic());
     }

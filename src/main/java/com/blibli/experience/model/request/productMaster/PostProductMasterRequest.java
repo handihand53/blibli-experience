@@ -25,6 +25,5 @@ public class PostProductMasterRequest {
     private String productDescription;
     private Double productWeight;
     private String productVolume;
-    private LocalDateTime productCreatedAt;
 
 }
