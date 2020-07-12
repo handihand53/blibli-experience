@@ -23,11 +23,10 @@ public class ApiPath {
   // PRODUCT ENDPOINTS
   public static final String PRODUCT = API + "/products";
   public static final String PRODUCT_WITH_BARCODE = PRODUCT + "/barcode";
-  public static final String PRODUCTS_WITH_TAG = PRODUCT + "/tag";
-  public static final String PRODUCTS_AVAILABLE = PRODUCT + "/available";
   public static final String PRODUCT_ENUMS = PRODUCT + "/enums";
   public static final String PRODUCT_CATEGORY_ENUM = PRODUCT_ENUMS + "/category";
-  public static final String PRODUCT_TAG_ENUM = PRODUCT_ENUMS + "/tag";
+  public static final String PRODUCT_SEARCH = PRODUCT + "/search";
+  public static final String PRODUCTS_ALL = PRODUCT + "/getAll";
 
   // CART ENDPOINTS
   public static final String CARTS = API + "/carts";

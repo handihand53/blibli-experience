@@ -1,6 +1,6 @@
 package com.blibli.experience.commandImpl.productMaster;
 
-import com.blibli.experience.command.productMaster.GetProductMasterDetailWithId;
+import com.blibli.experience.command.productMaster.GetProductMasterDetailWithIdCommand;
 import com.blibli.experience.entity.document.ProductMaster;
 import com.blibli.experience.model.response.product.GetProductDetailWithIdAndShopIdResponse;
 import com.blibli.experience.repository.ProductMasterRepository;
@@ -15,12 +15,12 @@ import java.util.UUID;
 
 @Slf4j
 @Service
-public class GetProductMasterDetailWithIdImpl implements GetProductMasterDetailWithId {
+public class GetProductMasterDetailWithIdCommandImpl implements GetProductMasterDetailWithIdCommand {
 
   private ProductMasterRepository productMasterRepository;
 
   @Autowired
-  public GetProductMasterDetailWithIdImpl(ProductMasterRepository productMasterRepository) {
+  public GetProductMasterDetailWithIdCommandImpl(ProductMasterRepository productMasterRepository) {
     this.productMasterRepository = productMasterRepository;
   }
 

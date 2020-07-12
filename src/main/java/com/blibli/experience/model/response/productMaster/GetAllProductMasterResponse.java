@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -15,7 +14,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostProductMasterResponse {
+public class GetAllProductMasterResponse {
 
     private UUID productId;
     private String productName;
@@ -29,4 +28,3 @@ public class PostProductMasterResponse {
     private LocalDateTime productCreatedAt;
 
 }
-
