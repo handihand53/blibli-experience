@@ -1,4 +1,4 @@
-package com.blibli.experience.model.response.product;
+package com.blibli.experience.model.response.productStock;
 
 import com.blibli.experience.entity.form.ProductForm;
 import com.blibli.experience.entity.form.ShopForm;
@@ -14,7 +14,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetProductDetailWithBarcodeAndShopResponse {
+public class PostProductStockResponse {
 
     private UUID stockId;
     private ShopForm shopForm;

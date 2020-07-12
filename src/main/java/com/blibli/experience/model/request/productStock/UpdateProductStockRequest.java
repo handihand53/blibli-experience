@@ -1,10 +1,11 @@
-package com.blibli.experience.model.request.cart;
+package com.blibli.experience.model.request.productStock;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
@@ -12,15 +13,12 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostProductToCartRequest {
-
-    @NotNull
-    private UUID userId;
-
-    @NotNull
-    private UUID productId;
+public class UpdateProductStockRequest {
 
     @NotNull
     private UUID stockId;
+
+    @NotNull
+    private Integer addedStock;
 
 }

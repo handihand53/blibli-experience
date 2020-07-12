@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -15,5 +16,9 @@ public class ShopForm {
 
   private UUID shopId;
   private String shopName;
+  private String shopDescription;
+  private AddressForm shopAddress;
+  private Double[] shopLocation;
+  private LocalDateTime shopCreatedAt;
 
 }

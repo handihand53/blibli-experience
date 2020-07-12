@@ -3,7 +3,6 @@ package com.blibli.experience.enums;
 public enum CartTag {
 
   CART("Cart"),
-  BLIBLIMART("Bliblimart"),
   WISHLIST("Wishlist");
 
   private String cartTag;

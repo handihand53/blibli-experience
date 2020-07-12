@@ -19,6 +19,7 @@ public class ApiPath {
   public static final String SHOP = API + "/shops";
   public static final String SHOP_BLIBLIMART = SHOP + "/bliblimart";
 
+
   // PRODUCT ENDPOINTS
   public static final String PRODUCT = API + "/products";
   public static final String PRODUCT_WITH_BARCODE = PRODUCT + "/barcode";
@@ -30,4 +31,13 @@ public class ApiPath {
 
   // CART ENDPOINTS
   public static final String CARTS = API + "/carts";
+
+  // ADMIN ENDPOINTS
+  public static final String ADMIN = API + "/admin";
+  public static final String ADMIN_PRODUCT_MASTER = ADMIN + "/productMasters";
+
+  // MERCHANT ENDPOINTS
+  public static final String MERCHANT = API + "/merchant";
+  public static final String MERCHANT_PRODUCT_STOCK = MERCHANT + "/productStocks";
+
 }
