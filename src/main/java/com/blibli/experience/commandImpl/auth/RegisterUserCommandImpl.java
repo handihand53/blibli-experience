@@ -3,7 +3,6 @@ package com.blibli.experience.commandImpl.auth;
 import com.blibli.experience.command.auth.RegisterUserCommand;
 import com.blibli.experience.entity.document.User;
 import com.blibli.experience.enums.UserRole;
-import com.blibli.experience.entity.form.AddressForm;
 import com.blibli.experience.model.request.auth.RegisterUserRequest;
 import com.blibli.experience.model.response.auth.RegisterUserResponse;
 import com.blibli.experience.repository.UserRepository;
