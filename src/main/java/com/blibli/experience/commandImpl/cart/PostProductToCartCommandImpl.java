@@ -40,9 +40,11 @@ public class PostProductToCartCommandImpl implements PostProductToCartCommand {
 
     @Override
     public Mono<PostProductToCartResponse> execute(PostProductToCartRequest request) {
+        ProductStock productStock = getProductStock(request.getStockId());
+        ProductMaster productMaster = getProductMaster(request.getProductId());
         return cartRepository.findFirstByUserId(request.getUserId())
                 .switchIfEmpty(createCart(request))
-                .map(cart -> addCartStockForm(cart, request))
+                .map(cart -> addCartStockForm(cart, productMaster, productStock))
                 .flatMap(cart -> cartRepository.save(cart))
                 .map(this::toResponse);
     }
@@ -54,52 +56,50 @@ public class PostProductToCartCommandImpl implements PostProductToCartCommand {
     }
 
     private Cart toCart(PostProductToCartRequest request) {
-      List<CartStockForm> cartStockForms = new ArrayList<>();
-      return Cart.builder()
-              .cartId(UUID.randomUUID())
-              .userId(request.getUserId())
-              .cartStockForms(cartStockForms)
-              .createdAt(LocalDateTime.now())
-              .lastUpdated(LocalDateTime.now())
-              .build();
+        List<CartStockForm> cartStockForms = new ArrayList<>();
+        return Cart.builder()
+                .cartId(UUID.randomUUID())
+                .userId(request.getUserId())
+                .cartStockForms(cartStockForms)
+                .createdAt(LocalDateTime.now())
+                .lastUpdated(LocalDateTime.now())
+                .build();
     }
 
-    private Cart addCartStockForm(Cart cart, PostProductToCartRequest request) {
-      List<CartStockForm> cartStockForms = cart.getCartStockForms();
-      CartStockForm cartStockForm = new CartStockForm();
-      ProductStock productStock = getProductStock(request.getStockId());
-      ProductMaster productMaster = getProductMaster(request.getProductId());
-      BeanUtils.copyProperties(productStock, cartStockForm);
-      BeanUtils.copyProperties(productMaster, cartStockForm.getProductForm());
-      cartStockForms.add(cartStockForm);
-      cart.setCartStockForms(cartStockForms);
-      return cart;
+    private Cart addCartStockForm(Cart cart, ProductMaster productMaster, ProductStock productStock) {
+        List<CartStockForm> cartStockForms = cart.getCartStockForms();
+        CartStockForm cartStockForm = new CartStockForm();
+        BeanUtils.copyProperties(productStock, cartStockForm);
+        BeanUtils.copyProperties(productMaster, cartStockForm.getProductForm());
+        cartStockForms.add(cartStockForm);
+        cart.setCartStockForms(cartStockForms);
+        return cart;
     }
 
     private ProductStock getProductStock (UUID stockId) {
-      ProductStock productStock = productStockRepository.findFirstByStockId(stockId).block();
-      if (productStock != null) {
-        return productStock;
-      }
-      else {
-        throw new RuntimeException("Stock not found.");
-      }
+        ProductStock productStock = productStockRepository.findFirstByStockId(stockId).block();
+        if (productStock != null) {
+            return productStock;
+        }
+        else {
+            throw new RuntimeException("Stock not found.");
+        }
     }
 
     private ProductMaster getProductMaster (UUID productId) {
-      ProductMaster productMaster = productMasterRepository.findFirstByProductId(productId).block();
-      if (productMaster != null) {
-        return productMaster;
-      }
-      else {
-        throw new RuntimeException("Product Master not found.");
-      }
+        ProductMaster productMaster = productMasterRepository.findFirstByProductId(productId).block();
+        if (productMaster != null) {
+            return productMaster;
+        }
+        else {
+            throw new RuntimeException("Product Master not found.");
+        }
     }
 
     private PostProductToCartResponse toResponse(Cart cart) {
-      PostProductToCartResponse response = new PostProductToCartResponse();
-      BeanUtils.copyProperties(cart, response);
-      return response;
+        PostProductToCartResponse response = new PostProductToCartResponse();
+        BeanUtils.copyProperties(cart, response);
+        return response;
     }
 
 }

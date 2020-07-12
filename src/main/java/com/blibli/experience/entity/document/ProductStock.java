@@ -22,7 +22,7 @@ import java.util.UUID;
 @Document(collection = ProductStock.COLLECTION_NAME)
 @CompoundIndexes({
         @CompoundIndex(name = "stock_product",
-                def = "{'shop_shopId' : 1, 'product_productId' : 1}",
+                def = "{'shop' : 1, 'product' : 1}",
                 unique = true)
 })
 public class ProductStock {
