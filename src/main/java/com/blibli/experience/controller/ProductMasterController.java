@@ -52,8 +52,8 @@ public class ProductMasterController {
     }
 
     @GetMapping(value = ApiPath.PRODUCTS_ALL)
-    public Mono<Response<List<GetAllProductMasterResponse>>> getAllProductMaster() {
-        return commandExecutor.execute(GetAllProductMasterCommand.class, 20)
+    public Mono<Response<List<GetAllProductMasterResponse>>> getAllProductMaster(@RequestParam Integer count) {
+        return commandExecutor.execute(GetAllProductMasterCommand.class, count)
                 .log("#getAllProductMaster - Successfully executing command.")
                 .map(ResponseHelper::ok)
                 .subscribeOn(Schedulers.elastic());
