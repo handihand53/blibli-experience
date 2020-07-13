@@ -1,23 +1,23 @@
 package com.blibli.experience.security;
 
-import com.blibli.experience.entity.document.User;
+import com.blibli.experience.entity.form.UserDataForm;
 import com.blibli.experience.repository.UserRepository;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
-import java.util.Objects;
 import java.util.UUID;
 
 @Component
 public class JwtTokenProvider {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
-    private UserRepository userRepository;
+    private UserDataProvider userDataProvider;
 
     @Value("${app.jwtSecret}")
     private String jwtSecret;
@@ -25,11 +25,12 @@ public class JwtTokenProvider {
     @Value("${app.jwtExpirationInMs}")
     private int jwtExpirationInMs;
 
-    public JwtTokenProvider(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    @Autowired
+    public JwtTokenProvider(UserDataProvider userDataProvider) {
+        this.userDataProvider = userDataProvider;
     }
 
-    public String generateToken(Authentication authentication){
+    public String generateToken(Authentication authentication) {
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
@@ -41,11 +42,11 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public String generateId(String userEmail){
-        return Objects.requireNonNull(userRepository.findFirstByUserEmail(userEmail).block()).getUserId().toString();
+    public UserDataForm generateUserData(String userEmail) {
+        return userDataProvider.provideUserData(userEmail);
     }
 
-    public UUID getUserIdFromJWT(String token){
+    public UUID getUserIdFromJWT(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(jwtSecret)
                 .parseClaimsJws(token)
@@ -53,13 +54,13 @@ public class JwtTokenProvider {
         return UUID.fromString(claims.getSubject());
     }
 
-    public boolean validateToken(String authToken){
-        try{
+    public boolean validateToken(String authToken) {
+        try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
             return true;
-        } catch (SignatureException ex){
+        } catch (SignatureException ex) {
             logger.error("Invalid JWT signature");
-        } catch (MalformedJwtException ex){
+        } catch (MalformedJwtException ex) {
             logger.error("Invalid JWT token");
         } catch (ExpiredJwtException ex) {
             logger.error("Expired JWT token");

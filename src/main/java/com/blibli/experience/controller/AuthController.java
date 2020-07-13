@@ -4,6 +4,8 @@ import com.blibli.experience.ApiPath;
 import com.blibli.experience.command.auth.RegisterAdminCommand;
 import com.blibli.experience.command.auth.RegisterShopCommand;
 import com.blibli.experience.command.auth.RegisterUserCommand;
+import com.blibli.experience.entity.document.User;
+import com.blibli.experience.entity.form.UserDataForm;
 import com.blibli.experience.model.request.auth.LoginUserRequest;
 import com.blibli.experience.model.request.auth.RegisterAdminRequest;
 import com.blibli.experience.model.request.auth.RegisterShopRequest;
@@ -59,7 +61,7 @@ public class AuthController {
 
     @PostMapping(value = ApiPath.LOGIN,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> loginUser(@RequestBody LoginUserRequest request) {
+    public ResponseEntity<?> login(@RequestBody LoginUserRequest request) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUserEmail(),
@@ -69,8 +71,8 @@ public class AuthController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = tokenProvider.generateToken(authentication);
-        String id = tokenProvider.generateId(request.getUserEmail());
-        return ResponseEntity.ok(new LoginUserResponse(jwt, id));
+        UserDataForm dataForm = tokenProvider.generateUserData(request.getUserEmail());
+        return ResponseEntity.ok(new LoginUserResponse(dataForm.getUserId(), dataForm.getShopId(), dataForm.getUserRoles(), jwt));
     }
 
     @PostMapping(value = ApiPath.REGISTER_SHOP,
