@@ -24,6 +24,7 @@ public class ApiPath {
 
   // PRODUCT ENDPOINTS
   public static final String PRODUCT = API + "/products";
+  public static final String PRODUCT_AVAILABLE = PRODUCT + "/available";
   public static final String PRODUCT_WITH_BARCODE = PRODUCT + "/barcode";
   public static final String PRODUCT_ENUMS = PRODUCT + "/enums";
   public static final String PRODUCT_CATEGORY_ENUM = PRODUCT_ENUMS + "/category";

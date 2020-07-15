@@ -21,4 +21,6 @@ public interface ProductStockRepository extends ReactiveMongoRepository<ProductS
 
     Flux<ProductStock> findAllByShopForm_ShopId(UUID id);
 
+    Flux<ProductStock> findAllByProductForm_ProductId(UUID productId);
+
 }

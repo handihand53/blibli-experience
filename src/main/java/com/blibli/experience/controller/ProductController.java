@@ -1,9 +1,11 @@
 package com.blibli.experience.controller;
 
 import com.blibli.experience.ApiPath;
+import com.blibli.experience.command.product.GetAllProductAvailableCommand;
 import com.blibli.experience.command.product.GetProductCategoryEnumCommand;
 import com.blibli.experience.command.product.GetProductDetailWithBarcodeAndShopCommand;
 import com.blibli.experience.model.request.product.GetProductDetailWithBarcodeAndShopRequest;
+import com.blibli.experience.model.response.product.GetAllProductAvailableResponse;
 import com.blibli.experience.model.response.product.GetProductCategoryEnumResponse;
 import com.blibli.experience.model.response.product.GetProductDetailWithBarcodeAndShopResponse;
 import com.blibli.oss.command.CommandExecutor;
@@ -12,12 +14,11 @@ import com.blibli.oss.common.response.ResponseHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -44,6 +45,14 @@ public class ProductController {
     public Mono<Response<GetProductCategoryEnumResponse>> getProductCategoryEnum() {
         return commandExecutor.execute(GetProductCategoryEnumCommand.class, "")
                 .log("#getProductCategoryEnum - Successfully executing command.")
+                .map(ResponseHelper::ok)
+                .subscribeOn(Schedulers.elastic());
+    }
+
+    @GetMapping(value = ApiPath.PRODUCT_AVAILABLE)
+    public Mono<Response<List<GetAllProductAvailableResponse>>> getProductAvailable(@RequestParam Integer skipCount) {
+        return commandExecutor.execute(GetAllProductAvailableCommand.class, skipCount)
+                .log("#getProductAvailable - Successfully executing command.")
                 .map(ResponseHelper::ok)
                 .subscribeOn(Schedulers.elastic());
     }

@@ -11,6 +11,7 @@ import com.blibli.experience.model.response.productStock.PostProductStockRespons
 import com.blibli.experience.repository.ProductMasterRepository;
 import com.blibli.experience.repository.ProductStockRepository;
 import com.blibli.experience.repository.ShopRepository;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,19 +40,28 @@ public class PostProductStockCommandImpl implements PostProductStockCommand {
 
     @Override
     public Mono<PostProductStockResponse> execute(PostProductStockRequest request) {
-        return Mono.fromCallable(() -> toProductStock(request))
-                .flatMap(productStock -> productStockRepository.save(productStock))
+        ProductMaster productMaster = getProductMaster(request);
+        return Mono.fromCallable(() -> toProductStock(request, productMaster))
+                .flatMap(productStock -> {
+                    setAvailableFlag(productMaster);
+                    return productStockRepository.save(productStock);
+                })
                 .map(this::toResponse);
     }
 
-    private ProductStock toProductStock(PostProductStockRequest request) {
+    private ProductStock toProductStock(PostProductStockRequest request, ProductMaster productMaster) {
         ProductStock productStock = ProductStock.builder()
                 .stockId(UUID.randomUUID())
                 .stockCreatedAt(LocalDateTime.now())
                 .build();
+        // Copy request(price, id) to product Stock
         BeanUtils.copyProperties(request, productStock);
+        // Copy shopForm from shop data in DB
         productStock.setShopForm(getShopForm(request));
-        productStock.setProductForm(getProductForm(request));
+        // Copy productForm from product master data in DB
+        ProductForm productForm = new ProductForm();
+        BeanUtils.copyProperties(productMaster, productForm);
+        productStock.setProductForm(productForm);
         return productStock;
     }
 
@@ -67,12 +77,10 @@ public class PostProductStockCommandImpl implements PostProductStockCommand {
         }
     }
 
-    private ProductForm getProductForm(PostProductStockRequest request) {
-        ProductForm productForm = new ProductForm();
+    private ProductMaster getProductMaster(PostProductStockRequest request) {
         ProductMaster productMaster = productMasterRepository.findFirstByProductId(request.getProductId()).block();
         if (productMaster != null) {
-            BeanUtils.copyProperties(productMaster, productForm);
-            return productForm;
+            return productMaster;
         }
         else {
             throw new RuntimeException("Product master not found.");
@@ -83,6 +91,11 @@ public class PostProductStockCommandImpl implements PostProductStockCommand {
         PostProductStockResponse response = new PostProductStockResponse();
         BeanUtils.copyProperties(productStock, response);
         return response;
+    }
+
+    private void setAvailableFlag(ProductMaster productMaster) {
+        productMaster.setAvailableFlag(true);
+        productMasterRepository.save(productMaster).subscribe();
     }
 
 }

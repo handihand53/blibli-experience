@@ -1,15 +1,14 @@
 package com.blibli.experience.controller;
 
 import com.blibli.experience.ApiPath;
-import com.blibli.experience.command.productMaster.GetAllProductMasterCommand;
-import com.blibli.experience.command.productMaster.GetAllProductMasterWithNameContainingCommand;
-import com.blibli.experience.command.productMaster.GetProductMasterDetailWithIdCommand;
-import com.blibli.experience.command.productMaster.PostProductMasterCommand;
+import com.blibli.experience.command.productMaster.*;
 import com.blibli.experience.model.request.productMaster.PostProductMasterRequest;
+import com.blibli.experience.model.request.productMaster.UpdateProductMasterRequest;
 import com.blibli.experience.model.response.product.GetProductDetailWithIdAndShopIdResponse;
 import com.blibli.experience.model.response.productMaster.GetAllProductMasterResponse;
 import com.blibli.experience.model.response.productMaster.GetAllProductMasterWithNameContainingResponse;
 import com.blibli.experience.model.response.productMaster.PostProductMasterResponse;
+import com.blibli.experience.model.response.productMaster.UpdateProductMasterResponse;
 import com.blibli.oss.command.CommandExecutor;
 import com.blibli.oss.common.response.Response;
 import com.blibli.oss.common.response.ResponseHelper;
@@ -43,6 +42,14 @@ public class ProductMasterController {
                 .subscribeOn(Schedulers.elastic());
     }
 
+    @PutMapping(value = ApiPath.ADMIN_PRODUCT_MASTER, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<Response<UpdateProductMasterResponse>> updateProductMaster(@RequestBody UpdateProductMasterRequest request) {
+        return commandExecutor.execute(UpdateProductMasterCommand.class, request)
+                .log("#updateProductMaster - Successfully executing command.")
+                .map(ResponseHelper::ok)
+                .subscribeOn(Schedulers.elastic());
+    }
+
     @GetMapping(value = ApiPath.PRODUCT)
     public Mono<Response<GetProductDetailWithIdAndShopIdResponse>> getDetailProductWithId(@RequestParam UUID id) {
         return commandExecutor.execute(GetProductMasterDetailWithIdCommand.class, id)
@@ -52,8 +59,8 @@ public class ProductMasterController {
     }
 
     @GetMapping(value = ApiPath.PRODUCTS_ALL)
-    public Mono<Response<List<GetAllProductMasterResponse>>> getAllProductMaster(@RequestParam Integer count) {
-        return commandExecutor.execute(GetAllProductMasterCommand.class, count)
+    public Mono<Response<List<GetAllProductMasterResponse>>> getAllProductMaster(@RequestParam Integer skipCount) {
+        return commandExecutor.execute(GetAllProductMasterCommand.class, skipCount)
                 .log("#getAllProductMaster - Successfully executing command.")
                 .map(ResponseHelper::ok)
                 .subscribeOn(Schedulers.elastic());

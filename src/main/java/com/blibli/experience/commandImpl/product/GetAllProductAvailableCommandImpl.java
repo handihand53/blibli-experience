@@ -1,13 +1,14 @@
-package com.blibli.experience.commandImpl.productMaster;
+package com.blibli.experience.commandImpl.product;
 
-import com.blibli.experience.command.productMaster.GetAllProductMasterCommand;
+import com.blibli.experience.command.product.GetAllProductAvailableCommand;
 import com.blibli.experience.entity.document.ProductMaster;
-import com.blibli.experience.model.response.productMaster.GetAllProductMasterResponse;
+import com.blibli.experience.model.response.product.GetAllProductAvailableResponse;
 import com.blibli.experience.repository.ProductMasterRepository;
 import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -15,18 +16,18 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class GetAllProductMasterCommandImpl implements GetAllProductMasterCommand {
+public class GetAllProductAvailableCommandImpl implements GetAllProductAvailableCommand {
 
     private ProductMasterRepository productMasterRepository;
 
     @Autowired
-    public GetAllProductMasterCommandImpl(ProductMasterRepository productMasterRepository) {
+    public GetAllProductAvailableCommandImpl(ProductMasterRepository productMasterRepository) {
         this.productMasterRepository = productMasterRepository;
     }
 
     @Override
-    public Mono<List<GetAllProductMasterResponse>> execute(Integer skipCount) {
-        return productMasterRepository.findAll()
+    public Mono<List<GetAllProductAvailableResponse>> execute(Integer skipCount) {
+        return productMasterRepository.findAllByAvailableFlagTrue()
                 .switchIfEmpty(Mono.error(new NotFoundException("Product not found.")))
                 .skip(skipCount)
                 .take(20)
@@ -34,10 +35,9 @@ public class GetAllProductMasterCommandImpl implements GetAllProductMasterComman
                 .collectList();
     }
 
-    private GetAllProductMasterResponse toResponse(ProductMaster productMaster) {
-        GetAllProductMasterResponse response = new GetAllProductMasterResponse();
+    private GetAllProductAvailableResponse toResponse(ProductMaster productMaster) {
+        GetAllProductAvailableResponse response = new GetAllProductAvailableResponse();
         BeanUtils.copyProperties(productMaster, response);
         return response;
     }
-
 }

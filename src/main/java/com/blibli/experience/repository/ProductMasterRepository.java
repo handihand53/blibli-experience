@@ -1,12 +1,12 @@
 package com.blibli.experience.repository;
 
 import com.blibli.experience.entity.document.ProductMaster;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.awt.print.Pageable;
 import java.util.UUID;
 
 @Repository
@@ -17,5 +17,7 @@ public interface ProductMasterRepository extends ReactiveMongoRepository<Product
   Mono<ProductMaster> findFirstByProductBarcode(String barcode);
 
   Flux<ProductMaster> findAllByProductNameContaining(String searchKey);
+
+  Flux<ProductMaster> findAllByAvailableFlagTrue();
 
 }

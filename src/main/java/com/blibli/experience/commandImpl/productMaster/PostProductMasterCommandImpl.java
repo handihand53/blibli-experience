@@ -36,6 +36,7 @@ public class PostProductMasterCommandImpl implements PostProductMasterCommand {
         ProductMaster productMaster = ProductMaster.builder()
                 .productId(UUID.randomUUID())
                 .productCreatedAt(LocalDateTime.now())
+                .availableFlag(Boolean.FALSE)
                 .build();
         BeanUtils.copyProperties(request, productMaster);
         return productMaster;
