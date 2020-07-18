@@ -17,6 +17,8 @@ public interface ProductStockRepository extends ReactiveMongoRepository<ProductS
 
     Mono<ProductStock> findByShopForm_ShopIdAndProductForm_ProductBarcode(UUID shopId, String barcode);
 
+    Mono<ProductStock> findFirstByProductForm_ProductId(UUID productId);
+
     Mono<ProductStock> findFirstByStockId(UUID id);
 
     Flux<ProductStock> findAllByShopForm_ShopId(UUID id);

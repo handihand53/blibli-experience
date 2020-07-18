@@ -4,7 +4,7 @@ import com.blibli.experience.ApiPath;
 import com.blibli.experience.command.productMaster.*;
 import com.blibli.experience.model.request.productMaster.PostProductMasterRequest;
 import com.blibli.experience.model.request.productMaster.UpdateProductMasterRequest;
-import com.blibli.experience.model.response.product.GetProductDetailWithIdAndShopIdResponse;
+import com.blibli.experience.model.response.product.GetProductMasterDetailWithIdResponse;
 import com.blibli.experience.model.response.productMaster.GetAllProductMasterResponse;
 import com.blibli.experience.model.response.productMaster.GetAllProductMasterWithNameContainingResponse;
 import com.blibli.experience.model.response.productMaster.PostProductMasterResponse;
@@ -51,7 +51,7 @@ public class ProductMasterController {
     }
 
     @GetMapping(value = ApiPath.PRODUCT)
-    public Mono<Response<GetProductDetailWithIdAndShopIdResponse>> getDetailProductWithId(@RequestParam UUID id) {
+    public Mono<Response<GetProductMasterDetailWithIdResponse>> getDetailProductWithId(@RequestParam UUID id) {
         return commandExecutor.execute(GetProductMasterDetailWithIdCommand.class, id)
                 .log("#getDetailProductWithId - Successfully executing command.")
                 .map(ResponseHelper::ok)

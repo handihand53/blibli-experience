@@ -40,7 +40,7 @@ public class ShopController {
                 .subscribeOn(Schedulers.elastic());
     }
 
-    @GetMapping(value = ApiPath.SHOP_BLIBLIMART)
+    @GetMapping(value = ApiPath.PRODUCT_BLIBLIMART)
     public Mono<Response<List<GetAllShopLocationResponse>>> getBliblimartLocation() {
         return commandExecutor.execute(GetAllShopLocationCommand.class, 100)
                 .map(ResponseHelper::ok)

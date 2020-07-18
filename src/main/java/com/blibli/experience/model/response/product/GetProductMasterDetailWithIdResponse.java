@@ -1,5 +1,6 @@
 package com.blibli.experience.model.response.product;
 
+import com.blibli.experience.entity.document.ProductStock;
 import com.blibli.experience.enums.ProductCategory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +15,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetProductDetailWithIdAndShopIdResponse {
+public class GetProductMasterDetailWithIdResponse {
 
     private UUID productId;
     private String productName;
@@ -26,4 +27,6 @@ public class GetProductDetailWithIdAndShopIdResponse {
     private String productVolume;
     private List<String> productImagePaths;
     private LocalDateTime productCreatedAt;
+
+    private List<ProductStock> productStockList;
 }

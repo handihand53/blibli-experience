@@ -19,11 +19,10 @@ public class ApiPath {
 
   // SHOP ENDPOINTS
   public static final String SHOP = API + "/shops";
-  public static final String SHOP_BLIBLIMART = SHOP + "/bliblimart";
-
 
   // PRODUCT ENDPOINTS
   public static final String PRODUCT = API + "/products";
+  public static final String PRODUCT_BLIBLIMART = PRODUCT + "/bliblimart";
   public static final String PRODUCT_AVAILABLE = PRODUCT + "/available";
   public static final String PRODUCT_WITH_BARCODE = PRODUCT + "/barcode";
   public static final String PRODUCT_ENUMS = PRODUCT + "/enums";
