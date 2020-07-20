@@ -18,9 +18,6 @@ public class PostProductToCartRequest {
     private UUID userId;
 
     @NotNull
-    private UUID productId;
-
-    @NotNull
     private UUID stockId;
 
 }

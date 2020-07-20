@@ -20,7 +20,7 @@ import java.util.UUID;
 
 @Slf4j
 @RestController
-@RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 public class CartController {
 
   private CommandExecutor commandExecutor;
@@ -30,7 +30,7 @@ public class CartController {
     this.commandExecutor = commandExecutor;
   }
 
-  @PostMapping(value = ApiPath.CARTS)
+  @PostMapping(value = ApiPath.CARTS, consumes = MediaType.APPLICATION_JSON_VALUE)
   public Mono<Response<PostProductToCartResponse>> postProductToCart(@RequestBody PostProductToCartRequest request) {
     return commandExecutor.execute(PostProductToCartCommand.class, request)
         .log("#postProductToCart - Successfully executing command.")
@@ -39,8 +39,8 @@ public class CartController {
   }
 
   @GetMapping(value = ApiPath.CARTS)
-  public Mono<Response<GetCartWithUserIdResponse>> getCartWithUserId(@RequestParam UUID id) {
-    return commandExecutor.execute(GetCartWithUserIdCommand.class, id)
+  public Mono<Response<GetCartWithUserIdResponse>> getCartWithUserId(@RequestParam UUID userId) {
+    return commandExecutor.execute(GetCartWithUserIdCommand.class, userId)
         .log("#getCartWithUserId - Successfully executing command.")
         .map(ResponseHelper::ok)
         .subscribeOn(Schedulers.elastic());
