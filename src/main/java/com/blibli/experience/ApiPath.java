@@ -24,11 +24,12 @@ public class ApiPath {
   public static final String PRODUCT = API + "/products";
   public static final String PRODUCT_BLIBLIMART = PRODUCT + "/bliblimart";
   public static final String PRODUCT_AVAILABLE = PRODUCT + "/available";
+  public static final String PRODUCT_CATEGORY = PRODUCT + "/category";
   public static final String PRODUCT_WITH_BARCODE = PRODUCT + "/barcode";
-  public static final String PRODUCT_ENUMS = PRODUCT + "/enums";
-  public static final String PRODUCT_CATEGORY_ENUM = PRODUCT_ENUMS + "/category";
   public static final String PRODUCT_SEARCH = PRODUCT + "/search";
   public static final String PRODUCTS_ALL = PRODUCT + "/getAll";
+  public static final String PRODUCT_ENUMS = PRODUCT + "/enums";
+  public static final String PRODUCT_CATEGORY_ENUM = PRODUCT_ENUMS + "/category";
 
   // CART ENDPOINTS
   public static final String CARTS = API + "/carts";

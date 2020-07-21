@@ -2,10 +2,13 @@ package com.blibli.experience.controller;
 
 import com.blibli.experience.ApiPath;
 import com.blibli.experience.command.product.GetAllProductAvailableCommand;
+import com.blibli.experience.command.product.GetAllProductByCategoryCommand;
 import com.blibli.experience.command.product.GetProductCategoryEnumCommand;
 import com.blibli.experience.command.product.GetProductDetailWithBarcodeAndShopCommand;
+import com.blibli.experience.model.request.product.GetAllProductByCategoryRequest;
 import com.blibli.experience.model.request.product.GetProductDetailWithBarcodeAndShopRequest;
 import com.blibli.experience.model.response.product.GetAllProductAvailableResponse;
+import com.blibli.experience.model.response.product.GetAllProductByCategoryResponse;
 import com.blibli.experience.model.response.product.GetProductCategoryEnumResponse;
 import com.blibli.experience.model.response.product.GetProductDetailWithBarcodeAndShopResponse;
 import com.blibli.oss.command.CommandExecutor;
@@ -52,6 +55,14 @@ public class ProductController {
     @GetMapping(value = ApiPath.PRODUCT_AVAILABLE)
     public Mono<Response<List<GetAllProductAvailableResponse>>> getProductAvailable(@RequestParam Integer skipCount) {
         return commandExecutor.execute(GetAllProductAvailableCommand.class, skipCount)
+                .log("#getProductAvailable - Successfully executing command.")
+                .map(ResponseHelper::ok)
+                .subscribeOn(Schedulers.elastic());
+    }
+
+    @GetMapping(value = ApiPath.PRODUCT_CATEGORY)
+    public Mono<Response<List<GetAllProductByCategoryResponse>>> getProductCategory(@ModelAttribute GetAllProductByCategoryRequest request) {
+        return commandExecutor.execute(GetAllProductByCategoryCommand.class, request)
                 .log("#getProductAvailable - Successfully executing command.")
                 .map(ResponseHelper::ok)
                 .subscribeOn(Schedulers.elastic());
