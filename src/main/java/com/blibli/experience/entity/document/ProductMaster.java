@@ -1,7 +1,6 @@
 package com.blibli.experience.entity.document;
 
 import com.blibli.experience.enums.ProductCategory;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,7 +9,6 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-import sun.security.x509.AVA;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,10 +27,8 @@ public class ProductMaster {
     public static final String BRAND = "brand";
     public static final String BARCODE = "barcode";
     public static final String DESCRIPTION = "description";
-    public static final String STOCK = "stock";
     public static final String WEIGHT = "weight";
     public static final String VOLUME = "volume";
-    public static final String STATUS = "status";
     public static final String CATEGORY = "category";
     public static final String IMAGE_PATH = "imagePath";
     public static final String AVAILABLE_FLAG = "availableFlag";

@@ -2,7 +2,7 @@ package com.blibli.experience.security;
 
 import com.blibli.experience.entity.document.Shop;
 import com.blibli.experience.entity.document.User;
-import com.blibli.experience.entity.form.UserDataForm;
+import com.blibli.experience.entity.form.UserRoleForm;
 import com.blibli.experience.enums.UserRole;
 import com.blibli.experience.repository.ShopRepository;
 import com.blibli.experience.repository.UserRepository;
@@ -24,8 +24,8 @@ public class UserDataProvider {
         this.shopRepository = shopRepository;
     }
 
-    public UserDataForm provideUserData(String userEmail) {
-        UserDataForm dataForm = new UserDataForm();
+    public UserRoleForm provideUserData(String userEmail) {
+        UserRoleForm dataForm = new UserRoleForm();
         User user = userRepository.findFirstByUserEmail(userEmail).block();
         if(user != null && user.getUserRoles().contains(UserRole.MERCHANT)) {
             BeanUtils.copyProperties(user, dataForm);
