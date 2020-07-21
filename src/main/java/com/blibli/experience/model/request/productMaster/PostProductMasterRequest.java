@@ -5,10 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -19,11 +21,20 @@ public class PostProductMasterRequest {
     @NotBlank
     private String productName;
 
+    @NotBlank
     private String productBrand;
+
+    @NotBlank
     private String productBarcode;
-    private ProductCategory productCategory;
+
+    @NotBlank
     private String productDescription;
-    private Double productWeight;
+
+    @NotBlank
     private String productVolume;
+
+    private Double productWeight;
+    private ProductCategory productCategory;
+    private List<MultipartFile> productImage;
 
 }

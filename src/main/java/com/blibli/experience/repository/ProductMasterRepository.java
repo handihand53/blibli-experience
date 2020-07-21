@@ -1,6 +1,7 @@
 package com.blibli.experience.repository;
 
 import com.blibli.experience.entity.document.ProductMaster;
+import com.blibli.experience.enums.ProductAvailableStatus;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
@@ -20,4 +21,5 @@ public interface ProductMasterRepository extends ReactiveMongoRepository<Product
 
   Flux<ProductMaster> findAllByAvailableFlagTrue();
 
+  Flux<ProductMaster> findAllByAvailableStatus(ProductAvailableStatus availableStatus);
 }

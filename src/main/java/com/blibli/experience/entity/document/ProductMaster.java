@@ -1,5 +1,6 @@
 package com.blibli.experience.entity.document;
 
+import com.blibli.experience.enums.ProductAvailableStatus;
 import com.blibli.experience.enums.ProductCategory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,7 +32,7 @@ public class ProductMaster {
     public static final String VOLUME = "volume";
     public static final String CATEGORY = "category";
     public static final String IMAGE_PATH = "imagePath";
-    public static final String AVAILABLE_FLAG = "availableFlag";
+    public static final String AVAILABLE_STATUS = "availableStatus";
     public static final String CREATED_AT = "createdAt";
 
     @Id
@@ -61,8 +62,8 @@ public class ProductMaster {
     @Field(value = VOLUME)
     private String productVolume;
 
-    @Field(value = AVAILABLE_FLAG)
-    private Boolean availableFlag;
+    @Field(value = AVAILABLE_STATUS)
+    private ProductAvailableStatus availableStatus;
 
     @Field(value = IMAGE_PATH)
     private List<String> productImagePaths;

@@ -13,6 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -39,7 +40,7 @@ public class ProductBarter {
     public static final String CREATED_AT = "createdAt";
 
     @Id
-    @Field
+    @Field(value = ID)
     private UUID productBarterId;
 
     @Field(value = USER)
@@ -73,7 +74,7 @@ public class ProductBarter {
     private ProductBarterCondition productBarterCondition;
 
     @Field(value = IMAGE_PATH)
-    private String productBarterImagePaths;
+    private List<String> productBarterImagePaths;
 
     @Field(value = AVAILABLE_STATUS)
     private ProductAvailableStatus availableStatus;

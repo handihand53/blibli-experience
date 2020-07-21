@@ -6,6 +6,7 @@ import com.blibli.experience.entity.document.ProductStock;
 import com.blibli.experience.entity.document.Shop;
 import com.blibli.experience.entity.form.ProductForm;
 import com.blibli.experience.entity.form.ShopForm;
+import com.blibli.experience.enums.ProductAvailableStatus;
 import com.blibli.experience.model.request.productStock.PostProductStockRequest;
 import com.blibli.experience.model.response.productStock.PostProductStockResponse;
 import com.blibli.experience.repository.ProductMasterRepository;
@@ -94,7 +95,7 @@ public class PostProductStockCommandImpl implements PostProductStockCommand {
     }
 
     private void setAvailableFlag(ProductMaster productMaster) {
-        productMaster.setAvailableFlag(true);
+        productMaster.setAvailableStatus(ProductAvailableStatus.AVAILABLE);
         productMasterRepository.save(productMaster).subscribe();
     }
 
