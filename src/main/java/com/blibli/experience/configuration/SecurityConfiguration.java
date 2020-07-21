@@ -77,7 +77,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/admin/**")
                 .hasRole("ADMIN")
                 // Merchant API
-                .antMatchers("/api/merchant")
+                .antMatchers("/api/merchant/**")
                 .hasRole("MERCHANT")
                 // Product API
                 .antMatchers(HttpMethod.GET, "/api/products/**")

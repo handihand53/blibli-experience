@@ -27,7 +27,7 @@ public class UserDataProvider {
     public UserDataForm provideUserData(String userEmail) {
         UserDataForm dataForm = new UserDataForm();
         User user = userRepository.findFirstByUserEmail(userEmail).block();
-        if(user != null && user.getUserRoles().contains(UserRole.MERCHANT)) {
+        if(user != null && user.getUserRoles().contains(UserRole.ROLE_MERCHANT)) {
             BeanUtils.copyProperties(user, dataForm);
             dataForm.setShopId(provideShopData(user.getUserId()).getShopId());
             return dataForm;
