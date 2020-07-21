@@ -30,8 +30,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return UserPrincipal.create(user);
     }
 
-    ;
-
     @Transactional
     public UserDetails loadUserById(UUID id) {
         User user = userRepository.findFirstByUserId(id)

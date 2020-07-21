@@ -2,9 +2,9 @@ package com.blibli.experience.enums;
 
 public enum UserRole {
 
-  USER("User"),
-  MERCHANT("Merchant"),
-  ADMIN("Admin");
+  ROLE_USER("ROLE_USER"),
+  ROLE_MERCHANT("ROLE_MERCHANT"),
+  ROLE_ADMIN("ROLE_ADMIN");
 
   private String userRole;
 

@@ -4,9 +4,7 @@ import com.blibli.experience.command.auth.RegisterAdminCommand;
 import com.blibli.experience.entity.document.User;
 import com.blibli.experience.enums.UserRole;
 import com.blibli.experience.model.request.auth.RegisterAdminRequest;
-import com.blibli.experience.model.request.auth.RegisterUserRequest;
 import com.blibli.experience.model.response.auth.RegisterAdminResponse;
-import com.blibli.experience.model.response.auth.RegisterUserResponse;
 import com.blibli.experience.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -57,7 +55,7 @@ public class RegisterAdminCommandImpl implements RegisterAdminCommand {
 
     private List<UserRole> getUserRole() {
         List<UserRole> roles = new ArrayList<>();
-        roles.add(UserRole.ADMIN);
+        roles.add(UserRole.ROLE_ADMIN);
         return roles;
     }
 

@@ -55,7 +55,7 @@ public class RegisterUserCommandImpl implements RegisterUserCommand {
 
     private List<UserRole> getUserRole() {
         List<UserRole> roles = new ArrayList<>();
-        roles.add(UserRole.USER);
+        roles.add(UserRole.ROLE_USER);
         return roles;
     }
 

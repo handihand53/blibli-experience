@@ -60,7 +60,7 @@ public class RegisterShopCommandImpl implements RegisterShopCommand {
 
   private List<UserRole> addMerchantRole(User user) {
     List<UserRole> roles = user.getUserRoles();
-    roles.add(UserRole.MERCHANT);
+    roles.add(UserRole.ROLE_MERCHANT);
     return roles;
   }
 
@@ -83,7 +83,7 @@ public class RegisterShopCommandImpl implements RegisterShopCommand {
 
   private List<UserRole> getMerchantRole() {
     List<UserRole> roles = new ArrayList<>();
-    roles.add(UserRole.MERCHANT);
+    roles.add(UserRole.ROLE_MERCHANT);
     return roles;
   }
 
