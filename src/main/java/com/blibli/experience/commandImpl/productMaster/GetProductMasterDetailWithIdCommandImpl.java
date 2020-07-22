@@ -42,7 +42,7 @@ public class GetProductMasterDetailWithIdCommandImpl implements GetProductMaster
     }
 
     private Mono<GetProductMasterDetailWithIdResponse> addStockDataToResponse(GetProductMasterDetailWithIdResponse response) {
-        return productStockRepository.findAllByProductForm_ProductId(response.getProductId())
+        return productStockRepository.findAllByProductDataForm_ProductId(response.getProductId())
                 .collectList()
                 .map(productStockList -> {
                     response.setProductStockList(productStockList);

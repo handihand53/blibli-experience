@@ -10,6 +10,8 @@ import java.util.UUID;
 
 public interface ProductBarterRepository extends ReactiveMongoRepository<ProductBarter, UUID> {
 
+    Mono<ProductBarter> findByProductBarterId(UUID productBarterId);
+
     Flux<ProductBarter> findAllByAvailableStatus(ProductAvailableStatus availableStatus);
 
 }

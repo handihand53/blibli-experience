@@ -1,5 +1,6 @@
-package com.blibli.experience.model.request.productBarter;
+package com.blibli.experience.entity.form;
 
+import com.blibli.experience.enums.ProductAvailableStatus;
 import com.blibli.experience.enums.ProductBarterCondition;
 import com.blibli.experience.enums.ProductCategory;
 import lombok.AllArgsConstructor;
@@ -7,39 +8,28 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostProductBarterRequest {
+public class ProductBarterDataForm {
 
-    @NotBlank
+    private UUID productBarterId;
+    private UserDataForm userData;
     private String productBarterName;
-
-    @NotNull
-    private UUID userId;
-
-    @NotBlank
     private String productBarterBrand;
-
-    @NotBlank
     private String productBarterDescription;
-
-    @NotBlank
-    private String productBarterVolume;
-
-    @NotBlank
-    private String productBarterPreference;
-
-    @NotBlank
-    private String productBarterPackage;
-
     private Double productBarterWeight;
+    private String productBarterVolume;
     private ProductCategory productCategory;
+    private String productBarterPreference;
+    private String productBarterPackage;
     private ProductBarterCondition productBarterCondition;
-
+    private List<String> productBarterImagePaths;
+    private ProductAvailableStatus availableStatus;
+    private LocalDateTime productBarterCreatedAt;
 }

@@ -41,7 +41,7 @@ public class GetAllProductAvailableCommandImpl implements GetAllProductAvailable
     }
 
     private Mono<ProductStock> getProductStock(ProductMaster productMaster) {
-        return productStockRepository.findFirstByProductForm_ProductId(productMaster.getProductId());
+        return productStockRepository.findFirstByProductDataForm_ProductId(productMaster.getProductId());
     }
 
     private GetAllProductAvailableResponse toResponse(ProductStock productStock) {

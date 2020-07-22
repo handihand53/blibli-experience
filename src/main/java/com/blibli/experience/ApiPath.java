@@ -12,7 +12,6 @@ public class ApiPath {
   public static final String REGISTER_ADMIN = AUTH + "/admin";
   public static final String LOGIN = AUTH + "/login";
 
-
   // USER ENDPOINTS
   public static final String USER = API + "/users";
   public static final String USER_UPDATE_PASSWORD = USER + "/update/password";
@@ -33,6 +32,14 @@ public class ApiPath {
 
   // CART ENDPOINTS
   public static final String CARTS = API + "/carts";
+
+  // BARTER ENDPOINTS
+  public static final String BARTER = API + "/barter";
+  public static final String BARTER_AVAILABLE = BARTER + "/available";
+
+  // BARTER SUBMISSION ENDPOINTS
+  public static final String BARTER_SUBMISSION = API + "/barterSubmission";
+  public static final String SUBMISSION_BY_PRODUCT_BARTER = BARTER_SUBMISSION + "/productBarter";
 
   // ADMIN ENDPOINTS
   public static final String ADMIN = API + "/admin";

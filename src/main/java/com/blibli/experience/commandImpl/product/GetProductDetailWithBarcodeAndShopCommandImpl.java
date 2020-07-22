@@ -26,7 +26,7 @@ public class GetProductDetailWithBarcodeAndShopCommandImpl implements GetProduct
     @Override
     public Mono<GetProductDetailWithBarcodeAndShopResponse> execute(
             GetProductDetailWithBarcodeAndShopRequest request) {
-        return productStockRepository.findByShopForm_ShopIdAndProductForm_ProductBarcode(request.getShopId(), request.getProductBarcode())
+        return productStockRepository.findByShopForm_ShopIdAndProductDataForm_ProductBarcode(request.getShopId(), request.getProductBarcode())
                 .switchIfEmpty(Mono.error(new NotFoundException("Product not found!")))
                 .map(this::toResponse);
     }

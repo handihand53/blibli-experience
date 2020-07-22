@@ -1,6 +1,6 @@
 package com.blibli.experience.model.response.product;
 
-import com.blibli.experience.entity.form.ProductForm;
+import com.blibli.experience.entity.form.ProductDataForm;
 import com.blibli.experience.entity.form.ShopForm;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +18,7 @@ public class GetProductDetailWithBarcodeAndShopResponse {
 
     private UUID stockId;
     private ShopForm shopForm;
-    private ProductForm productForm;
+    private ProductDataForm productDataForm;
     private Integer productStock;
     private Integer productPrice;
     private LocalDateTime stockCreatedAt;

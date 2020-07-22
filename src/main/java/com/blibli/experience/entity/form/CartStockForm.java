@@ -15,7 +15,7 @@ public class CartStockForm {
 
     private UUID stockId;
     private ShopForm shopForm;
-    private ProductForm productForm;
+    private ProductDataForm productDataForm;
     private Integer productStock;
     private Integer productPrice;
 

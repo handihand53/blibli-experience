@@ -4,7 +4,6 @@ import com.blibli.experience.command.product.GetAllProductByCategoryCommand;
 import com.blibli.experience.entity.document.ProductMaster;
 import com.blibli.experience.entity.document.ProductStock;
 import com.blibli.experience.model.request.product.GetAllProductByCategoryRequest;
-import com.blibli.experience.model.response.product.GetAllProductAvailableResponse;
 import com.blibli.experience.model.response.product.GetAllProductByCategoryResponse;
 import com.blibli.experience.repository.ProductMasterRepository;
 import com.blibli.experience.repository.ProductStockRepository;
@@ -42,7 +41,7 @@ public class GetAllProductByCategoryCommandImpl implements GetAllProductByCatego
     }
 
     private Mono<ProductStock> getProductStock(ProductMaster productMaster) {
-        return productStockRepository.findFirstByProductForm_ProductId(productMaster.getProductId());
+        return productStockRepository.findFirstByProductDataForm_ProductId(productMaster.getProductId());
     }
 
     private GetAllProductByCategoryResponse toResponse(ProductStock productStock) {

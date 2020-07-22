@@ -1,5 +1,6 @@
 package com.blibli.experience.entity.document;
 
+import com.blibli.experience.entity.form.ProductBarterDataForm;
 import com.blibli.experience.entity.form.UserDataForm;
 import com.blibli.experience.enums.ProductBarterCondition;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,7 @@ import java.util.UUID;
 @Document(collection = BarterSubmission.COLLECTION_NAME)
 public class BarterSubmission {
 
-    public static final String COLLECTION_NAME = "productBarter";
+    public static final String COLLECTION_NAME = "barterSubmission";
     public static final String ID = "id";
     public static final String USER = "user";
     public static final String NAME = "name";
@@ -67,7 +68,7 @@ public class BarterSubmission {
     private List<String> barterSubmissionImagePaths;
 
     @Field(value = TARGET_BARTER)
-    private ProductBarter barterSubmissionTargetBarter;
+    private ProductBarterDataForm barterSubmissionTargetBarter;
 
     @Field(value = CREATED_AT)
     private LocalDateTime barterSubmissionCreatedAt;

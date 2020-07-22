@@ -41,7 +41,7 @@ public class PostProductToCartCommandImpl implements PostProductToCartCommand {
     @Override
     public Mono<PostProductToCartResponse> execute(PostProductToCartRequest request) {
         ProductStock productStock = getProductStock(request.getStockId());
-        ProductMaster productMaster = getProductMaster(productStock.getProductForm().getProductId());
+        ProductMaster productMaster = getProductMaster(productStock.getProductDataForm().getProductId());
         return cartRepository.findFirstByUserId(request.getUserId())
                 .switchIfEmpty(createCart(request))
                 .map(cart -> addCartStockForm(cart, productMaster, productStock))
@@ -70,7 +70,7 @@ public class PostProductToCartCommandImpl implements PostProductToCartCommand {
         List<CartStockForm> cartStockForms = cart.getCartStockForms();
         CartStockForm cartStockForm = new CartStockForm();
         BeanUtils.copyProperties(productStock, cartStockForm);
-        BeanUtils.copyProperties(productMaster, cartStockForm.getProductForm());
+        BeanUtils.copyProperties(productMaster, cartStockForm.getProductDataForm());
         cartStockForms.add(cartStockForm);
         cart.setCartStockForms(cartStockForms);
         return cart;

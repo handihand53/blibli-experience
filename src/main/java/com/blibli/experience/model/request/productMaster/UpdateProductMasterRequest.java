@@ -22,11 +22,18 @@ public class UpdateProductMasterRequest {
     @NotBlank
     private String productName;
 
+    @NotBlank
     private String productBrand;
+
+    @NotBlank
     private String productBarcode;
-    private ProductCategory productCategory;
+
+    @NotBlank
     private String productDescription;
-    private Double productWeight;
+
+    @NotBlank
     private String productVolume;
 
+    private ProductCategory productCategory;
+    private Double productWeight;
 }
