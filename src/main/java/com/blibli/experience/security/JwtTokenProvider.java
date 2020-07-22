@@ -1,7 +1,6 @@
 package com.blibli.experience.security;
 
-import com.blibli.experience.entity.form.UserDataForm;
-import com.blibli.experience.repository.UserRepository;
+import com.blibli.experience.entity.form.UserRoleForm;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +41,7 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public UserDataForm generateUserData(String userEmail) {
+    public UserRoleForm generateUserData(String userEmail) {
         return userDataProvider.provideUserData(userEmail);
     }
 

@@ -36,27 +36,31 @@ public class UpdateProductMasterCommandImpl implements UpdateProductMasterComman
         return productMasterRepository.findFirstByProductId(request.getProductId())
                 .switchIfEmpty(Mono.error(new NotFoundException("Product not found.")))
                 .flatMap(productMaster -> {
-                    updateProductStockData(productStockList, productMaster);
-                    return productMasterRepository.save(productMaster);
+                    ProductMaster updatedProductMaster = updateProductMaster(productMaster, request);
+                    updateProductStockData(productStockList, updatedProductMaster);
+                    return productMasterRepository.save(updatedProductMaster);
                 })
                 .map(this::toResponse);
     }
 
     private List<ProductStock> GetProductStockList(UUID productId) {
-        return productStockRepository.findAllByProductForm_ProductId(productId)
+        return productStockRepository.findAllByProductDataForm_ProductId(productId)
                 .collectList()
                 .block();
     }
 
     private void updateProductStockData(List<ProductStock> productStockList, ProductMaster productMaster) {
         if(productStockList != null) {
-            productStockList.forEach((productStock -> updateProductStock(productStock, productMaster)));
+            productStockList.forEach(productStock -> {
+                BeanUtils.copyProperties(productMaster, productStock.getProductDataForm());
+                productStockRepository.save(productStock).subscribe();
+            });
         }
     }
 
-    private void updateProductStock(ProductStock productStock, ProductMaster productMaster) {
-        BeanUtils.copyProperties(productMaster, productStock.getProductForm());
-        productStockRepository.save(productStock);
+    private ProductMaster updateProductMaster(ProductMaster productMaster, UpdateProductMasterRequest request) {
+        BeanUtils.copyProperties(request, productMaster);
+        return productMaster;
     }
 
     private UpdateProductMasterResponse toResponse(ProductMaster productMaster) {

@@ -14,7 +14,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductForm {
+public class ProductDataForm {
 
     private UUID productId;
     private String productName;

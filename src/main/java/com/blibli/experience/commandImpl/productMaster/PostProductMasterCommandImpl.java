@@ -2,6 +2,7 @@ package com.blibli.experience.commandImpl.productMaster;
 
 import com.blibli.experience.command.productMaster.PostProductMasterCommand;
 import com.blibli.experience.entity.document.ProductMaster;
+import com.blibli.experience.enums.ProductAvailableStatus;
 import com.blibli.experience.model.request.productMaster.PostProductMasterRequest;
 import com.blibli.experience.model.response.productMaster.PostProductMasterResponse;
 import com.blibli.experience.repository.ProductMasterRepository;
@@ -36,7 +37,7 @@ public class PostProductMasterCommandImpl implements PostProductMasterCommand {
         ProductMaster productMaster = ProductMaster.builder()
                 .productId(UUID.randomUUID())
                 .productCreatedAt(LocalDateTime.now())
-                .availableFlag(Boolean.FALSE)
+                .availableStatus(ProductAvailableStatus.NOT_AVAILABLE)
                 .build();
         BeanUtils.copyProperties(request, productMaster);
         return productMaster;

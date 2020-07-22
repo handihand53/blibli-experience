@@ -5,6 +5,7 @@ import com.blibli.experience.command.auth.RegisterAdminCommand;
 import com.blibli.experience.command.auth.RegisterShopCommand;
 import com.blibli.experience.command.auth.RegisterUserCommand;
 import com.blibli.experience.entity.form.UserDataForm;
+import com.blibli.experience.entity.form.UserRoleForm;
 import com.blibli.experience.model.request.auth.LoginUserRequest;
 import com.blibli.experience.model.request.auth.RegisterAdminRequest;
 import com.blibli.experience.model.request.auth.RegisterShopRequest;
@@ -70,8 +71,8 @@ public class AuthController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = tokenProvider.generateToken(authentication);
-        UserDataForm dataForm = tokenProvider.generateUserData(request.getUserEmail());
-        return ResponseEntity.ok(new LoginUserResponse(dataForm.getUserId(), dataForm.getShopId(), dataForm.getUserRoles(), jwt));
+        UserRoleForm roleForm = tokenProvider.generateUserData(request.getUserEmail());
+        return ResponseEntity.ok(new LoginUserResponse(roleForm.getUserId(), roleForm.getShopId(), roleForm.getUserRoles(), jwt));
     }
 
     @PostMapping(value = ApiPath.REGISTER_SHOP,

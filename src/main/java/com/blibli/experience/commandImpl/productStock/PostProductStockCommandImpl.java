@@ -4,14 +4,14 @@ import com.blibli.experience.command.productStock.PostProductStockCommand;
 import com.blibli.experience.entity.document.ProductMaster;
 import com.blibli.experience.entity.document.ProductStock;
 import com.blibli.experience.entity.document.Shop;
-import com.blibli.experience.entity.form.ProductForm;
+import com.blibli.experience.entity.form.ProductDataForm;
 import com.blibli.experience.entity.form.ShopForm;
+import com.blibli.experience.enums.ProductAvailableStatus;
 import com.blibli.experience.model.request.productStock.PostProductStockRequest;
 import com.blibli.experience.model.response.productStock.PostProductStockResponse;
 import com.blibli.experience.repository.ProductMasterRepository;
 import com.blibli.experience.repository.ProductStockRepository;
 import com.blibli.experience.repository.ShopRepository;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,9 +59,9 @@ public class PostProductStockCommandImpl implements PostProductStockCommand {
         // Copy shopForm from shop data in DB
         productStock.setShopForm(getShopForm(request));
         // Copy productForm from product master data in DB
-        ProductForm productForm = new ProductForm();
-        BeanUtils.copyProperties(productMaster, productForm);
-        productStock.setProductForm(productForm);
+        ProductDataForm productDataForm = new ProductDataForm();
+        BeanUtils.copyProperties(productMaster, productDataForm);
+        productStock.setProductDataForm(productDataForm);
         return productStock;
     }
 
@@ -94,7 +94,7 @@ public class PostProductStockCommandImpl implements PostProductStockCommand {
     }
 
     private void setAvailableFlag(ProductMaster productMaster) {
-        productMaster.setAvailableFlag(true);
+        productMaster.setAvailableStatus(ProductAvailableStatus.AVAILABLE);
         productMasterRepository.save(productMaster).subscribe();
     }
 
