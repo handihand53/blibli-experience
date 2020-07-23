@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
@@ -35,7 +36,9 @@ public class ProductMasterController {
     }
 
     @PostMapping(value = ApiPath.ADMIN_PRODUCT_MASTER, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<Response<PostProductMasterResponse>> postProductMaster(@RequestBody PostProductMasterRequest request) {
+    public Mono<Response<PostProductMasterResponse>> postProductMaster(@RequestBody PostProductMasterRequest request,
+                                                                       @RequestParam List<MultipartFile> images) {
+        request.setProductImage(images);
         return commandExecutor.execute(PostProductMasterCommand.class, request)
                 .log("#postProductMaster - Successfully executing command.")
                 .map(ResponseHelper::ok)

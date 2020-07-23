@@ -8,6 +8,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -19,18 +21,28 @@ public class FileUploadUtil {
     private String pathServer = "http://localhost:8080/uploads/" + temp;
     private String uploadDir = "uploads/";
 
-    public String uploadPhoto(@RequestParam MultipartFile multipartFile,
-                              @RequestParam UUID id,
-                              @RequestParam UploadEnum uploadEnum,
-                              @RequestParam Integer count) throws IOException {
-        String photoLink = projectDir + uploadDir + uploadEnum + id + "_" + count;
+    public List<String> uploadAllPhoto(List<MultipartFile> photos,
+                                       UUID productId,
+                                       UploadEnum uploadEnum) throws IOException {
+        List<String> imagePaths = new ArrayList<>();
+        for(int i = 0; i < photos.size(); i++) {
+            imagePaths.add(uploadPhoto(photos.get(i), productId, uploadEnum, i));
+        }
+        return imagePaths;
+    }
+
+    public String uploadPhoto(MultipartFile photo,
+                              UUID productId,
+                              UploadEnum uploadEnum,
+                              Integer count) throws IOException {
+        String photoLink = projectDir + uploadDir + uploadEnum + productId + "_" + count;
         File file = new File(photoLink);
         if(!file.exists()) {
             file.mkdirs();
         } else {
             file.delete();
         }
-        multipartFile.transferTo(file);
+        photo.transferTo(file);
         return photoLink;
     }
 
