@@ -2,9 +2,11 @@ package com.blibli.experience.controller;
 
 import com.blibli.experience.ApiPath;
 import com.blibli.experience.command.productBarter.GetProductBarterAvailableCommand;
+import com.blibli.experience.command.productBarter.GetProductBarterDetailCommand;
 import com.blibli.experience.command.productBarter.PostProductBarterCommand;
 import com.blibli.experience.model.request.productBarter.PostProductBarterRequest;
 import com.blibli.experience.model.response.productBarter.GetProductBarterAvailableResponse;
+import com.blibli.experience.model.response.productBarter.GetProductBarterDetailResponse;
 import com.blibli.experience.model.response.productBarter.PostProductBarterResponse;
 import com.blibli.oss.command.CommandExecutor;
 import com.blibli.oss.common.response.Response;
@@ -17,6 +19,7 @@ import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -35,6 +38,15 @@ public class ProductBarterController {
             @RequestParam Integer skipCount) {
         return commandExecutor.execute(GetProductBarterAvailableCommand.class, skipCount)
                 .log("#getProductBarterAvailable - Successfully executing command.")
+                .map(ResponseHelper::ok)
+                .subscribeOn(Schedulers.elastic());
+    }
+
+    @GetMapping(value = ApiPath.BARTER)
+    public Mono<Response<GetProductBarterDetailResponse>> getProductBarterDetail(
+            @RequestParam UUID productBarterId) {
+        return commandExecutor.execute(GetProductBarterDetailCommand.class, productBarterId)
+                .log("#getProductBarterDetail - Successfully executing command.")
                 .map(ResponseHelper::ok)
                 .subscribeOn(Schedulers.elastic());
     }
