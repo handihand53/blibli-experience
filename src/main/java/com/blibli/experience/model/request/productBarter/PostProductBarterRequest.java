@@ -6,9 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -38,6 +40,8 @@ public class PostProductBarterRequest {
     @NotBlank
     private String productBarterPackage;
 
+    private List<String> productBarterImagePaths;
+    private List<MultipartFile> productBarterImages;
     private Double productBarterWeight;
     private ProductCategory productCategory;
     private ProductBarterCondition productBarterCondition;

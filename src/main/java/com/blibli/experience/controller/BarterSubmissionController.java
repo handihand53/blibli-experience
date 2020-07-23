@@ -14,13 +14,17 @@ import com.blibli.experience.model.response.productBarter.PostProductBarterRespo
 import com.blibli.oss.command.CommandExecutor;
 import com.blibli.oss.common.response.Response;
 import com.blibli.oss.common.response.ResponseHelper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,10 +34,12 @@ import java.util.UUID;
 public class BarterSubmissionController {
 
     private CommandExecutor commandExecutor;
+    private ObjectMapper objectMapper;
 
     @Autowired
-    public BarterSubmissionController(CommandExecutor commandExecutor) {
+    public BarterSubmissionController(CommandExecutor commandExecutor, ObjectMapper objectMapper) {
         this.commandExecutor = commandExecutor;
+        this.objectMapper = objectMapper;
     }
 
     @GetMapping(value = ApiPath.BARTER_SUBMISSION)
@@ -54,9 +60,11 @@ public class BarterSubmissionController {
                 .subscribeOn(Schedulers.elastic());
     }
 
-    @PostMapping(value = ApiPath.BARTER_SUBMISSION, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = ApiPath.BARTER_SUBMISSION)
     public Mono<Response<PostBarterSubmissionResponse>> postBarterSubmission(
-            @RequestBody PostBarterSubmissionRequest request) {
+            @RequestParam List<MultipartFile> images, @RequestParam String barterSubmissionMetaData) throws IOException {
+        PostBarterSubmissionRequest request = objectMapper.readValue(barterSubmissionMetaData, PostBarterSubmissionRequest.class);
+        request.setBarterSubmissionImages(images);
         return commandExecutor.execute(PostBarterSubmissionCommand.class, request)
                 .log("#postBarterSubmission - Successfully executing command.")
                 .map(ResponseHelper::ok)

@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.UUID;
@@ -25,7 +26,7 @@ public class PostBarterSubmissionRequest {
     private String barterSubmissionVolume;
     private String barterSubmissionPackage;
     private ProductBarterCondition barterSubmissionCondition;
-    private List<String> barterSubmissionImagePaths;
+    private List<MultipartFile> barterSubmissionImages;
 
 
 }
