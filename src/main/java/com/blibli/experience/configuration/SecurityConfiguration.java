@@ -80,7 +80,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/merchant/**")
                 .hasRole("MERCHANT")
                 // Product API
-                .antMatchers(HttpMethod.GET, "/api/products/**")
+                .antMatchers(HttpMethod.GET, "/api/products/**", "/api/barter/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated();

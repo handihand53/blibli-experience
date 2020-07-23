@@ -15,7 +15,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetProductBarterAvailableResponse {
+public class GetProductBarterDetailResponse {
 
     private UUID productBarterId;
     private String productBarterName;
