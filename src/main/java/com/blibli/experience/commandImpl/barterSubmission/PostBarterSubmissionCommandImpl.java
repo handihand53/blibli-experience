@@ -6,11 +6,13 @@ import com.blibli.experience.entity.document.ProductBarter;
 import com.blibli.experience.entity.document.User;
 import com.blibli.experience.entity.form.ProductBarterDataForm;
 import com.blibli.experience.entity.form.UserDataForm;
+import com.blibli.experience.enums.UploadEnum;
 import com.blibli.experience.model.request.barterSubmission.PostBarterSubmissionRequest;
 import com.blibli.experience.model.response.barterSubmission.PostBarterSubmissionResponse;
 import com.blibli.experience.repository.BarterSubmissionRepository;
 import com.blibli.experience.repository.ProductBarterRepository;
 import com.blibli.experience.repository.UserRepository;
+import com.blibli.experience.util.FileUploadUtil;
 import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -18,7 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -28,12 +32,14 @@ public class PostBarterSubmissionCommandImpl implements PostBarterSubmissionComm
     private BarterSubmissionRepository barterSubmissionRepository;
     private ProductBarterRepository productBarterRepository;
     private UserRepository userRepository;
+    private FileUploadUtil fileUploadUtil;
 
     @Autowired
-    public PostBarterSubmissionCommandImpl(BarterSubmissionRepository barterSubmissionRepository, ProductBarterRepository productBarterRepository, UserRepository userRepository) {
+    public PostBarterSubmissionCommandImpl(BarterSubmissionRepository barterSubmissionRepository, ProductBarterRepository productBarterRepository, UserRepository userRepository, FileUploadUtil fileUploadUtil) {
         this.barterSubmissionRepository = barterSubmissionRepository;
         this.productBarterRepository = productBarterRepository;
         this.userRepository = userRepository;
+        this.fileUploadUtil = fileUploadUtil;
     }
 
     @Override
@@ -42,7 +48,14 @@ public class PostBarterSubmissionCommandImpl implements PostBarterSubmissionComm
         return productBarterRepository.findByProductBarterId(request.getProductBarterId())
                 .switchIfEmpty(Mono.error(new NotFoundException("Target barter not found.")))
                 .map(productBarter -> toBarterSubmission(productBarter, userDataForm, request))
-                .flatMap(barterSubmission -> barterSubmissionRepository.save(barterSubmission))
+                .flatMap(barterSubmission -> {
+                    try {
+                        barterSubmission.setBarterSubmissionImagePaths(getImagePaths(request, barterSubmission));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    return barterSubmissionRepository.save(barterSubmission);
+                })
                 .map(this::toResponse);
     }
 
@@ -74,6 +87,10 @@ public class PostBarterSubmissionCommandImpl implements PostBarterSubmissionComm
         ProductBarterDataForm dataForm = new ProductBarterDataForm();
         BeanUtils.copyProperties(productBarter, dataForm);
         return dataForm;
+    }
+
+    private List<String> getImagePaths(PostBarterSubmissionRequest request, BarterSubmission barterSubmission) throws IOException {
+        return fileUploadUtil.uploadAllPhoto(request.getBarterSubmissionImages(), barterSubmission.getBarterSubmissionId(), UploadEnum.barterSubmissionPhoto);
     }
 
     private PostBarterSubmissionResponse toResponse(BarterSubmission barterSubmission) {

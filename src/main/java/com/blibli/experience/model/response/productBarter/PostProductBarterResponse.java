@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -28,7 +29,7 @@ public class PostProductBarterResponse {
     private String productBarterPreference;
     private String productBarterPackage;
     private ProductBarterCondition productBarterCondition;
-    private String productBarterImagePaths;
+    private List<String> productBarterImagePaths;
     private LocalDateTime productBarterCreatedAt;
 
 }

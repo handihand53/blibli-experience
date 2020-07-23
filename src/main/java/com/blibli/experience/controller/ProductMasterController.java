@@ -12,6 +12,8 @@ import com.blibli.experience.model.response.productMaster.UpdateProductMasterRes
 import com.blibli.oss.command.CommandExecutor;
 import com.blibli.oss.common.response.Response;
 import com.blibli.oss.common.response.ResponseHelper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -20,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,15 +32,18 @@ import java.util.UUID;
 public class ProductMasterController {
 
     private CommandExecutor commandExecutor;
+    private ObjectMapper objectMapper;
 
     @Autowired
-    public ProductMasterController(CommandExecutor commandExecutor) {
+    public ProductMasterController(CommandExecutor commandExecutor, ObjectMapper objectMapper) {
         this.commandExecutor = commandExecutor;
+        this.objectMapper = objectMapper;
     }
 
-    @PostMapping(value = ApiPath.ADMIN_PRODUCT_MASTER, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<Response<PostProductMasterResponse>> postProductMaster(@RequestBody PostProductMasterRequest request,
-                                                                       @RequestParam List<MultipartFile> images) {
+    @PostMapping(value = ApiPath.ADMIN_PRODUCT_MASTER)
+    public Mono<Response<PostProductMasterResponse>> postProductMaster(@RequestParam String productMetaData,
+                                                                       @RequestParam List<MultipartFile> images) throws IOException {
+        PostProductMasterRequest request = objectMapper.readValue(productMetaData, PostProductMasterRequest.class);
         request.setProductImage(images);
         return commandExecutor.execute(PostProductMasterCommand.class, request)
                 .log("#postProductMaster - Successfully executing command.")

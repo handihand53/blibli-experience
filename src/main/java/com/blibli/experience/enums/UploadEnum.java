@@ -2,8 +2,9 @@ package com.blibli.experience.enums;
 
 public enum UploadEnum {
 
-    PRODUCT_PHOTO("productPhoto"),
-    BARTER_PRODUCT_PHOTO("barterProductPhoto");
+    productPhoto("productPhoto"),
+    barterProductPhoto("barterProductPhoto"),
+    barterSubmissionPhoto("barterSubmissionPhoto");
 
     private String uploadEnum;
 

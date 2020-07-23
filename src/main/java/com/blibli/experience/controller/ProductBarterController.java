@@ -9,13 +9,17 @@ import com.blibli.experience.model.response.productBarter.PostProductBarterRespo
 import com.blibli.oss.command.CommandExecutor;
 import com.blibli.oss.common.response.Response;
 import com.blibli.oss.common.response.ResponseHelper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -24,10 +28,12 @@ import java.util.List;
 public class ProductBarterController {
 
     private CommandExecutor commandExecutor;
+    private ObjectMapper objectMapper;
 
     @Autowired
-    public ProductBarterController(CommandExecutor commandExecutor) {
+    public ProductBarterController(CommandExecutor commandExecutor, ObjectMapper objectMapper) {
         this.commandExecutor = commandExecutor;
+        this.objectMapper = objectMapper;
     }
 
     @GetMapping(value = ApiPath.BARTER_AVAILABLE)
@@ -39,9 +45,11 @@ public class ProductBarterController {
                 .subscribeOn(Schedulers.elastic());
     }
 
-    @PostMapping(value = ApiPath.BARTER, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = ApiPath.BARTER)
     public Mono<Response<PostProductBarterResponse>> postProductBarter(
-            @RequestBody PostProductBarterRequest request) {
+            @RequestParam List<MultipartFile> images, @RequestParam String productBarterMetaData) throws IOException {
+        PostProductBarterRequest request = objectMapper.readValue(productBarterMetaData, PostProductBarterRequest.class);
+        request.setProductBarterImages(images);
         return commandExecutor.execute(PostProductBarterCommand.class, request)
                 .log("#postProductBarter - Successfully executing command.")
                 .map(ResponseHelper::ok)

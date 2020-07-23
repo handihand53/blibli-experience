@@ -57,7 +57,7 @@ public class PostProductMasterCommandImpl implements PostProductMasterCommand {
     }
 
     private List<String> getImagePaths(PostProductMasterRequest request, ProductMaster productMaster) throws IOException {
-        return fileUploadUtil.uploadAllPhoto(request.getProductImage(), productMaster.getProductId(), UploadEnum.PRODUCT_PHOTO);
+        return fileUploadUtil.uploadAllPhoto(request.getProductImage(), productMaster.getProductId(), UploadEnum.productPhoto);
     }
 
     private PostProductMasterResponse toResponse(ProductMaster productMaster) {
