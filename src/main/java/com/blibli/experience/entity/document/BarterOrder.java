@@ -1,6 +1,10 @@
 package com.blibli.experience.entity.document;
 
+import com.blibli.experience.entity.form.BarterSubmissionDataForm;
+import com.blibli.experience.entity.form.ProductBarterDataForm;
+import com.blibli.experience.entity.form.ReceiptForm;
 import com.blibli.experience.entity.form.UserDataForm;
+import com.blibli.experience.enums.BarterItemStatus;
 import com.blibli.experience.enums.BarterOrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,6 +34,8 @@ public class BarterOrder {
     public static final String BUYER_TO_WAREHOUSE_RECEIPT = "buyerToWarehouseReceipt";
     public static final String WAREHOUSE_TO_SELLER_RECEIPT = "warehouseToSellerReceipt";
     public static final String WAREHOUSE_TO_BUYER_RECEIPT = "warehouseToBuyerReceipt";
+    public static final String SELLER_ITEM_STATUS = "sellerItemStatus";
+    public static final String BUYER_ITEM_STATUS = "buyerItemStatus";
     public static final String ORDER_STATUS = "orderStatus";
     public static final String CREATED_AT = "createdAt";
 
@@ -38,10 +44,10 @@ public class BarterOrder {
     private UUID barterOrderId;
 
     @Field(value = SELLING_PRODUCT)
-    private ProductBarter sellingProduct;
+    private ProductBarterDataForm sellingProduct;
 
     @Field(value = BUYING_PRODUCT)
-    private ProductBarter buyingProduct;
+    private BarterSubmissionDataForm buyingProduct;
 
     @Field(value = SELLER_FORM)
     private UserDataForm sellerData;
@@ -50,16 +56,22 @@ public class BarterOrder {
     private UserDataForm buyerData;
 
     @Field(value = SELLER_TO_WAREHOUSE_RECEIPT)
-    private String sellerToWarehouseReceipt;
+    private ReceiptForm sellerToWarehouseReceipt;
 
     @Field(value = BUYER_TO_WAREHOUSE_RECEIPT)
-    private String buyerToWarehouseReceipt;
+    private ReceiptForm buyerToWarehouseReceipt;
 
     @Field(value = WAREHOUSE_TO_SELLER_RECEIPT)
-    private String warehouseToSellerReceipt;
+    private ReceiptForm warehouseToSellerReceipt;
 
     @Field(value = WAREHOUSE_TO_BUYER_RECEIPT)
-    private String warehouseToBuyerReceipt;
+    private ReceiptForm warehouseToBuyerReceipt;
+
+    @Field(value = SELLER_ITEM_STATUS)
+    private BarterItemStatus sellerItemStatus;
+
+    @Field(value = BUYER_ITEM_STATUS)
+    private BarterItemStatus buyerItemStatus;
 
     @Field(value = ORDER_STATUS)
     private BarterOrderStatus orderStatus;

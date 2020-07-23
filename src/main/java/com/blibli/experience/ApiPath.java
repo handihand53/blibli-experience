@@ -42,9 +42,17 @@ public class ApiPath {
   public static final String SUBMISSION_BY_USER = BARTER_SUBMISSION + "/user";
   public static final String SUBMISSION_BY_PRODUCT_BARTER = BARTER_SUBMISSION + "/productBarter";
 
+  // BARTER ORDER ENDPOINTS
+  public static final String BARTER_ORDER = API + "/barterOrder";
+  public static final String BARTER_ORDER_RECEIPT_TO_WAREHOUSE = BARTER_ORDER + "/toWarehouse";
+  public static final String BARTER_ORDER_RECEIPT_IN_CONSUMERS = BARTER_ORDER + "/inConsumers";
+
   // ADMIN ENDPOINTS
   public static final String ADMIN = API + "/admin";
   public static final String ADMIN_PRODUCT_MASTER = ADMIN + "/productMasters";
+  public static final String ADMIN_BARTER_ORDER = ADMIN + "/barterOrder";
+  public static final String ADMIN_BARTER_ORDER_RECEIPT_TO_VERIFIED = ADMIN_BARTER_ORDER + "/toVerified";
+  public static final String ADMIN_BARTER_ORDER_RECEIPT_TO_CONSUMERS = ADMIN_BARTER_ORDER + "/toConsumers";
 
   // MERCHANT ENDPOINTS
   public static final String MERCHANT = API + "/merchant";
