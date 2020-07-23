@@ -11,6 +11,8 @@ public interface BarterSubmissionRepository extends ReactiveMongoRepository<Bart
 
     Mono<BarterSubmission> findByBarterSubmissionId(UUID id);
 
+    Flux<BarterSubmission> findAllByUserData_UserId(UUID userId);
+
     Flux<BarterSubmission> findAllByBarterSubmissionTargetBarter_ProductBarterId(UUID productBarterId);
 
 }

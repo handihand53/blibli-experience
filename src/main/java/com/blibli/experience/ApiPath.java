@@ -39,6 +39,7 @@ public class ApiPath {
 
   // BARTER SUBMISSION ENDPOINTS
   public static final String BARTER_SUBMISSION = API + "/barterSubmission";
+  public static final String SUBMISSION_BY_USER = BARTER_SUBMISSION + "/user";
   public static final String SUBMISSION_BY_PRODUCT_BARTER = BARTER_SUBMISSION + "/productBarter";
 
   // ADMIN ENDPOINTS

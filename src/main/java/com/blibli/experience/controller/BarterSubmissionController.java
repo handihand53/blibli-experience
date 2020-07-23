@@ -2,12 +2,14 @@ package com.blibli.experience.controller;
 
 import com.blibli.experience.ApiPath;
 import com.blibli.experience.command.barterSubmission.GetAllBarterSubmissionByProductBarterCommand;
+import com.blibli.experience.command.barterSubmission.GetAllBarterSubmissionByUserIdCommand;
 import com.blibli.experience.command.barterSubmission.GetBarterSubmissionDetailCommand;
 import com.blibli.experience.command.barterSubmission.PostBarterSubmissionCommand;
 import com.blibli.experience.command.productBarter.PostProductBarterCommand;
 import com.blibli.experience.model.request.barterSubmission.PostBarterSubmissionRequest;
 import com.blibli.experience.model.request.productBarter.PostProductBarterRequest;
 import com.blibli.experience.model.response.barterSubmission.GetAllBarterSubmissionByProductBarterResponse;
+import com.blibli.experience.model.response.barterSubmission.GetAllBarterSubmissionByUserIdResponse;
 import com.blibli.experience.model.response.barterSubmission.GetBarterSubmissionDetailResponse;
 import com.blibli.experience.model.response.barterSubmission.PostBarterSubmissionResponse;
 import com.blibli.experience.model.response.productBarter.PostProductBarterResponse;
@@ -47,6 +49,15 @@ public class BarterSubmissionController {
             @RequestParam UUID barterSubmissionId) {
         return commandExecutor.execute(GetBarterSubmissionDetailCommand.class, barterSubmissionId)
                 .log("#getBarterSubmissionDetail - Successfully executing command.")
+                .map(ResponseHelper::ok)
+                .subscribeOn(Schedulers.elastic());
+    }
+
+    @GetMapping(value = ApiPath.SUBMISSION_BY_USER)
+    public Mono<Response<List<GetAllBarterSubmissionByUserIdResponse>>> getAllBarterSubmissionByUserId(
+            @RequestParam UUID userId) {
+        return commandExecutor.execute(GetAllBarterSubmissionByUserIdCommand.class, userId)
+                .log("#getAllBarterSubmissionByUserId - Successfully executing command.")
                 .map(ResponseHelper::ok)
                 .subscribeOn(Schedulers.elastic());
     }
