@@ -33,9 +33,10 @@ public class ApiPath {
   // CART ENDPOINTS
   public static final String CARTS = API + "/carts";
 
-  // BARTER ENDPOINTS
-  public static final String BARTER = API + "/barter";
-  public static final String BARTER_AVAILABLE = BARTER + "/available";
+  // PRODUCT BARTER ENDPOINTS
+  public static final String PRODUCT_BARTER = API + "/barter";
+  public static final String PRODUCT_BARTER_AVAILABLE = PRODUCT_BARTER + "/available";
+  public static final String PRODUCT_BARTER_BY_USER = PRODUCT_BARTER + "/user";
 
   // BARTER SUBMISSION ENDPOINTS
   public static final String BARTER_SUBMISSION = API + "/barterSubmission";
@@ -44,6 +45,7 @@ public class ApiPath {
 
   // BARTER ORDER ENDPOINTS
   public static final String BARTER_ORDER = API + "/barterOrder";
+  public static final String BARTER_ORDER_BY_USER = BARTER_ORDER + "/user";
   public static final String BARTER_ORDER_RECEIPT_TO_WAREHOUSE = BARTER_ORDER + "/toWarehouse";
   public static final String BARTER_ORDER_RECEIPT_IN_CONSUMERS = BARTER_ORDER + "/inConsumers";
 
@@ -51,6 +53,8 @@ public class ApiPath {
   public static final String ADMIN = API + "/admin";
   public static final String ADMIN_PRODUCT_MASTER = ADMIN + "/productMasters";
   public static final String ADMIN_BARTER_ORDER = ADMIN + "/barterOrder";
+  public static final String ADMIN_BARTER_ORDER_BY_ORDER_STATUS = ADMIN_BARTER_ORDER + "/orderStatus";
+  public static final String ADMIN_BARTER_ORDER_BY_ITEM_STATUS = ADMIN_BARTER_ORDER + "/itemStatus";
   public static final String ADMIN_BARTER_ORDER_RECEIPT_TO_VERIFIED = ADMIN_BARTER_ORDER + "/toVerified";
   public static final String ADMIN_BARTER_ORDER_RECEIPT_TO_CONSUMERS = ADMIN_BARTER_ORDER + "/toConsumers";
 

@@ -12,6 +12,8 @@ public interface ProductBarterRepository extends ReactiveMongoRepository<Product
 
     Mono<ProductBarter> findByProductBarterId(UUID productBarterId);
 
+    Flux<ProductBarter> findAllByUserData_UserId(UUID userId);
+
     Flux<ProductBarter> findAllByAvailableStatus(ProductAvailableStatus availableStatus);
 
 }

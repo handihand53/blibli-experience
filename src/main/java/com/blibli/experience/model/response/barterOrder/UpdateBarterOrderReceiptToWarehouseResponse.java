@@ -21,6 +21,7 @@ import java.util.UUID;
 public class UpdateBarterOrderReceiptToWarehouseResponse {
 
     private UUID barterOrderId;
+    private String orderTransactionId;
     private ProductBarterDataForm sellingProduct;
     private BarterSubmissionDataForm buyingProduct;
     private UserDataForm sellerData;

@@ -26,6 +26,7 @@ public class BarterOrder {
 
     public static final String COLLECTION_NAME = "barterOrder";
     public static final String ID = "id";
+    public static final String ORDER_TRANSACTION = "orderTransactionId";
     public static final String SELLING_PRODUCT = "sellingProduct";
     public static final String BUYING_PRODUCT = "buyingProduct";
     public static final String SELLER_FORM = "sellerForm";
@@ -40,8 +41,11 @@ public class BarterOrder {
     public static final String CREATED_AT = "createdAt";
 
     @Id
-    @Field
+    @Field(value = ID)
     private UUID barterOrderId;
+
+    @Field(value = ORDER_TRANSACTION)
+    private String orderTransactionId;
 
     @Field(value = SELLING_PRODUCT)
     private ProductBarterDataForm sellingProduct;

@@ -53,17 +53,17 @@ public class ProductController {
     }
 
     @GetMapping(value = ApiPath.PRODUCT_AVAILABLE)
-    public Mono<Response<List<GetAllProductAvailableResponse>>> getProductAvailable(@RequestParam Integer skipCount) {
+    public Mono<Response<List<GetAllProductAvailableResponse>>> getAllProductAvailable(@RequestParam Integer skipCount) {
         return commandExecutor.execute(GetAllProductAvailableCommand.class, skipCount)
-                .log("#getProductAvailable - Successfully executing command.")
+                .log("#getAllProductAvailable - Successfully executing command.")
                 .map(ResponseHelper::ok)
                 .subscribeOn(Schedulers.elastic());
     }
 
     @GetMapping(value = ApiPath.PRODUCT_CATEGORY)
-    public Mono<Response<List<GetAllProductByCategoryResponse>>> getProductCategory(@ModelAttribute GetAllProductByCategoryRequest request) {
+    public Mono<Response<List<GetAllProductByCategoryResponse>>> getAllProductCategory(@ModelAttribute GetAllProductByCategoryRequest request) {
         return commandExecutor.execute(GetAllProductByCategoryCommand.class, request)
-                .log("#getProductAvailable - Successfully executing command.")
+                .log("#getAllProductCategory - Successfully executing command.")
                 .map(ResponseHelper::ok)
                 .subscribeOn(Schedulers.elastic());
     }

@@ -18,7 +18,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateBarterOrderReceiptToConsumersResponse {
+public class GetAllBarterOrderByOrderStatusResponse {
 
     private UUID barterOrderId;
     private String orderTransactionId;
@@ -26,6 +26,8 @@ public class UpdateBarterOrderReceiptToConsumersResponse {
     private BarterSubmissionDataForm buyingProduct;
     private UserDataForm sellerData;
     private UserDataForm buyerData;
+    private ReceiptForm sellerToWarehouseReceipt;
+    private ReceiptForm buyerToWarehouseReceipt;
     private ReceiptForm warehouseToSellerReceipt;
     private ReceiptForm warehouseToBuyerReceipt;
     private BarterItemStatus sellerItemStatus;

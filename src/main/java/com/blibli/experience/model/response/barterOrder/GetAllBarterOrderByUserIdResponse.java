@@ -2,7 +2,6 @@ package com.blibli.experience.model.response.barterOrder;
 
 import com.blibli.experience.entity.form.BarterSubmissionDataForm;
 import com.blibli.experience.entity.form.ProductBarterDataForm;
-import com.blibli.experience.entity.form.ReceiptForm;
 import com.blibli.experience.entity.form.UserDataForm;
 import com.blibli.experience.enums.BarterItemStatus;
 import com.blibli.experience.enums.BarterOrderStatus;
@@ -18,7 +17,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateBarterOrderReceiptToConsumersResponse {
+public class GetAllBarterOrderByUserIdResponse {
 
     private UUID barterOrderId;
     private String orderTransactionId;
@@ -26,8 +25,6 @@ public class UpdateBarterOrderReceiptToConsumersResponse {
     private BarterSubmissionDataForm buyingProduct;
     private UserDataForm sellerData;
     private UserDataForm buyerData;
-    private ReceiptForm warehouseToSellerReceipt;
-    private ReceiptForm warehouseToBuyerReceipt;
     private BarterItemStatus sellerItemStatus;
     private BarterItemStatus buyerItemStatus;
     private BarterOrderStatus orderStatus;

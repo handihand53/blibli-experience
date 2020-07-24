@@ -2,6 +2,7 @@ package com.blibli.experience.controller;
 
 import com.blibli.experience.ApiPath;
 import com.blibli.experience.command.barterOrder.*;
+import com.blibli.experience.enums.BarterOrderStatus;
 import com.blibli.experience.model.request.barterOrder.*;
 import com.blibli.experience.model.response.barterOrder.*;
 import com.blibli.oss.command.CommandExecutor;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -33,6 +35,33 @@ public class BarterOrderController {
             @RequestParam UUID barterOrderId) {
         return commandExecutor.execute(GetBarterOrderDetailCommand.class, barterOrderId)
                 .log("#getBarterOrderDetail - Successfully executing command.")
+                .map(ResponseHelper::ok)
+                .subscribeOn(Schedulers.elastic());
+    }
+
+    @GetMapping(value = ApiPath.BARTER_ORDER_BY_USER)
+    public Mono<Response<List<GetAllBarterOrderByUserIdResponse>>> getAllBarterOrderByUserId(
+            @ModelAttribute GetAllBarterOrderByUserIdRequest request) {
+        return commandExecutor.execute(GetAllBarterOrderByUserIdCommand.class, request)
+                .log("#getAllBarterOrderByUserId - Successfully executing command.")
+                .map(ResponseHelper::ok)
+                .subscribeOn(Schedulers.elastic());
+    }
+
+    @GetMapping(value = ApiPath.ADMIN_BARTER_ORDER_BY_ITEM_STATUS)
+    public Mono<Response<List<GetAllBarterOrderByItemStatusResponse>>> getAllBarterOrderByItemStatus(
+            @ModelAttribute GetAllBarterOrderByItemStatusRequest request) {
+        return commandExecutor.execute(GetAllBarterOrderByItemStatusCommand.class, request)
+                .log("#getAllBarterOrderByItemStatus - Successfully executing command.")
+                .map(ResponseHelper::ok)
+                .subscribeOn(Schedulers.elastic());
+    }
+
+    @GetMapping(value = ApiPath.ADMIN_BARTER_ORDER_BY_ORDER_STATUS)
+    public Mono<Response<List<GetAllBarterOrderByOrderStatusResponse>>> getAllBarterOrderByOrderStatus(
+            @RequestParam BarterOrderStatus request) {
+        return commandExecutor.execute(GetAllBarterOrderByOrderStatusCommand.class, request)
+                .log("#getAllBarterOrderByOrderStatus - Successfully executing command.")
                 .map(ResponseHelper::ok)
                 .subscribeOn(Schedulers.elastic());
     }

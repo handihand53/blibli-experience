@@ -16,6 +16,7 @@ import com.blibli.experience.repository.BarterSubmissionRepository;
 import com.blibli.experience.repository.ProductBarterRepository;
 import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,17 +42,21 @@ public class PostBarterOrderCommandImpl implements PostBarterOrderCommand {
 
     @Override
     public Mono<PostBarterOrderResponse> execute(PostBarterOrderRequest request) {
-        BarterSubmission barterSubmission = getBarterSubmission(request);
+        BarterSubmission barterSubmission = getAndUpdateBarterSubmission(request);
         return productBarterRepository.findByProductBarterId(barterSubmission.getBarterSubmissionTargetBarter().getProductBarterId())
                 .flatMap(this::checkProductBarterAvailability)
                 .map(productBarter -> toBarterOrder(productBarter, barterSubmission))
-                .flatMap(barterOrder -> barterOrderRepository.save(barterOrder))
+                .flatMap(barterOrder -> {
+                    barterSubmissionRepository.save(barterSubmission);
+                    return barterOrderRepository.save(barterOrder);
+                })
                 .map(this::toResponse);
     }
 
-    private BarterSubmission getBarterSubmission(PostBarterOrderRequest request) {
+    private BarterSubmission getAndUpdateBarterSubmission(PostBarterOrderRequest request) {
         BarterSubmission barterSubmission = barterSubmissionRepository.findByBarterSubmissionId(request.getBarterSubmissionId()).block();
         if (barterSubmission != null) {
+            barterSubmission.getBarterSubmissionTargetBarter().setAvailableStatus(ProductAvailableStatus.NOT_AVAILABLE);
             return barterSubmission;
         } else {
             throw new RuntimeException("Barter Submission not found");
@@ -73,6 +78,7 @@ public class PostBarterOrderCommandImpl implements PostBarterOrderCommand {
         ProductBarterDataForm productBarterDataForm = getProductBarterDataForm(productBarter);
         return BarterOrder.builder()
                 .barterOrderId(UUID.randomUUID())
+                .orderTransactionId("barter-" + RandomStringUtils.random(8))
                 .sellingProduct(productBarterDataForm)
                 .buyingProduct(barterSubmissionDataForm)
                 .sellerData(productBarter.getUserData())
