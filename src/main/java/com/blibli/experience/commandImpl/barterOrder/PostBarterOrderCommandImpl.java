@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.text.RandomStringGenerator;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -46,10 +47,7 @@ public class PostBarterOrderCommandImpl implements PostBarterOrderCommand {
         return productBarterRepository.findByProductBarterId(barterSubmission.getBarterSubmissionTargetBarter().getProductBarterId())
                 .flatMap(this::checkProductBarterAvailability)
                 .map(productBarter -> toBarterOrder(productBarter, barterSubmission))
-                .flatMap(barterOrder -> {
-                    barterSubmissionRepository.save(barterSubmission);
-                    return barterOrderRepository.save(barterOrder);
-                })
+                .flatMap(barterOrder -> barterOrderRepository.save(barterOrder))
                 .map(this::toResponse);
     }
 
@@ -57,6 +55,7 @@ public class PostBarterOrderCommandImpl implements PostBarterOrderCommand {
         BarterSubmission barterSubmission = barterSubmissionRepository.findByBarterSubmissionId(request.getBarterSubmissionId()).block();
         if (barterSubmission != null) {
             barterSubmission.getBarterSubmissionTargetBarter().setAvailableStatus(ProductAvailableStatus.NOT_AVAILABLE);
+            barterSubmissionRepository.save(barterSubmission).subscribe();
             return barterSubmission;
         } else {
             throw new RuntimeException("Barter Submission not found");
@@ -76,9 +75,11 @@ public class PostBarterOrderCommandImpl implements PostBarterOrderCommand {
     private BarterOrder toBarterOrder(ProductBarter productBarter, BarterSubmission barterSubmission) {
         BarterSubmissionDataForm barterSubmissionDataForm = getBarterSubmissionDataForm(barterSubmission);
         ProductBarterDataForm productBarterDataForm = getProductBarterDataForm(productBarter);
+        RandomStringGenerator generator = new RandomStringGenerator.Builder()
+                .withinRange('0', '9').build();
         return BarterOrder.builder()
                 .barterOrderId(UUID.randomUUID())
-                .orderTransactionId("barter-" + RandomStringUtils.random(8))
+                .orderTransactionId("barter-" + generator.generate(8))
                 .sellingProduct(productBarterDataForm)
                 .buyingProduct(barterSubmissionDataForm)
                 .sellerData(productBarter.getUserData())
