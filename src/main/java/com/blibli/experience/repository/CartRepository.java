@@ -13,6 +13,8 @@ import java.util.UUID;
 @Repository
 public interface CartRepository extends ReactiveMongoRepository<Cart, UUID> {
 
+  Mono<Cart> findFirstByCartId(UUID cartId);
+
   Mono<Cart> findFirstByUserId(UUID id);
 
   @Query(value = "{'_id': ?0, 'cartForms.shopId': ?1}", exists = true)

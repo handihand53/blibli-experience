@@ -33,6 +33,14 @@ public class ApiPath {
   // CART ENDPOINTS
   public static final String CARTS = API + "/carts";
 
+  // ORDER ENDPOINTS
+  public static final String ORDER = API + "/order";
+  public static final String ORDER_BY_USER = ORDER + "/user";
+  public static final String ORDER_TO_FINISHED = ORDER + "/toFinished";
+
+  // PAYMENT ENDPOINTS
+  public static final String PAYMENT = API + "/payment";
+
   // PRODUCT BARTER ENDPOINTS
   public static final String PRODUCT_BARTER = API + "/barter";
   public static final String PRODUCT_BARTER_AVAILABLE = PRODUCT_BARTER + "/available";
@@ -57,6 +65,8 @@ public class ApiPath {
   public static final String ADMIN_BARTER_ORDER_BY_ITEM_STATUS = ADMIN_BARTER_ORDER + "/itemStatus";
   public static final String ADMIN_BARTER_ORDER_RECEIPT_TO_VERIFIED = ADMIN_BARTER_ORDER + "/toVerified";
   public static final String ADMIN_BARTER_ORDER_RECEIPT_TO_CONSUMERS = ADMIN_BARTER_ORDER + "/toConsumers";
+  public static final String ADMIN_ORDER = ADMIN + "/order";
+  public static final String ADMIN_ORDER_DELIVERY_RECEIPT = ADMIN_ORDER + "/deliveryReceipt";
 
   // MERCHANT ENDPOINTS
   public static final String MERCHANT = API + "/merchant";

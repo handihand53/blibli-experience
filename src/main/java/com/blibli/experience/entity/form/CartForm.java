@@ -16,6 +16,6 @@ public class CartForm {
 
   private UUID shopId;
   private String shopName;
-  private List<CartStockForm> shopProducts;
+  private List<StockForm> shopProducts;
 
 }

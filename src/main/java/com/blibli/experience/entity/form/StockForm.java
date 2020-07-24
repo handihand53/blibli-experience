@@ -11,7 +11,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CartStockForm {
+public class StockForm {
 
     private UUID stockId;
     private ShopForm shopForm;
