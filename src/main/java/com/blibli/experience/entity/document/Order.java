@@ -1,5 +1,6 @@
 package com.blibli.experience.entity.document;
 
+import com.blibli.experience.entity.form.CartForm;
 import com.blibli.experience.entity.form.ReceiptForm;
 import com.blibli.experience.entity.form.StockForm;
 import com.blibli.experience.entity.form.UserDataForm;
@@ -46,7 +47,7 @@ public class Order {
     private UserDataForm userDataForm;
 
     @Field(value = PRODUCTS)
-    private List<StockForm> stockForms;
+    private List<CartForm> cartForms;
 
     @Field(value = DELIVERY_TYPE)
     private DeliveryType deliveryType;

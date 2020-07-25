@@ -32,6 +32,8 @@ public class ApiPath {
 
   // CART ENDPOINTS
   public static final String CARTS = API + "/carts";
+  public static final String CARTS_UPDATE_AMOUNT = CARTS + "/updateAmount";
+  public static final String CARTS_DELETE_PRODUCT = CARTS + "/deleteProduct";
 
   // ORDER ENDPOINTS
   public static final String ORDER = API + "/order";

@@ -4,6 +4,7 @@ import com.blibli.experience.command.order.PostOrderCommand;
 import com.blibli.experience.entity.document.Cart;
 import com.blibli.experience.entity.document.Order;
 import com.blibli.experience.entity.document.User;
+import com.blibli.experience.entity.form.CartForm;
 import com.blibli.experience.entity.form.StockForm;
 import com.blibli.experience.entity.form.UserDataForm;
 import com.blibli.experience.enums.OrderStatus;
@@ -59,7 +60,7 @@ public class PostOrderCommandImpl implements PostOrderCommand {
                 .orderId(UUID.randomUUID())
                 .orderTransactionId("bliblimart-" + generator.generate(8))
                 .userDataForm(userDataForm)
-                .stockForms(cart.getStockForms())
+                .cartForms(cart.getCartForms())
                 .deliveryType(request.getDeliveryType())
                 .orderStatus(OrderStatus.WAITING_FOR_PAYMENT)
                 .paymentId(UUID.randomUUID())
@@ -77,8 +78,8 @@ public class PostOrderCommandImpl implements PostOrderCommand {
     }
 
     private void flushStockForm(Cart cart) {
-        List<StockForm> stockForms = new ArrayList<>();
-        cart.setStockForms(stockForms);
+        List<CartForm> cartForms = new ArrayList<>();
+        cart.setCartForms(cartForms);
         cartRepository.save(cart).subscribe();
     }
 

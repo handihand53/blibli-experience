@@ -4,6 +4,7 @@ import com.blibli.experience.command.cart.PostProductToCartCommand;
 import com.blibli.experience.entity.document.Cart;
 import com.blibli.experience.entity.document.ProductMaster;
 import com.blibli.experience.entity.document.ProductStock;
+import com.blibli.experience.entity.form.CartForm;
 import com.blibli.experience.entity.form.StockForm;
 import com.blibli.experience.model.request.cart.PostProductToCartRequest;
 import com.blibli.experience.model.response.cart.PostProductToCartResponse;
@@ -56,23 +57,27 @@ public class PostProductToCartCommandImpl implements PostProductToCartCommand {
     }
 
     private Cart toCart(PostProductToCartRequest request) {
-        List<StockForm> stockForms = new ArrayList<>();
+        List<CartForm> cartForms = new ArrayList<>();
         return Cart.builder()
                 .cartId(UUID.randomUUID())
                 .userId(request.getUserId())
-                .stockForms(stockForms)
+                .cartForms(cartForms)
                 .createdAt(LocalDateTime.now())
                 .lastUpdated(LocalDateTime.now())
                 .build();
     }
 
     private Cart addCartStockForm(Cart cart, ProductMaster productMaster, ProductStock productStock) {
-        List<StockForm> stockForms = cart.getStockForms();
+        List<CartForm> cartForms = cart.getCartForms();
         StockForm stockForm = new StockForm();
         BeanUtils.copyProperties(productStock, stockForm);
         BeanUtils.copyProperties(productMaster, stockForm.getProductDataForm());
-        stockForms.add(stockForm);
-        cart.setStockForms(stockForms);
+        CartForm cartForm = CartForm.builder()
+                .amount(1)
+                .stockForm(stockForm)
+                .build();
+        cartForms.add(cartForm);
+        cart.setCartForms(cartForms);
         cart.setLastUpdated(LocalDateTime.now());
         return cart;
     }

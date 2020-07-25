@@ -14,8 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class CartForm {
 
-  private UUID shopId;
-  private String shopName;
-  private List<StockForm> shopProducts;
+  private Integer amount;
+  private StockForm stockForm;
 
 }

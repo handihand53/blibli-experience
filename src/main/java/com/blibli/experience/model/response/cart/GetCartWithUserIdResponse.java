@@ -1,5 +1,6 @@
 package com.blibli.experience.model.response.cart;
 
+import com.blibli.experience.entity.form.CartForm;
 import com.blibli.experience.entity.form.StockForm;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +19,7 @@ public class GetCartWithUserIdResponse {
 
   private UUID cartId;
   private UUID userId;
-  private List<StockForm> stockForms;
+  private List<CartForm> cartForms;
   private LocalDateTime lastUpdated;
 
 }
