@@ -13,4 +13,6 @@ public interface OrderRepository extends ReactiveMongoRepository<Order, UUID> {
 
     Flux<Order> findAllByUserDataForm_UserId(UUID userId);
 
+    Flux<Order> findAllByShopForm_ShopId(UUID shopId);
+
 }

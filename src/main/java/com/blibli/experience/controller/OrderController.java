@@ -48,20 +48,20 @@ public class OrderController {
                 .subscribeOn(Schedulers.elastic());
     }
 
+    @GetMapping(value = ApiPath.MERCHANT_ORDER)
+    public Mono<Response<List<GetAllOrderByShopIdResponse>>> getAllOrderByShopId(
+            @RequestParam UUID shopId) {
+        return commandExecutor.execute(GetAllOrderByShopIdCommand.class, shopId)
+                .log("#getAllOrderByShopId - Successfully executing command.")
+                .map(ResponseHelper::ok)
+                .subscribeOn(Schedulers.elastic());
+    }
+
     @PostMapping(value = ApiPath.ORDER, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Mono<Response<PostOrderResponse>> postOrder(
             @RequestBody PostOrderRequest request) {
         return commandExecutor.execute(PostOrderCommand.class, request)
                 .log("#postOrder - Successfully executing command.")
-                .map(ResponseHelper::ok)
-                .subscribeOn(Schedulers.elastic());
-    }
-
-    @PutMapping(value = ApiPath.ADMIN_ORDER_DELIVERY_RECEIPT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<Response<UpdateOrderDeliveryReceiptResponse>> updateOrderDeliveryReceipt(
-            @RequestBody UpdateOrderDeliveryReceiptRequest request) {
-        return commandExecutor.execute(UpdateOrderDeliveryReceiptCommand.class, request)
-                .log("#updateOrderDeliveryReceipt - Successfully executing command.")
                 .map(ResponseHelper::ok)
                 .subscribeOn(Schedulers.elastic());
     }
@@ -74,5 +74,15 @@ public class OrderController {
                 .map(ResponseHelper::ok)
                 .subscribeOn(Schedulers.elastic());
     }
+
+    @PutMapping(value = ApiPath.MERCHANT_ORDER_DELIVERY_RECEIPT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<Response<UpdateOrderDeliveryReceiptResponse>> updateOrderDeliveryReceipt(
+            @RequestBody UpdateOrderDeliveryReceiptRequest request) {
+        return commandExecutor.execute(UpdateOrderDeliveryReceiptCommand.class, request)
+                .log("#updateOrderDeliveryReceipt - Successfully executing command.")
+                .map(ResponseHelper::ok)
+                .subscribeOn(Schedulers.elastic());
+    }
+
 
 }

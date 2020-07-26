@@ -1,19 +1,14 @@
 package com.blibli.experience.commandImpl.order;
 
 import com.blibli.experience.command.order.PostOrderCommand;
-import com.blibli.experience.entity.document.Cart;
-import com.blibli.experience.entity.document.Order;
-import com.blibli.experience.entity.document.ProductStock;
-import com.blibli.experience.entity.document.User;
+import com.blibli.experience.entity.document.*;
 import com.blibli.experience.entity.form.CartForm;
+import com.blibli.experience.entity.form.ShopForm;
 import com.blibli.experience.entity.form.UserDataForm;
 import com.blibli.experience.enums.OrderStatus;
 import com.blibli.experience.model.request.order.PostOrderRequest;
 import com.blibli.experience.model.response.order.PostOrderResponse;
-import com.blibli.experience.repository.CartRepository;
-import com.blibli.experience.repository.OrderRepository;
-import com.blibli.experience.repository.ProductStockRepository;
-import com.blibli.experience.repository.UserRepository;
+import com.blibli.experience.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.text.RandomStringGenerator;
 import org.springframework.beans.BeanUtils;
@@ -34,24 +29,26 @@ public class PostOrderCommandImpl implements PostOrderCommand {
     private OrderRepository orderRepository;
     private UserRepository userRepository;
     private ProductStockRepository productStockRepository;
+    private ShopRepository shopRepository;
 
     @Autowired
-    public PostOrderCommandImpl(CartRepository cartRepository, OrderRepository orderRepository, UserRepository userRepository, ProductStockRepository productStockRepository) {
+    public PostOrderCommandImpl(CartRepository cartRepository, OrderRepository orderRepository, UserRepository userRepository, ProductStockRepository productStockRepository, ShopRepository shopRepository) {
         this.cartRepository = cartRepository;
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
         this.productStockRepository = productStockRepository;
+        this.shopRepository = shopRepository;
     }
 
     @Override
     public Mono<PostOrderResponse> execute(PostOrderRequest request) {
         Cart cart = getCart(request);
         List<ProductStock> productStocks = getProductStockList(request);
+        ShopForm shopForm = getShopForm(request);
         return userRepository.findFirstByUserId(cart.getUserId())
-                .map(user -> toOrder(user, cart, request))
+                .map(user -> toOrder(user, cart, shopForm, request))
                 .flatMap(order -> orderRepository.save(order))
                 .doOnNext(order -> subtractProductStock(order, productStocks))
-//                .doOnNext(order -> flushStockForm(cart))
                 .map(this::toResponse);
     }
 
@@ -70,6 +67,9 @@ public class PostOrderCommandImpl implements PostOrderCommand {
             ProductStock productStock = productStockRepository.findFirstByStockId(uuid).block();
             if (productStock != null) {
                 productStocks.add(productStock);
+                if(!productStock.getShopForm().getShopId().equals(request.getShopId())) {
+                    throw new RuntimeException("Sorry, only 1 merchant per order. We will improve this soon :)");
+                }
             } else {
                 throw new RuntimeException("Product stock not found.");
             }
@@ -77,7 +77,18 @@ public class PostOrderCommandImpl implements PostOrderCommand {
         return productStocks;
     }
 
-    private Order toOrder(User user, Cart cart, PostOrderRequest request) {
+    private ShopForm getShopForm(PostOrderRequest request) {
+        ShopForm shopForm = new ShopForm();
+        Shop shop = shopRepository.findFirstByShopId(request.getShopId()).block();
+        if (shop != null) {
+            BeanUtils.copyProperties(shop, shopForm);
+            return shopForm;
+        } else {
+            throw new RuntimeException("Shop not found");
+        }
+    }
+
+    private Order toOrder(User user, Cart cart, ShopForm shopForm, PostOrderRequest request) {
         RandomStringGenerator generator = new RandomStringGenerator.Builder()
                 .withinRange('0', '9').build();
         UserDataForm userDataForm = new UserDataForm();
@@ -86,6 +97,7 @@ public class PostOrderCommandImpl implements PostOrderCommand {
                 .orderId(UUID.randomUUID())
                 .orderTransactionId("bliblimart-" + generator.generate(8))
                 .userDataForm(userDataForm)
+                .shopForm(shopForm)
                 .cartForms(getAndUpdateCartFormList(cart, request))
                 .deliveryType(request.getDeliveryType())
                 .orderStatus(OrderStatus.WAITING_FOR_PAYMENT)
@@ -122,12 +134,6 @@ public class PostOrderCommandImpl implements PostOrderCommand {
                 }
             }
         }
-    }
-
-    private void flushStockForm(Cart cart) {
-        List<CartForm> cartForms = new ArrayList<>();
-        cart.setCartForms(cartForms);
-        cartRepository.save(cart).subscribe();
     }
 
     private PostOrderResponse toResponse(Order order) {

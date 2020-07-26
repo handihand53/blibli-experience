@@ -1,8 +1,7 @@
 package com.blibli.experience.model.response.order;
 
 import com.blibli.experience.entity.form.CartForm;
-import com.blibli.experience.entity.form.ReceiptForm;
-import com.blibli.experience.entity.form.StockForm;
+import com.blibli.experience.entity.form.ShopForm;
 import com.blibli.experience.entity.form.UserDataForm;
 import com.blibli.experience.enums.DeliveryType;
 import com.blibli.experience.enums.OrderStatus;
@@ -19,14 +18,14 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateOrderDeliveryReceiptResponse {
+public class GetAllOrderByShopIdResponse {
 
     private UUID orderId;
     private String orderTransactionId;
     private UserDataForm userDataForm;
+    private ShopForm shopForm;
     private List<CartForm> cartForms;
     private DeliveryType deliveryType;
-    private ReceiptForm deliveryReceipt;
     private UUID paymentId;
     private OrderStatus orderStatus;
     private LocalDateTime orderCreatedAt;

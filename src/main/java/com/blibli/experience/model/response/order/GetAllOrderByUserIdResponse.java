@@ -1,5 +1,7 @@
 package com.blibli.experience.model.response.order;
 
+import com.blibli.experience.entity.form.CartForm;
+import com.blibli.experience.entity.form.ShopForm;
 import com.blibli.experience.entity.form.StockForm;
 import com.blibli.experience.entity.form.UserDataForm;
 import com.blibli.experience.enums.DeliveryType;
@@ -22,7 +24,8 @@ public class GetAllOrderByUserIdResponse {
     private UUID orderId;
     private String orderTransactionId;
     private UserDataForm userDataForm;
-    private List<StockForm> stockForms;
+    private ShopForm shopForm;
+    private List<CartForm> cartForms;
     private DeliveryType deliveryType;
     private UUID paymentId;
     private OrderStatus orderStatus;

@@ -91,5 +91,7 @@ public class ApiPath {
   // MERCHANT ENDPOINTS
   public static final String MERCHANT = API + "/merchant";
   public static final String MERCHANT_PRODUCT_STOCK = MERCHANT + "/productStocks";
+  public static final String MERCHANT_ORDER = MERCHANT + "/order";
+  public static final String MERCHANT_ORDER_DELIVERY_RECEIPT = MERCHANT_ORDER + "/deliveryReceipt";
 
 }
