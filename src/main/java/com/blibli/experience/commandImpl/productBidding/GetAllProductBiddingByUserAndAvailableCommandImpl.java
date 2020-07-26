@@ -1,10 +1,9 @@
 package com.blibli.experience.commandImpl.productBidding;
 
-import com.blibli.experience.command.productBidding.GetAllProductBiddingByUserCommand;
+import com.blibli.experience.command.productBidding.GetAllProductBiddingByUserAndAvailableCommand;
 import com.blibli.experience.entity.document.ProductBidding;
-import com.blibli.experience.enums.ProductAvailableStatus;
 import com.blibli.experience.enums.ProductBiddingAvailableStatus;
-import com.blibli.experience.model.response.productBidding.GetAllProductBiddingByUserResponse;
+import com.blibli.experience.model.response.productBidding.GetAllProductBiddingByUserAndAvailableResponse;
 import com.blibli.experience.repository.ProductBiddingRepository;
 import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -18,25 +17,25 @@ import java.util.UUID;
 
 @Slf4j
 @Service
-public class GetAllProductBiddingByUserCommandImpl implements GetAllProductBiddingByUserCommand {
+public class GetAllProductBiddingByUserAndAvailableCommandImpl implements GetAllProductBiddingByUserAndAvailableCommand {
 
     private ProductBiddingRepository productBiddingRepository;
 
     @Autowired
-    public GetAllProductBiddingByUserCommandImpl(ProductBiddingRepository productBiddingRepository) {
+    public GetAllProductBiddingByUserAndAvailableCommandImpl(ProductBiddingRepository productBiddingRepository) {
         this.productBiddingRepository = productBiddingRepository;
     }
 
     @Override
-    public Mono<List<GetAllProductBiddingByUserResponse>> execute(UUID request) {
+    public Mono<List<GetAllProductBiddingByUserAndAvailableResponse>> execute(UUID request) {
         return productBiddingRepository.findAllByUserData_UserIdAndAvailableStatus(request, ProductBiddingAvailableStatus.AVAILABLE)
                 .switchIfEmpty(Mono.error(new NotFoundException("Product Bidding not found.")))
                 .map(this::toResponse)
                 .collectList();
     }
 
-    private GetAllProductBiddingByUserResponse toResponse(ProductBidding productBidding) {
-        GetAllProductBiddingByUserResponse response = new GetAllProductBiddingByUserResponse();
+    private GetAllProductBiddingByUserAndAvailableResponse toResponse(ProductBidding productBidding) {
+        GetAllProductBiddingByUserAndAvailableResponse response = new GetAllProductBiddingByUserAndAvailableResponse();
         BeanUtils.copyProperties(productBidding, response);
         return response;
     }

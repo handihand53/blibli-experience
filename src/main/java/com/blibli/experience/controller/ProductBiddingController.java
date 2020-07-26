@@ -62,10 +62,10 @@ public class ProductBiddingController {
     }
 
     @GetMapping(value = ApiPath.PRODUCT_BIDDING_BY_USER)
-    public Mono<Response<List<GetAllProductBiddingByUserResponse>>> getProductBiddingByUser(
+    public Mono<Response<List<GetAllProductBiddingByUserAndAvailableResponse>>> getProductBiddingByUserAndAvailable(
             @RequestParam UUID userId) {
-        return commandExecutor.execute(GetAllProductBiddingByUserCommand.class, userId)
-                .log("#getProductBiddingByUser - Successfully executing command.")
+        return commandExecutor.execute(GetAllProductBiddingByUserAndAvailableCommand.class, userId)
+                .log("#getProductBiddingByUserAndAvailable - Successfully executing command.")
                 .map(ResponseHelper::ok)
                 .subscribeOn(Schedulers.elastic());
     }

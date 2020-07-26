@@ -16,7 +16,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetAllProductBiddingByUserResponse {
+public class GetAllProductBiddingByUserAndAvailableResponse {
 
     private UUID productBiddingId;
     private UserDataForm userData;
