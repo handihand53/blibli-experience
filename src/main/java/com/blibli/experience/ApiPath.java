@@ -83,8 +83,6 @@ public class ApiPath {
   public static final String ADMIN_BARTER_ORDER_BY_ITEM_STATUS = ADMIN_BARTER_ORDER + "/itemStatus";
   public static final String ADMIN_BARTER_ORDER_RECEIPT_TO_VERIFIED = ADMIN_BARTER_ORDER + "/toVerified";
   public static final String ADMIN_BARTER_ORDER_RECEIPT_TO_CONSUMERS = ADMIN_BARTER_ORDER + "/toConsumers";
-  public static final String ADMIN_ORDER = ADMIN + "/order";
-  public static final String ADMIN_ORDER_DELIVERY_RECEIPT = ADMIN_ORDER + "/deliveryReceipt";
   public static final String ADMIN_PRODUCT_BIDDING = ADMIN + "/productBidding";
   public static final String ADMIN_PRODUCT_BIDDING_TO_CLOSE = ADMIN_PRODUCT_BIDDING + "/close";
 
