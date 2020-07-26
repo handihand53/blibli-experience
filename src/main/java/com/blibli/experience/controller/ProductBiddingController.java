@@ -35,6 +35,14 @@ public class ProductBiddingController {
         this.objectMapper = objectMapper;
     }
 
+    @GetMapping(value = ApiPath.METADATA_PRODUCT_BIDDING)
+    public Mono<Response<GetProductBiddingMetadataResponse>> getProductBiddingMetadata() {
+        return commandExecutor.execute(GetProductBiddingMetadataCommand.class, 1)
+                .log("#getProductBiddingMetadata - Successfully executing command.")
+                .map(ResponseHelper::ok)
+                .subscribeOn(Schedulers.elastic());
+    }
+
     @GetMapping(value = ApiPath.PRODUCT_BIDDING)
     public Mono<Response<GetProductBiddingDetailResponse>> getProductBiddingDetail(
             @RequestParam UUID productBiddingId) {

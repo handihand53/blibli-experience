@@ -1,15 +1,9 @@
 package com.blibli.experience.controller;
 
 import com.blibli.experience.ApiPath;
-import com.blibli.experience.command.productBarter.GetAllProductBarterAvailableCommand;
-import com.blibli.experience.command.productBarter.GetAllProductBarterByUserIdCommand;
-import com.blibli.experience.command.productBarter.GetProductBarterDetailCommand;
-import com.blibli.experience.command.productBarter.PostProductBarterCommand;
+import com.blibli.experience.command.productBarter.*;
 import com.blibli.experience.model.request.productBarter.PostProductBarterRequest;
-import com.blibli.experience.model.response.productBarter.GetAllProductBarterAvailableResponse;
-import com.blibli.experience.model.response.productBarter.GetAllProductBarterByUserIdResponse;
-import com.blibli.experience.model.response.productBarter.GetProductBarterDetailResponse;
-import com.blibli.experience.model.response.productBarter.PostProductBarterResponse;
+import com.blibli.experience.model.response.productBarter.*;
 import com.blibli.oss.command.CommandExecutor;
 import com.blibli.oss.common.response.Response;
 import com.blibli.oss.common.response.ResponseHelper;
@@ -38,6 +32,14 @@ public class ProductBarterController {
     public ProductBarterController(CommandExecutor commandExecutor, ObjectMapper objectMapper) {
         this.commandExecutor = commandExecutor;
         this.objectMapper = objectMapper;
+    }
+
+    @GetMapping(value = ApiPath.METADATA_PRODUCT_BARTER)
+    public Mono<Response<GetProductBarterMetadataResponse>> getProductBarterMetadata() {
+        return commandExecutor.execute(GetProductBarterMetadataCommand.class, 1)
+                .log("#getProductBarterMetadata - Successfully executing command.")
+                .map(ResponseHelper::ok)
+                .subscribeOn(Schedulers.elastic());
     }
 
     @GetMapping(value = ApiPath.PRODUCT_BARTER)

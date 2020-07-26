@@ -92,4 +92,10 @@ public class ApiPath {
   public static final String MERCHANT_ORDER = MERCHANT + "/order";
   public static final String MERCHANT_ORDER_DELIVERY_RECEIPT = MERCHANT_ORDER + "/deliveryReceipt";
 
+  // METADATA ENDPOINTS
+  public static final String METADATA = API + "/metadata";
+  public static final String METADATA_PRODUCT_MASTER = METADATA + "/productMaster";
+  public static final String METADATA_PRODUCT_BARTER = METADATA + "/productBarter";
+  public static final String METADATA_PRODUCT_BIDDING = METADATA + "/productBidding";
+
 }
