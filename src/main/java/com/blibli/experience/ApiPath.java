@@ -59,6 +59,10 @@ public class ApiPath {
   public static final String BARTER_ORDER_RECEIPT_TO_WAREHOUSE = BARTER_ORDER + "/toWarehouse";
   public static final String BARTER_ORDER_RECEIPT_IN_CONSUMERS = BARTER_ORDER + "/inConsumers";
 
+  // PRODUCT BIDDING ENDPOINTS
+  public static final String PRODUCT_BIDDING = API + "/bidding";
+  public static final String PRODUCT_BIDDING_AVAILABLE = PRODUCT_BIDDING + "/available";
+
   // ADMIN ENDPOINTS
   public static final String ADMIN = API + "/admin";
   public static final String ADMIN_PRODUCT_MASTER = ADMIN + "/productMasters";
