@@ -16,15 +16,15 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetUserDetailResponse {
+public class UpdateUserDataResponse {
 
-  private UUID userId;
-  private String userEmail;
-  private String userName;
-  private List<AddressForm> userAddressForms;
-  private LocalDate userBirthDate;
-  private String userPhoneNumber;
-  private GenderType userGender;
-  private LocalDateTime userCreatedAt;
+    private UUID userId;
+    private String userEmail;
+    private String userName;
+    private List<AddressForm> userAddressForms;
+    private LocalDate userBirthDate;
+    private String userPhoneNumber;
+    private GenderType userGender;
+    private LocalDateTime userCreatedAt;
 
 }
