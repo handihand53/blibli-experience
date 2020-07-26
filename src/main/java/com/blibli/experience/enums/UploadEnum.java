@@ -4,7 +4,8 @@ public enum UploadEnum {
 
     productPhoto("productPhoto"),
     barterProductPhoto("barterProductPhoto"),
-    barterSubmissionPhoto("barterSubmissionPhoto");
+    barterSubmissionPhoto("barterSubmissionPhoto"),
+    biddingProductPhoto("biddingProductPhoto");
 
     private String uploadEnum;
 

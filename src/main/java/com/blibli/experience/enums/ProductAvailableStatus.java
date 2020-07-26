@@ -4,7 +4,8 @@ public enum ProductAvailableStatus {
 
     AVAILABLE("Available"),
     NOT_AVAILABLE("Not Available"),
-    SUSPENDED("Suspended");
+    SUSPENDED("Suspended"),
+    TO_ORDER("To Order");
 
     private String productAvailableStatus;
 

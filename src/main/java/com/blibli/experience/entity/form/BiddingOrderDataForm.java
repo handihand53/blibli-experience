@@ -1,24 +1,22 @@
 package com.blibli.experience.entity.form;
 
-import com.blibli.experience.enums.DeliveryType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 import java.util.UUID;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderDataForm {
+public class BiddingOrderDataForm {
 
-    private UUID orderId;
+    private UUID biddingOrderId;
     private String orderTransactionId;
-    private UserDataForm userDataForm;
-    private List<CartForm> cartForms;
-    private DeliveryType deliveryType;
+    private UserDataForm biddingOwner;
+    private UserDataForm biddingWinner;
+    private BiddingForm biddingForm;
 
 }

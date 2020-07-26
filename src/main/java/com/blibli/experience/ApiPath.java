@@ -59,6 +59,22 @@ public class ApiPath {
   public static final String BARTER_ORDER_RECEIPT_TO_WAREHOUSE = BARTER_ORDER + "/toWarehouse";
   public static final String BARTER_ORDER_RECEIPT_IN_CONSUMERS = BARTER_ORDER + "/inConsumers";
 
+  // PRODUCT BIDDING ENDPOINTS
+  public static final String PRODUCT_BIDDING = API + "/bidding";
+  public static final String PRODUCT_BIDDING_TO_BID = PRODUCT_BIDDING + "/bid";
+  public static final String PRODUCT_BIDDING_AVAILABLE = PRODUCT_BIDDING + "/available";
+  public static final String PRODUCT_BIDDING_BY_USER = PRODUCT_BIDDING + "/user";
+
+  // BIDDING ORDER ENDPOINTS
+  public static final String BIDDING_ORDER = API + "/biddingOrder";
+  public static final String BIDDING_ORDER_BY_OWNER = BIDDING_ORDER + "/owner";
+  public static final String BIDDING_ORDER_BY_WINNER = BIDDING_ORDER + "/winner";
+  public static final String BIDDING_ORDER_DELIVERY_RECEIPT = BIDDING_ORDER + "/deliveryReceipt";
+  public static final String BIDDING_ORDER_CONFIRMATION = BIDDING_ORDER + "/confirmation";
+
+  // BIDDING PAYMENT ENDPOINTS
+  public static final String BIDDING_PAYMENT = API + "/biddingPayment";
+
   // ADMIN ENDPOINTS
   public static final String ADMIN = API + "/admin";
   public static final String ADMIN_PRODUCT_MASTER = ADMIN + "/productMasters";
@@ -67,6 +83,8 @@ public class ApiPath {
   public static final String ADMIN_BARTER_ORDER_BY_ITEM_STATUS = ADMIN_BARTER_ORDER + "/itemStatus";
   public static final String ADMIN_BARTER_ORDER_RECEIPT_TO_VERIFIED = ADMIN_BARTER_ORDER + "/toVerified";
   public static final String ADMIN_BARTER_ORDER_RECEIPT_TO_CONSUMERS = ADMIN_BARTER_ORDER + "/toConsumers";
+  public static final String ADMIN_PRODUCT_BIDDING = ADMIN + "/productBidding";
+  public static final String ADMIN_PRODUCT_BIDDING_TO_CLOSE = ADMIN_PRODUCT_BIDDING + "/close";
 
   // MERCHANT ENDPOINTS
   public static final String MERCHANT = API + "/merchant";
