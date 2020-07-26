@@ -19,6 +19,9 @@ public class PostOrderRequest {
     @NotNull
     private UUID cartId;
 
+    @NotNull
+    private UUID shopId;
+
     private List<UUID> productStockIdList;
     private DeliveryType deliveryType;
 

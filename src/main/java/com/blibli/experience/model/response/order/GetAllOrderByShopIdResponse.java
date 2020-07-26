@@ -2,7 +2,6 @@ package com.blibli.experience.model.response.order;
 
 import com.blibli.experience.entity.form.CartForm;
 import com.blibli.experience.entity.form.ShopForm;
-import com.blibli.experience.entity.form.StockForm;
 import com.blibli.experience.entity.form.UserDataForm;
 import com.blibli.experience.enums.DeliveryType;
 import com.blibli.experience.enums.OrderStatus;
@@ -19,7 +18,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetAllOrderByUserIdResponse {
+public class GetAllOrderByShopIdResponse {
 
     private UUID orderId;
     private String orderTransactionId;

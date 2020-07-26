@@ -19,6 +19,5 @@ public class ShopForm {
   private String shopDescription;
   private AddressForm shopAddress;
   private Double[] shopLocation;
-  private LocalDateTime shopCreatedAt;
 
 }

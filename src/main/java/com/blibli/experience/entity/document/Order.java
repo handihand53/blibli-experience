@@ -1,9 +1,6 @@
 package com.blibli.experience.entity.document;
 
-import com.blibli.experience.entity.form.CartForm;
-import com.blibli.experience.entity.form.ReceiptForm;
-import com.blibli.experience.entity.form.StockForm;
-import com.blibli.experience.entity.form.UserDataForm;
+import com.blibli.experience.entity.form.*;
 import com.blibli.experience.enums.DeliveryType;
 import com.blibli.experience.enums.OrderStatus;
 import lombok.AllArgsConstructor;
@@ -29,6 +26,7 @@ public class Order {
     public static final String ID = "id";
     public static final String ORDER_TRANSACTION = "orderTransactionId";
     public static final String USER = "user";
+    public static final String SHOP = "shop";
     public static final String PRODUCTS = "products";
     public static final String DELIVERY_TYPE = "deliveryType";
     public static final String DELIVERY_RECEIPT = "deliveryReceipt";
@@ -45,6 +43,9 @@ public class Order {
 
     @Field(value = USER)
     private UserDataForm userDataForm;
+
+    @Field(value = SHOP)
+    private ShopForm shopForm;
 
     @Field(value = PRODUCTS)
     private List<CartForm> cartForms;

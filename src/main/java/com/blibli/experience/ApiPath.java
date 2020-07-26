@@ -67,11 +67,11 @@ public class ApiPath {
   public static final String ADMIN_BARTER_ORDER_BY_ITEM_STATUS = ADMIN_BARTER_ORDER + "/itemStatus";
   public static final String ADMIN_BARTER_ORDER_RECEIPT_TO_VERIFIED = ADMIN_BARTER_ORDER + "/toVerified";
   public static final String ADMIN_BARTER_ORDER_RECEIPT_TO_CONSUMERS = ADMIN_BARTER_ORDER + "/toConsumers";
-  public static final String ADMIN_ORDER = ADMIN + "/order";
-  public static final String ADMIN_ORDER_DELIVERY_RECEIPT = ADMIN_ORDER + "/deliveryReceipt";
 
   // MERCHANT ENDPOINTS
   public static final String MERCHANT = API + "/merchant";
   public static final String MERCHANT_PRODUCT_STOCK = MERCHANT + "/productStocks";
+  public static final String MERCHANT_ORDER = MERCHANT + "/order";
+  public static final String MERCHANT_ORDER_DELIVERY_RECEIPT = MERCHANT_ORDER + "/deliveryReceipt";
 
 }
