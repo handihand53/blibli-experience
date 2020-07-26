@@ -18,6 +18,10 @@ public class ProductBidding {
     public static final String USER = "user";
     public static final String NAME = "name";
     public static final String BRAND = "brand";
+    public static final String DESCRIPTION = "description";
+    public static final String WEIGHT = "weight";
+    public static final String VOLUME = "volume";
+    public static final String PACKAGE = "package";
     public static final String START_PRICE = "startPrice";
     public static final String NEXT_BID = "nextBid";
     public static final String CONDITION = "condition";
