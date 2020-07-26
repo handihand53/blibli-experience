@@ -64,7 +64,11 @@ public class UpdateCartProductAmountCommandImpl implements UpdateCartProductAmou
         if (cartForm.getStockForm().getStockId().equals(request.getStockId())) {
             if(verifyStock(productStock, cartForm, request)) {
                 cartForm.setAmount(cartForm.getAmount() + request.getAmount());
-                return cartForm;
+                if(cartForm.getAmount() > 0) {
+                    return cartForm;
+                } else {
+                 throw new RuntimeException("Amount must be at least 1, please delete this product instead.");
+                }
             } else {
                 throw new RuntimeException("Insufficient Product Stock.");
             }
