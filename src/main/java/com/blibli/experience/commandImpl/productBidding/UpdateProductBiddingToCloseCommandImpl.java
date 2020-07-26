@@ -3,6 +3,7 @@ package com.blibli.experience.commandImpl.productBidding;
 import com.blibli.experience.command.productBidding.UpdateProductBiddingToCloseCommand;
 import com.blibli.experience.entity.document.ProductBidding;
 import com.blibli.experience.enums.ProductAvailableStatus;
+import com.blibli.experience.enums.ProductBiddingAvailableStatus;
 import com.blibli.experience.model.response.productBidding.UpdateProductBiddingToBidResponse;
 import com.blibli.experience.model.response.productBidding.UpdateProductBiddingToCloseResponse;
 import com.blibli.experience.repository.ProductBiddingRepository;
@@ -38,7 +39,7 @@ public class UpdateProductBiddingToCloseCommandImpl implements UpdateProductBidd
     }
 
     private ProductBidding updateProductBidding(ProductBidding productBidding) {
-        productBidding.setAvailableStatus(ProductAvailableStatus.NOT_AVAILABLE);
+        productBidding.setAvailableStatus(ProductBiddingAvailableStatus.FINISHED);
         return productBidding;
     }
 

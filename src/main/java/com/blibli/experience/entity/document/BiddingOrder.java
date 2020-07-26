@@ -1,8 +1,6 @@
 package com.blibli.experience.entity.document;
 
-import com.blibli.experience.entity.form.BiddingForm;
-import com.blibli.experience.entity.form.ReceiptForm;
-import com.blibli.experience.entity.form.UserDataForm;
+import com.blibli.experience.entity.form.*;
 import com.blibli.experience.enums.BiddingOrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,7 +20,7 @@ import java.util.UUID;
 @Document(collection = BiddingOrder.COLLECTION_NAME)
 public class BiddingOrder {
 
-    public static final String COLLECTION_NAME = "productBidding";
+    public static final String COLLECTION_NAME = "biddingOrder";
     public static final String ID = "id";
     public static final String ORDER_TRANSACTION = "orderTransactionId";
     public static final String BIDDING_OWNER = "biddingOwner";
@@ -30,7 +28,7 @@ public class BiddingOrder {
     public static final String PRODUCT_BIDDING = "products";
     public static final String DELIVERY_RECEIPT = "deliveryReceipt";
     public static final String PAYMENT_ID = "paymentId";
-    public static final String ORDER_STATUS = "orderStatus";
+    public static final String ORDER_STATUS = "biddingOrderStatus";
     public static final String CREATED_AT = "createdAt";
 
     @Id
@@ -47,7 +45,7 @@ public class BiddingOrder {
     private UserDataForm biddingWinner;
 
     @Field(value = PRODUCT_BIDDING)
-    private BiddingForm biddingForm;
+    private ProductBiddingForm productBiddingForm;
 
     @Field(value = DELIVERY_RECEIPT)
     private ReceiptForm deliveryReceipt;

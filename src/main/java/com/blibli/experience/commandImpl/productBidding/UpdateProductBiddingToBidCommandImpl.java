@@ -6,6 +6,7 @@ import com.blibli.experience.entity.document.User;
 import com.blibli.experience.entity.form.BiddingForm;
 import com.blibli.experience.entity.form.UserDataForm;
 import com.blibli.experience.enums.ProductAvailableStatus;
+import com.blibli.experience.enums.ProductBiddingAvailableStatus;
 import com.blibli.experience.model.request.productBidding.UpdateProductBiddingToBidRequest;
 import com.blibli.experience.model.response.productBidding.UpdateProductBiddingToBidResponse;
 import com.blibli.experience.repository.ProductBiddingRepository;
@@ -86,7 +87,7 @@ public class UpdateProductBiddingToBidCommandImpl implements UpdateProductBiddin
     }
 
     private Boolean checkStatus(ProductBidding productBidding) {
-        return productBidding.getAvailableStatus().equals(ProductAvailableStatus.AVAILABLE);
+        return productBidding.getAvailableStatus().equals(ProductBiddingAvailableStatus.AVAILABLE);
     }
 
     private UpdateProductBiddingToBidResponse toResponse(ProductBidding productBidding) {

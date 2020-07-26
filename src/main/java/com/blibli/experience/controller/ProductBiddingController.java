@@ -13,9 +13,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -60,20 +62,11 @@ public class ProductBiddingController {
                 .subscribeOn(Schedulers.elastic());
     }
 
-//    @PostMapping(value = ApiPath.PRODUCT_BIDDING)
-//    public Mono<Response<PostProductBiddingResponse>> postProductBidding(
-//            @RequestParam List<MultipartFile> images, @RequestParam String productBiddingMetaData) throws IOException {
-//        PostProductBiddingRequest request = objectMapper.readValue(productBiddingMetaData, PostProductBiddingRequest.class);
-//        request.setProductImages(images);
-//        return commandExecutor.execute(PostProductBiddingCommand.class, request)
-//                .log("#postProductBidding - Successfully executing command.")
-//                .map(ResponseHelper::ok)
-//                .subscribeOn(Schedulers.elastic());
-//    }
-
-    @PostMapping(value = ApiPath.PRODUCT_BIDDING, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = ApiPath.PRODUCT_BIDDING)
     public Mono<Response<PostProductBiddingResponse>> postProductBidding(
-            @RequestBody PostProductBiddingRequest request) {
+            @RequestParam List<MultipartFile> images, @RequestParam String productBiddingMetaData) throws IOException {
+        PostProductBiddingRequest request = objectMapper.readValue(productBiddingMetaData, PostProductBiddingRequest.class);
+        request.setProductImages(images);
         return commandExecutor.execute(PostProductBiddingCommand.class, request)
                 .log("#postProductBidding - Successfully executing command.")
                 .map(ResponseHelper::ok)

@@ -3,6 +3,7 @@ package com.blibli.experience.entity.document;
 import com.blibli.experience.entity.form.BiddingForm;
 import com.blibli.experience.entity.form.UserDataForm;
 import com.blibli.experience.enums.ProductAvailableStatus;
+import com.blibli.experience.enums.ProductBiddingAvailableStatus;
 import com.blibli.experience.enums.ProductBiddingCondition;
 import com.blibli.experience.enums.ProductCategory;
 import lombok.AllArgsConstructor;
@@ -92,7 +93,7 @@ public class ProductBidding {
     private List<String> productBiddingImagePaths;
 
     @Field(value = AVAILABLE_STATUS)
-    private ProductAvailableStatus availableStatus;
+    private ProductBiddingAvailableStatus availableStatus;
 
     @Field(value = CLOSE_BID_DATE)
     private LocalDateTime closeBidDate;

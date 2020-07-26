@@ -18,7 +18,6 @@ import java.util.UUID;
 public class ProductBiddingForm {
 
     private UUID productBiddingId;
-    private UserDataForm userData;
     private String productBiddingName;
     private String productBiddingBrand;
     private String productBiddingDescription;
@@ -29,7 +28,6 @@ public class ProductBiddingForm {
     private Integer startPrice;
     private Integer currentPrice;
     private Integer nextBid;
-    private List<BiddingForm> biddingForms;
     private ProductBiddingCondition productBiddingCondition;
     private LocalDateTime closeBidDate;
     private LocalDateTime lastBidDate;

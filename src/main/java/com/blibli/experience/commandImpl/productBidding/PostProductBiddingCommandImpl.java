@@ -5,11 +5,9 @@ import com.blibli.experience.entity.document.ProductBidding;
 import com.blibli.experience.entity.document.User;
 import com.blibli.experience.entity.form.BiddingForm;
 import com.blibli.experience.entity.form.UserDataForm;
-import com.blibli.experience.enums.ProductAvailableStatus;
+import com.blibli.experience.enums.ProductBiddingAvailableStatus;
 import com.blibli.experience.enums.UploadEnum;
-import com.blibli.experience.model.request.productBarter.PostProductBarterRequest;
 import com.blibli.experience.model.request.productBidding.PostProductBiddingRequest;
-import com.blibli.experience.model.response.productBarter.PostProductBarterResponse;
 import com.blibli.experience.model.response.productBidding.PostProductBiddingResponse;
 import com.blibli.experience.repository.ProductBiddingRepository;
 import com.blibli.experience.repository.UserRepository;
@@ -48,18 +46,18 @@ public class PostProductBiddingCommandImpl implements PostProductBiddingCommand 
                 .switchIfEmpty(Mono.error(new NotFoundException("User not found.")))
                 .map(user -> toProductBidding(user, request))
                 .flatMap(productBidding -> {
-//                    try {
-////                        productBidding.setProductBiddingImagePaths(getImagePaths(request, productBidding));
-////                    } catch (IOException e) {
-////                        e.printStackTrace();
-////                    }
+                    try {
+                        productBidding.setProductBiddingImagePaths(getImagePaths(request, productBidding));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     return productBiddingRepository.save(productBidding);
                 })
                 .map(this::toResponse);
     }
 
     private ProductBidding toProductBidding(User user, PostProductBiddingRequest request) {
-        if(verifyStartBid(request)) {
+        if (verifyStartBid(request)) {
             List<BiddingForm> biddingForms = new ArrayList<>();
             UserDataForm userDataForm = new UserDataForm();
             BeanUtils.copyProperties(user, userDataForm);
@@ -67,7 +65,7 @@ public class PostProductBiddingCommandImpl implements PostProductBiddingCommand 
                     .productBiddingId(UUID.randomUUID())
                     .userData(userDataForm)
                     .biddingForms(biddingForms)
-                    .availableStatus(ProductAvailableStatus.AVAILABLE)
+                    .availableStatus(ProductBiddingAvailableStatus.AVAILABLE)
                     .productBiddingCreatedAt(LocalDateTime.now())
                     .build();
             BeanUtils.copyProperties(request, productBidding);

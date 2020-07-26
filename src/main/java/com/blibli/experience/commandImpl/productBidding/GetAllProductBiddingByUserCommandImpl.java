@@ -3,6 +3,7 @@ package com.blibli.experience.commandImpl.productBidding;
 import com.blibli.experience.command.productBidding.GetAllProductBiddingByUserCommand;
 import com.blibli.experience.entity.document.ProductBidding;
 import com.blibli.experience.enums.ProductAvailableStatus;
+import com.blibli.experience.enums.ProductBiddingAvailableStatus;
 import com.blibli.experience.model.response.productBidding.GetAllProductBiddingByUserResponse;
 import com.blibli.experience.repository.ProductBiddingRepository;
 import javassist.NotFoundException;
@@ -28,7 +29,7 @@ public class GetAllProductBiddingByUserCommandImpl implements GetAllProductBiddi
 
     @Override
     public Mono<List<GetAllProductBiddingByUserResponse>> execute(UUID request) {
-        return productBiddingRepository.findAllByUserData_UserIdAndAvailableStatus(request, ProductAvailableStatus.AVAILABLE)
+        return productBiddingRepository.findAllByUserData_UserIdAndAvailableStatus(request, ProductBiddingAvailableStatus.AVAILABLE)
                 .switchIfEmpty(Mono.error(new NotFoundException("Product Bidding not found.")))
                 .map(this::toResponse)
                 .collectList();
