@@ -42,6 +42,7 @@ public class ProductBidding {
     public static final String IMAGE_PATH = "imagePath";
     public static final String AVAILABLE_STATUS = "availableStatus";
     public static final String CLOSE_BID_DATE = "closeBidDate";
+    public static final String LAST_BID = "lastBid";
     public static final String CREATED_AT = "createdAt";
 
     @Id
@@ -95,6 +96,9 @@ public class ProductBidding {
 
     @Field(value = CLOSE_BID_DATE)
     private LocalDateTime closeBidDate;
+
+    @Field(value = LAST_BID)
+    private LocalDateTime lastBidDate;
 
     @Field(value = CREATED_AT)
     private LocalDateTime productBiddingCreatedAt;

@@ -38,5 +38,6 @@ public class GetProductBiddingDetailResponse {
     private List<String> productBiddingImagePaths;
     private ProductAvailableStatus availableStatus;
     private LocalDateTime closeBidDate;
+    private LocalDateTime lastBidDate;
 
 }

@@ -16,7 +16,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetAllProductBiddingAvailableResponse {
+public class GetAllProductBiddingByUserResponse {
 
     private UUID productBiddingId;
     private UserDataForm userData;
@@ -30,4 +30,5 @@ public class GetAllProductBiddingAvailableResponse {
     private LocalDateTime closeBidDate;
     private LocalDateTime lastBidDate;
     private Long productBiddingCount;
+
 }

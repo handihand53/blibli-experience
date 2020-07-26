@@ -1,6 +1,5 @@
-package com.blibli.experience.model.response.productBidding;
+package com.blibli.experience.entity.form;
 
-import com.blibli.experience.entity.form.UserDataForm;
 import com.blibli.experience.enums.ProductBiddingCondition;
 import com.blibli.experience.enums.ProductCategory;
 import lombok.AllArgsConstructor;
@@ -16,18 +15,23 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetAllProductBiddingAvailableResponse {
+public class ProductBiddingForm {
 
     private UUID productBiddingId;
     private UserDataForm userData;
     private String productBiddingName;
     private String productBiddingBrand;
+    private String productBiddingDescription;
+    private Double productBiddingWeight;
+    private String productBiddingVolume;
+    private String productBiddingPackage;
     private ProductCategory productCategory;
     private Integer startPrice;
     private Integer currentPrice;
+    private Integer nextBid;
+    private List<BiddingForm> biddingForms;
     private ProductBiddingCondition productBiddingCondition;
-    private List<String> productBiddingImagePaths;
     private LocalDateTime closeBidDate;
     private LocalDateTime lastBidDate;
-    private Long productBiddingCount;
+
 }

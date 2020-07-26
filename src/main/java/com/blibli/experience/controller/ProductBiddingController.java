@@ -1,13 +1,10 @@
 package com.blibli.experience.controller;
 
 import com.blibli.experience.ApiPath;
-import com.blibli.experience.command.productBidding.GetAllProductBiddingAvailableCommand;
-import com.blibli.experience.command.productBidding.GetProductBiddingDetailCommand;
-import com.blibli.experience.command.productBidding.PostProductBiddingCommand;
+import com.blibli.experience.command.productBidding.*;
 import com.blibli.experience.model.request.productBidding.PostProductBiddingRequest;
-import com.blibli.experience.model.response.productBidding.GetAllProductBiddingAvailableResponse;
-import com.blibli.experience.model.response.productBidding.GetProductBiddingDetailResponse;
-import com.blibli.experience.model.response.productBidding.PostProductBiddingResponse;
+import com.blibli.experience.model.request.productBidding.UpdateProductBiddingToBidRequest;
+import com.blibli.experience.model.response.productBidding.*;
 import com.blibli.oss.command.CommandExecutor;
 import com.blibli.oss.common.response.Response;
 import com.blibli.oss.common.response.ResponseHelper;
@@ -16,11 +13,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -56,14 +51,50 @@ public class ProductBiddingController {
                 .subscribeOn(Schedulers.elastic());
     }
 
-    @PostMapping(value = ApiPath.PRODUCT_BIDDING)
+    @GetMapping(value = ApiPath.PRODUCT_BIDDING_BY_USER)
+    public Mono<Response<List<GetAllProductBiddingByUserResponse>>> getProductBiddingByUser(
+            @RequestParam UUID userId) {
+        return commandExecutor.execute(GetAllProductBiddingByUserCommand.class, userId)
+                .log("#getProductBiddingByUser - Successfully executing command.")
+                .map(ResponseHelper::ok)
+                .subscribeOn(Schedulers.elastic());
+    }
+
+//    @PostMapping(value = ApiPath.PRODUCT_BIDDING)
+//    public Mono<Response<PostProductBiddingResponse>> postProductBidding(
+//            @RequestParam List<MultipartFile> images, @RequestParam String productBiddingMetaData) throws IOException {
+//        PostProductBiddingRequest request = objectMapper.readValue(productBiddingMetaData, PostProductBiddingRequest.class);
+//        request.setProductImages(images);
+//        return commandExecutor.execute(PostProductBiddingCommand.class, request)
+//                .log("#postProductBidding - Successfully executing command.")
+//                .map(ResponseHelper::ok)
+//                .subscribeOn(Schedulers.elastic());
+//    }
+
+    @PostMapping(value = ApiPath.PRODUCT_BIDDING, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Mono<Response<PostProductBiddingResponse>> postProductBidding(
-            @RequestParam List<MultipartFile> images, @RequestParam String productBiddingMetaData) throws IOException {
-        PostProductBiddingRequest request = objectMapper.readValue(productBiddingMetaData, PostProductBiddingRequest.class);
-        request.setProductImages(images);
+            @RequestBody PostProductBiddingRequest request) {
         return commandExecutor.execute(PostProductBiddingCommand.class, request)
                 .log("#postProductBidding - Successfully executing command.")
                 .map(ResponseHelper::ok)
                 .subscribeOn(Schedulers.elastic());
     }
+
+    @PutMapping(value = ApiPath.PRODUCT_BIDDING_TO_BID, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<Response<UpdateProductBiddingToBidResponse>> updateProductBiddingToBid(
+            @RequestBody UpdateProductBiddingToBidRequest request) {
+        return commandExecutor.execute(UpdateProductBiddingToBidCommand.class, request)
+                .log("#updateProductBiddingToBid - Successfully executing command.")
+                .map(ResponseHelper::ok)
+                .subscribeOn(Schedulers.elastic());
+    }
+
+    @PutMapping(value = ApiPath.ADMIN_PRODUCT_BIDDING_TO_CLOSE)
+    public Mono<Response<List<UpdateProductBiddingToCloseResponse>>> updateProductBiddingToClose() {
+        return commandExecutor.execute(UpdateProductBiddingToCloseCommand.class, 1)
+                .log("#updateProductBiddingToClose - Successfully executing command.")
+                .map(ResponseHelper::ok)
+                .subscribeOn(Schedulers.elastic());
+    }
+
 }

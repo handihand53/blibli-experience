@@ -3,6 +3,7 @@ package com.blibli.experience.commandImpl.productBidding;
 import com.blibli.experience.command.productBidding.PostProductBiddingCommand;
 import com.blibli.experience.entity.document.ProductBidding;
 import com.blibli.experience.entity.document.User;
+import com.blibli.experience.entity.form.BiddingForm;
 import com.blibli.experience.entity.form.UserDataForm;
 import com.blibli.experience.enums.ProductAvailableStatus;
 import com.blibli.experience.enums.UploadEnum;
@@ -22,6 +23,7 @@ import reactor.core.publisher.Mono;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -46,11 +48,11 @@ public class PostProductBiddingCommandImpl implements PostProductBiddingCommand 
                 .switchIfEmpty(Mono.error(new NotFoundException("User not found.")))
                 .map(user -> toProductBidding(user, request))
                 .flatMap(productBidding -> {
-                    try {
-                        productBidding.setProductBiddingImagePaths(getImagePaths(request, productBidding));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+//                    try {
+////                        productBidding.setProductBiddingImagePaths(getImagePaths(request, productBidding));
+////                    } catch (IOException e) {
+////                        e.printStackTrace();
+////                    }
                     return productBiddingRepository.save(productBidding);
                 })
                 .map(this::toResponse);
@@ -58,11 +60,13 @@ public class PostProductBiddingCommandImpl implements PostProductBiddingCommand 
 
     private ProductBidding toProductBidding(User user, PostProductBiddingRequest request) {
         if(verifyStartBid(request)) {
+            List<BiddingForm> biddingForms = new ArrayList<>();
             UserDataForm userDataForm = new UserDataForm();
             BeanUtils.copyProperties(user, userDataForm);
             ProductBidding productBidding = ProductBidding.builder()
                     .productBiddingId(UUID.randomUUID())
                     .userData(userDataForm)
+                    .biddingForms(biddingForms)
                     .availableStatus(ProductAvailableStatus.AVAILABLE)
                     .productBiddingCreatedAt(LocalDateTime.now())
                     .build();

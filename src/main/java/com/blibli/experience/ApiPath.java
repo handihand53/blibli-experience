@@ -61,7 +61,9 @@ public class ApiPath {
 
   // PRODUCT BIDDING ENDPOINTS
   public static final String PRODUCT_BIDDING = API + "/bidding";
+  public static final String PRODUCT_BIDDING_TO_BID = PRODUCT_BIDDING + "/bid";
   public static final String PRODUCT_BIDDING_AVAILABLE = PRODUCT_BIDDING + "/available";
+  public static final String PRODUCT_BIDDING_BY_USER = PRODUCT_BIDDING + "/user";
 
   // ADMIN ENDPOINTS
   public static final String ADMIN = API + "/admin";
@@ -73,6 +75,8 @@ public class ApiPath {
   public static final String ADMIN_BARTER_ORDER_RECEIPT_TO_CONSUMERS = ADMIN_BARTER_ORDER + "/toConsumers";
   public static final String ADMIN_ORDER = ADMIN + "/order";
   public static final String ADMIN_ORDER_DELIVERY_RECEIPT = ADMIN_ORDER + "/deliveryReceipt";
+  public static final String ADMIN_PRODUCT_BIDDING = ADMIN + "/productBidding";
+  public static final String ADMIN_PRODUCT_BIDDING_TO_CLOSE = ADMIN_PRODUCT_BIDDING + "/close";
 
   // MERCHANT ENDPOINTS
   public static final String MERCHANT = API + "/merchant";
