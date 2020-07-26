@@ -17,6 +17,9 @@ public class UpdateProductBiddingToBidRequest {
     @NotNull
     private UUID productBiddingId;
 
+    @NotNull
+    private UUID userId;
+
     private Integer bid;
 
 }
