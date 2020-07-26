@@ -1,5 +1,6 @@
 package com.blibli.experience.model.response.order;
 
+import com.blibli.experience.entity.form.CartForm;
 import com.blibli.experience.entity.form.ReceiptForm;
 import com.blibli.experience.entity.form.StockForm;
 import com.blibli.experience.entity.form.UserDataForm;
@@ -23,7 +24,7 @@ public class UpdateOrderDeliveryReceiptResponse {
     private UUID orderId;
     private String orderTransactionId;
     private UserDataForm userDataForm;
-    private List<StockForm> stockForms;
+    private List<CartForm> cartForms;
     private DeliveryType deliveryType;
     private ReceiptForm deliveryReceipt;
     private UUID paymentId;
