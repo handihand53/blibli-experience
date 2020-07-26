@@ -1,6 +1,7 @@
 package com.blibli.experience.repository;
 
 import com.blibli.experience.entity.document.ProductStock;
+import com.blibli.experience.enums.ProductCategory;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
@@ -24,5 +25,7 @@ public interface ProductStockRepository extends ReactiveMongoRepository<ProductS
     Flux<ProductStock> findAllByShopForm_ShopId(UUID id);
 
     Flux<ProductStock> findAllByProductDataForm_ProductId(UUID productId);
+
+    Mono<Long> countAllByProductDataForm_ProductCategory(ProductCategory productCategory);
 
 }

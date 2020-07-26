@@ -22,5 +22,6 @@ public class GetAllProductByCategoryResponse {
     private Integer productStock;
     private Integer productPrice;
     private LocalDateTime stockCreatedAt;
+    private Long countProducts;
 
 }
