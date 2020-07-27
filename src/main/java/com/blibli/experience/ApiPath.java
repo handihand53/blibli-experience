@@ -4,6 +4,7 @@ public class ApiPath {
 
   // SOME FIXED VARIABLES
   private static final String API = "/api";
+  private static final String EXCLUSION = API + "/exc";
 
   // AUTH ENDPOINTS
   public static final String AUTH = API + "/auth";
@@ -38,7 +39,10 @@ public class ApiPath {
   // ORDER ENDPOINTS
   public static final String ORDER = API + "/order";
   public static final String ORDER_BY_USER = ORDER + "/user";
-  public static final String ORDER_TO_FINISHED = ORDER + "/toFinished";
+
+  // ORDER EXCEPTION ENDPOINTS
+  private static final String ORDER_EXCLUSION = EXCLUSION + "/order";
+  public static final String ORDER_TO_FINISHED = ORDER_EXCLUSION + "/toFinished";
 
   // PAYMENT ENDPOINTS
   public static final String PAYMENT = API + "/payment";
@@ -74,7 +78,10 @@ public class ApiPath {
   public static final String BIDDING_ORDER_BY_OWNER = BIDDING_ORDER + "/owner";
   public static final String BIDDING_ORDER_BY_WINNER = BIDDING_ORDER + "/winner";
   public static final String BIDDING_ORDER_DELIVERY_RECEIPT = BIDDING_ORDER + "/deliveryReceipt";
-  public static final String BIDDING_ORDER_CONFIRMATION = BIDDING_ORDER + "/confirmation";
+
+  // BIDDING ORDER EXCEPTION ENDPOINTS
+  private static final String BIDDING_ORDER_EXCLUSION = EXCLUSION + "/biddingOrder";
+  public static final String BIDDING_ORDER_CONFIRMATION = BIDDING_ORDER_EXCLUSION + "/confirmation";
 
   // BIDDING PAYMENT ENDPOINTS
   public static final String BIDDING_PAYMENT = API + "/biddingPayment";
