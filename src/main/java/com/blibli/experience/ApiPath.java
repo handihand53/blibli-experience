@@ -65,6 +65,7 @@ public class ApiPath {
   public static final String PRODUCT_BIDDING_TO_BID = PRODUCT_BIDDING + "/bid";
   public static final String PRODUCT_BIDDING_AVAILABLE = PRODUCT_BIDDING + "/available";
   public static final String PRODUCT_BIDDING_BY_CATEGORY = PRODUCT_BIDDING + "/category";
+  public static final String PRODUCT_BIDDING_BIDDING_FORM_BY_USER = PRODUCT_BIDDING + "/user" + "/bidding";
   public static final String PRODUCT_BIDDING_BY_USER = PRODUCT_BIDDING + "/user";
   public static final String PRODUCT_BIDDING_BY_USER_FINISHED = PRODUCT_BIDDING + "/user" + "/finished";
 

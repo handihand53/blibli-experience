@@ -25,6 +25,9 @@ public interface ProductBiddingRepository extends ReactiveMongoRepository<Produc
 
     Flux<ProductBidding> findAllByAvailableStatusAndProductCategory(ProductBiddingAvailableStatus productBiddingAvailableStatus, ProductCategory productCategory);
 
+    @Query(value = "{ 'biddingForms': { $elemMatch: { 'userDataForm_userId' : ?0 } } }")
+    Flux<ProductBidding> findAllByBiddingFormsUserData(UUID userId);
+
     Mono<Long> countAllByAvailableStatusAndUserData_UserId(ProductBiddingAvailableStatus productBiddingAvailableStatus, UUID userId);
 
     Mono<Long> countAllByAvailableStatusAndProductCategory(ProductBiddingAvailableStatus productBiddingAvailableStatus, ProductCategory productCategory);
