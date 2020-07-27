@@ -2,6 +2,7 @@ package com.blibli.experience.controller;
 
 import com.blibli.experience.ApiPath;
 import com.blibli.experience.command.productBidding.*;
+import com.blibli.experience.model.request.productBidding.GetAllProductBiddingByAvailableAndCategoryRequest;
 import com.blibli.experience.model.request.productBidding.PostProductBiddingRequest;
 import com.blibli.experience.model.request.productBidding.UpdateProductBiddingToBidRequest;
 import com.blibli.experience.model.response.productBidding.*;
@@ -61,11 +62,29 @@ public class ProductBiddingController {
                 .subscribeOn(Schedulers.elastic());
     }
 
+    @GetMapping(value = ApiPath.PRODUCT_BIDDING_BY_CATEGORY)
+    public Mono<Response<List<GetAllProductBiddingByAvailableAndCategoryResponse>>> getProductBiddingByCategory(
+            @RequestBody GetAllProductBiddingByAvailableAndCategoryRequest request) {
+        return commandExecutor.execute(GetAllProductBiddingByAvailableAndCategoryCommand.class, request)
+                .log("#getProductBiddingAvailable - Successfully executing command.")
+                .map(ResponseHelper::ok)
+                .subscribeOn(Schedulers.elastic());
+    }
+
     @GetMapping(value = ApiPath.PRODUCT_BIDDING_BY_USER)
     public Mono<Response<List<GetAllProductBiddingByUserAndAvailableResponse>>> getProductBiddingByUserAndAvailable(
             @RequestParam UUID userId) {
         return commandExecutor.execute(GetAllProductBiddingByUserAndAvailableCommand.class, userId)
                 .log("#getProductBiddingByUserAndAvailable - Successfully executing command.")
+                .map(ResponseHelper::ok)
+                .subscribeOn(Schedulers.elastic());
+    }
+
+    @GetMapping(value = ApiPath.PRODUCT_BIDDING_BY_USER_FINISHED)
+    public Mono<Response<List<GetAllProductBiddingFinishedByUserIdResponse>>> getAllProductBiddingFinishedByUserId(
+            @RequestParam UUID userId) {
+        return commandExecutor.execute(GetAllProductBiddingFinishedByUserIdCommand.class, userId)
+                .log("#getAllProductBiddingFinishedByUserId - Successfully executing command.")
                 .map(ResponseHelper::ok)
                 .subscribeOn(Schedulers.elastic());
     }

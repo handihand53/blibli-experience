@@ -2,6 +2,7 @@ package com.blibli.experience.repository;
 
 import com.blibli.experience.entity.document.ProductBarter;
 import com.blibli.experience.enums.ProductAvailableStatus;
+import com.blibli.experience.enums.ProductCategory;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -15,5 +16,7 @@ public interface ProductBarterRepository extends ReactiveMongoRepository<Product
     Flux<ProductBarter> findAllByUserData_UserId(UUID userId);
 
     Flux<ProductBarter> findAllByAvailableStatus(ProductAvailableStatus availableStatus);
+
+    Flux<ProductBarter> findAllByAvailableStatusAndProductCategory(ProductAvailableStatus availableStatus, ProductCategory productCategory);
 
 }

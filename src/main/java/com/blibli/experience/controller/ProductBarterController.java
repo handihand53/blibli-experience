@@ -2,6 +2,7 @@ package com.blibli.experience.controller;
 
 import com.blibli.experience.ApiPath;
 import com.blibli.experience.command.productBarter.*;
+import com.blibli.experience.model.request.productBarter.GetAllProductBarterAvailableAndCategoryRequest;
 import com.blibli.experience.model.request.productBarter.PostProductBarterRequest;
 import com.blibli.experience.model.response.productBarter.*;
 import com.blibli.oss.command.CommandExecutor;
@@ -56,6 +57,15 @@ public class ProductBarterController {
             @RequestParam Integer skipCount) {
         return commandExecutor.execute(GetAllProductBarterAvailableCommand.class, skipCount)
                 .log("#getAllProductBarterAvailable - Successfully executing command.")
+                .map(ResponseHelper::ok)
+                .subscribeOn(Schedulers.elastic());
+    }
+
+    @GetMapping(value = ApiPath.PRODUCT_BARTER_BY_CATEGORY)
+    public Mono<Response<List<GetAllProductBarterAvailableAndCategoryResponse>>> getAllProductBarterByCategory(
+            @RequestBody GetAllProductBarterAvailableAndCategoryRequest request) {
+        return commandExecutor.execute(GetAllProductBarterAvailableAndCategoryCommand.class, request)
+                .log("#getAllProductBarterByCategory - Successfully executing command.")
                 .map(ResponseHelper::ok)
                 .subscribeOn(Schedulers.elastic());
     }

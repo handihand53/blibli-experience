@@ -46,6 +46,7 @@ public class ApiPath {
   // PRODUCT BARTER ENDPOINTS
   public static final String PRODUCT_BARTER = API + "/barter";
   public static final String PRODUCT_BARTER_AVAILABLE = PRODUCT_BARTER + "/available";
+  public static final String PRODUCT_BARTER_BY_CATEGORY = PRODUCT_BARTER + "/category";
   public static final String PRODUCT_BARTER_BY_USER = PRODUCT_BARTER + "/user";
 
   // BARTER SUBMISSION ENDPOINTS
@@ -60,10 +61,12 @@ public class ApiPath {
   public static final String BARTER_ORDER_RECEIPT_IN_CONSUMERS = BARTER_ORDER + "/inConsumers";
 
   // PRODUCT BIDDING ENDPOINTS
-  public static final String PRODUCT_BIDDING = API + "/bidding";
+  public static final String PRODUCT_BIDDING = PRODUCT + "/bidding";
   public static final String PRODUCT_BIDDING_TO_BID = PRODUCT_BIDDING + "/bid";
   public static final String PRODUCT_BIDDING_AVAILABLE = PRODUCT_BIDDING + "/available";
+  public static final String PRODUCT_BIDDING_BY_CATEGORY = PRODUCT_BIDDING + "/category";
   public static final String PRODUCT_BIDDING_BY_USER = PRODUCT_BIDDING + "/user";
+  public static final String PRODUCT_BIDDING_BY_USER_FINISHED = PRODUCT_BIDDING + "/user" + "/finished";
 
   // BIDDING ORDER ENDPOINTS
   public static final String BIDDING_ORDER = API + "/biddingOrder";

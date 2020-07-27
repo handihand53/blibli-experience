@@ -3,6 +3,8 @@ package com.blibli.experience.repository;
 import com.blibli.experience.entity.document.ProductBidding;
 import com.blibli.experience.enums.ProductAvailableStatus;
 import com.blibli.experience.enums.ProductBiddingAvailableStatus;
+import com.blibli.experience.enums.ProductCategory;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -20,6 +22,12 @@ public interface ProductBiddingRepository extends ReactiveMongoRepository<Produc
     Flux<ProductBidding> findAllByAvailableStatus(ProductBiddingAvailableStatus productBiddingAvailableStatus);
 
     Flux<ProductBidding> findAllByCloseBidDateBefore(LocalDateTime localDateTime);
+
+    Flux<ProductBidding> findAllByAvailableStatusAndProductCategory(ProductBiddingAvailableStatus productBiddingAvailableStatus, ProductCategory productCategory);
+
+    Mono<Long> countAllByAvailableStatusAndUserData_UserId(ProductBiddingAvailableStatus productBiddingAvailableStatus, UUID userId);
+
+    Mono<Long> countAllByAvailableStatusAndProductCategory(ProductBiddingAvailableStatus productBiddingAvailableStatus, ProductCategory productCategory);
 
     Mono<Long> countAllByAvailableStatus(ProductBiddingAvailableStatus productBiddingAvailableStatus);
 
