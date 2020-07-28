@@ -64,7 +64,7 @@ public class ProductBiddingController {
 
     @GetMapping(value = ApiPath.PRODUCT_BIDDING_BY_CATEGORY)
     public Mono<Response<List<GetAllProductBiddingByAvailableAndCategoryResponse>>> getProductBiddingByCategory(
-            @RequestBody GetAllProductBiddingByAvailableAndCategoryRequest request) {
+            @ModelAttribute GetAllProductBiddingByAvailableAndCategoryRequest request) {
         return commandExecutor.execute(GetAllProductBiddingByAvailableAndCategoryCommand.class, request)
                 .log("#getProductBiddingAvailable - Successfully executing command.")
                 .map(ResponseHelper::ok)
