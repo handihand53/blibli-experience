@@ -26,6 +26,7 @@ public class ApiPath {
   public static final String PRODUCT_AVAILABLE = PRODUCT + "/available";
   public static final String PRODUCT_CATEGORY = PRODUCT + "/category";
   public static final String PRODUCT_WITH_BARCODE = PRODUCT + "/barcode";
+  public static final String PRODUCT_SEARCH_AVAILABLE = PRODUCT + "/search" + "/inStock";
   public static final String PRODUCT_SEARCH = PRODUCT + "/search";
   public static final String PRODUCTS_ALL = PRODUCT + "/getAll";
   public static final String PRODUCT_ENUMS = PRODUCT + "/enums";

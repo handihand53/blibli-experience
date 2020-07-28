@@ -2,13 +2,11 @@ package com.blibli.experience.commandImpl.productMaster;
 
 import com.blibli.experience.command.productMaster.GetAllProductMasterWithNameContainingCommand;
 import com.blibli.experience.entity.document.ProductMaster;
-import com.blibli.experience.enums.ProductAvailableStatus;
 import com.blibli.experience.model.response.productMaster.GetAllProductMasterWithNameContainingResponse;
 import com.blibli.experience.repository.ProductMasterRepository;
 import com.blibli.experience.util.SearchKeyUtil;
 import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
-import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,11 +27,11 @@ public class GetAllProductMasterWithNameContainingCommandImpl implements GetAllP
 
     @Override
     public Mono<List<GetAllProductMasterWithNameContainingResponse>> execute(String searchKey) {
-        return productMasterRepository.findAllByProductNameContainingAndAvailableStatus(SearchKeyUtil.capitalizeSearchKey(searchKey), ProductAvailableStatus.AVAILABLE)
-                .switchIfEmpty(productMasterRepository.findAllByProductNameContainingAndAvailableStatus(SearchKeyUtil.lowerSearchKey(searchKey), ProductAvailableStatus.AVAILABLE))
-                .switchIfEmpty(Mono.error(new NotFoundException("Product not found.")))
-                .map(this::toResponse)
-                .collectList();
+        return productMasterRepository.findAllByProductNameContaining(SearchKeyUtil.capitalizeSearchKey(searchKey))
+                .switchIfEmpty(productMasterRepository.findAllByProductNameContaining(SearchKeyUtil.lowerSearchKey(searchKey)))
+                        .switchIfEmpty(Mono.error(new NotFoundException("Product not found.")))
+                        .map(this::toResponse)
+                        .collectList();
     }
 
     private GetAllProductMasterWithNameContainingResponse toResponse(ProductMaster productMaster) {
