@@ -2,6 +2,7 @@ package com.blibli.experience.commandImpl.productMaster;
 
 import com.blibli.experience.command.productMaster.GetAllProductMasterWithNameContainingCommand;
 import com.blibli.experience.entity.document.ProductMaster;
+import com.blibli.experience.enums.ProductAvailableStatus;
 import com.blibli.experience.model.response.productMaster.GetAllProductMasterWithNameContainingResponse;
 import com.blibli.experience.repository.ProductMasterRepository;
 import com.blibli.experience.util.SearchKeyUtil;
@@ -28,8 +29,8 @@ public class GetAllProductMasterWithNameContainingCommandImpl implements GetAllP
 
     @Override
     public Mono<List<GetAllProductMasterWithNameContainingResponse>> execute(String searchKey) {
-        return productMasterRepository.findAllByProductNameContaining(SearchKeyUtil.capitalizeSearchKey(searchKey))
-                .switchIfEmpty(productMasterRepository.findAllByProductNameContaining(SearchKeyUtil.lowerSearchKey(searchKey)))
+        return productMasterRepository.findAllByProductNameContainingAndAvailableStatus(SearchKeyUtil.capitalizeSearchKey(searchKey), ProductAvailableStatus.AVAILABLE)
+                .switchIfEmpty(productMasterRepository.findAllByProductNameContainingAndAvailableStatus(SearchKeyUtil.lowerSearchKey(searchKey), ProductAvailableStatus.AVAILABLE))
                 .switchIfEmpty(Mono.error(new NotFoundException("Product not found.")))
                 .map(this::toResponse)
                 .collectList();

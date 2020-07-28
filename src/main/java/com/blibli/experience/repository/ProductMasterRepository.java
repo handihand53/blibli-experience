@@ -18,7 +18,7 @@ public interface ProductMasterRepository extends ReactiveMongoRepository<Product
 
   Mono<ProductMaster> findFirstByProductBarcode(String barcode);
 
-  Flux<ProductMaster> findAllByProductNameContaining(String searchKey);
+  Flux<ProductMaster> findAllByProductNameContainingAndAvailableStatus(String searchKey, ProductAvailableStatus productAvailableStatus);
 
   Flux<ProductMaster> findAllByProductCategory(ProductCategory productCategory);
 
