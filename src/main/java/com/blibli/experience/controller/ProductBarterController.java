@@ -63,7 +63,7 @@ public class ProductBarterController {
 
     @GetMapping(value = ApiPath.PRODUCT_BARTER_BY_CATEGORY)
     public Mono<Response<List<GetAllProductBarterAvailableAndCategoryResponse>>> getAllProductBarterByCategory(
-            @RequestBody GetAllProductBarterAvailableAndCategoryRequest request) {
+            @ModelAttribute GetAllProductBarterAvailableAndCategoryRequest request) {
         return commandExecutor.execute(GetAllProductBarterAvailableAndCategoryCommand.class, request)
                 .log("#getAllProductBarterByCategory - Successfully executing command.")
                 .map(ResponseHelper::ok)
