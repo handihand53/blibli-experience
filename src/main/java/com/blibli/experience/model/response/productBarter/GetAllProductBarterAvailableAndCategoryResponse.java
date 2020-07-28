@@ -29,5 +29,6 @@ public class GetAllProductBarterAvailableAndCategoryResponse {
     private ProductBarterCondition productBarterCondition;
     private List<String> productBarterImagePaths;
     private LocalDateTime productBarterCreatedAt;
+    private Long count;
 
 }

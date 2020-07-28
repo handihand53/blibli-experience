@@ -19,4 +19,7 @@ public interface ProductBarterRepository extends ReactiveMongoRepository<Product
 
     Flux<ProductBarter> findAllByAvailableStatusAndProductCategory(ProductAvailableStatus availableStatus, ProductCategory productCategory);
 
+    Mono<Long> countAllByAvailableStatus(ProductAvailableStatus availableStatus);
+
+    Mono<Long> countAllByAvailableStatusAndProductCategory(ProductAvailableStatus availableStatus, ProductCategory productCategory);
 }

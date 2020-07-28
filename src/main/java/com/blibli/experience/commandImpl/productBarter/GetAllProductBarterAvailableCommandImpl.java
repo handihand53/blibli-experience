@@ -27,17 +27,19 @@ public class GetAllProductBarterAvailableCommandImpl implements GetAllProductBar
 
     @Override
     public Mono<List<GetAllProductBarterAvailableResponse>> execute(Integer skipCount) {
+        Long count = productBarterRepository.countAllByAvailableStatus(ProductAvailableStatus.AVAILABLE).block();
         return productBarterRepository.findAllByAvailableStatus(ProductAvailableStatus.AVAILABLE)
                 .switchIfEmpty(Mono.error(new NotFoundException("Product Barter not found.")))
                 .skip(skipCount)
                 .take(20)
-                .map(this::toResponse)
+                .map(productBarter -> toResponse(productBarter, count))
                 .collectList();
     }
 
-    private GetAllProductBarterAvailableResponse toResponse(ProductBarter productBarter) {
+    private GetAllProductBarterAvailableResponse toResponse(ProductBarter productBarter, Long count) {
         GetAllProductBarterAvailableResponse response = new GetAllProductBarterAvailableResponse();
         BeanUtils.copyProperties(productBarter, response);
+        response.setCount(count);
         return response;
     }
 }

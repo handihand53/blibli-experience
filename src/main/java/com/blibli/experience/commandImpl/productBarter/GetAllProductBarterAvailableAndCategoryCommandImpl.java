@@ -28,16 +28,18 @@ public class GetAllProductBarterAvailableAndCategoryCommandImpl implements GetAl
 
     @Override
     public Mono<List<GetAllProductBarterAvailableAndCategoryResponse>> execute(GetAllProductBarterAvailableAndCategoryRequest request) {
+        Long count = productBarterRepository.countAllByAvailableStatusAndProductCategory(ProductAvailableStatus.AVAILABLE, request.getProductCategory()).block();
         return productBarterRepository.findAllByAvailableStatusAndProductCategory(ProductAvailableStatus.AVAILABLE, request.getProductCategory())
                 .switchIfEmpty(Mono.error(new NotFoundException("Product Barter not found.")))
                 .skip(request.getSkipCount())
-                .map(this::toResponse)
+                .map(productBarter -> toResponse(productBarter, count))
                 .collectList();
     }
 
-    private GetAllProductBarterAvailableAndCategoryResponse toResponse(ProductBarter productBarter) {
+    private GetAllProductBarterAvailableAndCategoryResponse toResponse(ProductBarter productBarter, Long count) {
         GetAllProductBarterAvailableAndCategoryResponse response = new GetAllProductBarterAvailableAndCategoryResponse();
         BeanUtils.copyProperties(productBarter, response);
+        response.setCount(count);
         return response;
     }
 
