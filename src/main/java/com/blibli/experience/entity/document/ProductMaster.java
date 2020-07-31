@@ -32,6 +32,7 @@ public class ProductMaster {
     public static final String VOLUME = "volume";
     public static final String CATEGORY = "category";
     public static final String IMAGE_PATH = "imagePath";
+    public static final String QR_PATH = "qrPath";
     public static final String AVAILABLE_STATUS = "availableStatus";
     public static final String CREATED_AT = "createdAt";
 
@@ -67,6 +68,9 @@ public class ProductMaster {
 
     @Field(value = IMAGE_PATH)
     private List<String> productImagePaths;
+
+    @Field(value = QR_PATH)
+    private String qrImagePath;
 
     @Field(value = CREATED_AT)
     private LocalDateTime productCreatedAt;

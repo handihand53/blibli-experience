@@ -8,6 +8,7 @@ import com.blibli.experience.model.request.productMaster.PostProductMasterReques
 import com.blibli.experience.model.response.productMaster.PostProductMasterResponse;
 import com.blibli.experience.repository.ProductMasterRepository;
 import com.blibli.experience.util.FileUploadUtil;
+import com.blibli.experience.util.QrGeneratorUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +26,13 @@ public class PostProductMasterCommandImpl implements PostProductMasterCommand {
 
     private ProductMasterRepository productMasterRepository;
     private FileUploadUtil fileUploadUtil;
+    private QrGeneratorUtil qrGeneratorUtil;
 
     @Autowired
-    public PostProductMasterCommandImpl(ProductMasterRepository productMasterRepository, FileUploadUtil fileUploadUtil) {
+    public PostProductMasterCommandImpl(ProductMasterRepository productMasterRepository, FileUploadUtil fileUploadUtil, QrGeneratorUtil qrGeneratorUtil) {
         this.productMasterRepository = productMasterRepository;
         this.fileUploadUtil = fileUploadUtil;
+        this.qrGeneratorUtil = qrGeneratorUtil;
     }
 
     @Override
@@ -38,6 +41,7 @@ public class PostProductMasterCommandImpl implements PostProductMasterCommand {
                 .flatMap(productMaster -> {
                     try {
                         productMaster.setProductImagePaths(getImagePaths(request, productMaster));
+                        productMaster.setQrImagePath(qrGeneratorUtil.generateQR(productMaster.getProductId().toString()));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

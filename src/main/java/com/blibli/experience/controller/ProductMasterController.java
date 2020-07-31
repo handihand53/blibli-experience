@@ -1,12 +1,10 @@
 package com.blibli.experience.controller;
 
 import com.blibli.experience.ApiPath;
-import com.blibli.experience.command.productBarter.GetProductBarterMetadataCommand;
 import com.blibli.experience.command.productMaster.*;
 import com.blibli.experience.model.request.productMaster.PostProductMasterRequest;
 import com.blibli.experience.model.request.productMaster.UpdateProductMasterRequest;
 import com.blibli.experience.model.response.product.GetProductMasterDetailWithIdResponse;
-import com.blibli.experience.model.response.productBarter.GetProductBarterMetadataResponse;
 import com.blibli.experience.model.response.productMaster.*;
 import com.blibli.oss.command.CommandExecutor;
 import com.blibli.oss.common.response.Response;
@@ -48,6 +46,16 @@ public class ProductMasterController {
                 .map(ResponseHelper::ok)
                 .subscribeOn(Schedulers.elastic());
     }
+
+    @PostMapping(value = ApiPath.ADMIN_GENERATE_PRODUCT_MASTER_QR)
+    public Mono<Response<String>> generateProductMasterQr() throws IOException {
+        return commandExecutor.execute(GenerateProductMasterQRCodeCommand.class, 1)
+                .log("#generateProductMasterQr - Successfully executing command.")
+                .map(ResponseHelper::ok)
+                .subscribeOn(Schedulers.elastic());
+    }
+
+
 
     @PutMapping(value = ApiPath.ADMIN_PRODUCT_MASTER, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Mono<Response<UpdateProductMasterResponse>> updateProductMaster(@RequestBody UpdateProductMasterRequest request) {

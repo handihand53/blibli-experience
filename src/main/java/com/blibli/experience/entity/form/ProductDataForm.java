@@ -25,5 +25,6 @@ public class ProductDataForm {
     private Double productWeight;
     private String productVolume;
     private List<String> productImagePaths;
+    private String qrImagePath;
     private LocalDateTime productCreatedAt;
 }
