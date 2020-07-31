@@ -3,6 +3,7 @@ package com.blibli.experience.controller;
 import com.blibli.experience.ApiPath;
 import com.blibli.experience.command.productStock.GetAllProductStockInShopCommand;
 import com.blibli.experience.command.productStock.PostProductStockCommand;
+import com.blibli.experience.command.productStock.SynchronizeAllProductDataFormCommand;
 import com.blibli.experience.command.productStock.UpdateProductStockCommand;
 import com.blibli.experience.model.request.productStock.PostProductStockRequest;
 import com.blibli.experience.model.request.productStock.UpdateProductStockRequest;
@@ -38,6 +39,14 @@ public class ProductStockController {
     public Mono<Response<PostProductStockResponse>> postProductStock(@RequestBody PostProductStockRequest request) {
         return commandExecutor.execute(PostProductStockCommand.class, request)
                 .log("#postProductStock - Successfully executing command.")
+                .map(ResponseHelper::ok)
+                .subscribeOn(Schedulers.elastic());
+    }
+
+    @PostMapping(value = ApiPath.ADMIN_SYNCHRONIZE_PRODUCT_DATA_FORM_IN_STOCK)
+    public Mono<Response<String>> synchronizeProductDataForm() {
+        return commandExecutor.execute(SynchronizeAllProductDataFormCommand.class, 1)
+                .log("#synchronizeProductDataForm - Successfully executing command.")
                 .map(ResponseHelper::ok)
                 .subscribeOn(Schedulers.elastic());
     }
