@@ -90,7 +90,7 @@ public class ApiPath {
   // ADMIN ENDPOINTS
   public static final String ADMIN = API + "/admin";
   public static final String ADMIN_PRODUCT_MASTER = ADMIN + "/productMasters";
-  public static final String ADMIN_GENERATE_PRODUCT_MASTER_QR = ADMIN_PRODUCT_MASTER + "generateQR";
+  public static final String ADMIN_GENERATE_PRODUCT_MASTER_QR = ADMIN_PRODUCT_MASTER + "/generateQR";
   public static final String ADMIN_SYNCHRONIZE_PRODUCT_DATA_FORM_IN_STOCK = ADMIN + "/updateDataForm";
   public static final String ADMIN_BARTER_ORDER = ADMIN + "/barterOrder";
   public static final String ADMIN_BARTER_ORDER_BY_ORDER_STATUS = ADMIN_BARTER_ORDER + "/orderStatus";
