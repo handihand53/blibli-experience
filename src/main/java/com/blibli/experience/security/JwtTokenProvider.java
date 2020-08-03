@@ -1,6 +1,7 @@
 package com.blibli.experience.security;
 
 import com.blibli.experience.entity.form.UserRoleForm;
+import com.blibli.experience.enums.UserRole;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +36,19 @@ public class JwtTokenProvider {
         Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
         return Jwts.builder()
                 .setSubject(userPrincipal.getId().toString())
+                .setIssuedAt(new Date())
+                .setExpiration(expiryDate)
+                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .compact();
+    }
+
+    public static String generateTokenFromRole(UserRole userRole, String userId) {
+        int jwtExpirationInMs = 604800000;
+        String jwtSecret = "ExperienceSecretKey";
+        Date now = new Date();
+        Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
+        return Jwts.builder()
+                .setSubject(userId)
                 .setIssuedAt(new Date())
                 .setExpiration(expiryDate)
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
