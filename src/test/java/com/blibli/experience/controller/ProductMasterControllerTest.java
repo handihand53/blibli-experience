@@ -2,8 +2,6 @@ package com.blibli.experience.controller;
 
 import com.blibli.experience.ApiPath;
 import com.blibli.experience.command.productMaster.*;
-import com.blibli.experience.command.user.GetUserDetailCommand;
-import com.blibli.experience.command.user.UpdateUserDataCommand;
 import com.blibli.experience.enums.UserRole;
 import com.blibli.experience.model.request.productMaster.PostProductMasterRequest;
 import com.blibli.experience.model.request.productMaster.UpdateProductMasterRequest;

@@ -62,7 +62,7 @@ public class ProductStockControllerTest {
         String adminId = "bfebe547-3fc3-4cd4-85d1-6d20f732f82b";
         adminHttpHeaders = new HttpHeaders();
         adminHttpHeaders.setBearerAuth(JwtTokenProvider.generateTokenFromRole(UserRole.ROLE_ADMIN, adminId));
-        String merchantId = "";
+        String merchantId = "3eb3e637-d956-42df-9cb8-b41a0fd57b7a";
         merchantHttpHeaders = new HttpHeaders();
         merchantHttpHeaders.setBearerAuth(JwtTokenProvider.generateTokenFromRole(UserRole.ROLE_MERCHANT, merchantId));
 

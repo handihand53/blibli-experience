@@ -43,7 +43,7 @@ class UserControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-    private HttpHeaders httpHeaders;
+    private HttpHeaders userHttpHeaders;
     private UpdateUserPasswordRequest updateUserPasswordRequest;
     private UpdateUserDataRequest updateUserDataRequest;
     private GetUserDetailResponse getUserDetailResponse;
@@ -54,8 +54,8 @@ class UserControllerTest {
     void setUp() {
         initMocks(this);
         String userId = "9edae4d1-8df9-48d5-a375-fb413e9ffff3";
-        httpHeaders = new HttpHeaders();
-        httpHeaders.setBearerAuth(JwtTokenProvider.generateTokenFromRole(UserRole.ROLE_USER, userId));
+        userHttpHeaders = new HttpHeaders();
+        userHttpHeaders.setBearerAuth(JwtTokenProvider.generateTokenFromRole(UserRole.ROLE_USER, userId));
 
         updateUserPasswordRequest = UpdateUserPasswordRequest.builder()
                 .userId(randomUUID)
@@ -77,7 +77,7 @@ class UserControllerTest {
                 .thenReturn(Mono.just(getUserDetailResponse));
 
         MockHttpServletRequestBuilder requestBuilder = get(ApiPath.USER + "?id=" + randomUUID)
-                .headers(httpHeaders)
+                .headers(userHttpHeaders)
                 .contentType(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(asyncDispatch(mockMvc.perform(requestBuilder).andReturn()))
@@ -92,7 +92,7 @@ class UserControllerTest {
                 .thenReturn(Mono.just(updateUserDataResponse));
 
         MockHttpServletRequestBuilder requestBuilder = put(ApiPath.USER)
-                .headers(httpHeaders)
+                .headers(userHttpHeaders)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(updateUserDataRequest));
@@ -110,7 +110,7 @@ class UserControllerTest {
                 .thenReturn(Mono.just("Success"));
 
         MockHttpServletRequestBuilder requestBuilder = put(ApiPath.USER_UPDATE_PASSWORD)
-                .headers(httpHeaders)
+                .headers(userHttpHeaders)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(updateUserPasswordRequest));
