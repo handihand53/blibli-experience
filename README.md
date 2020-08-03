@@ -1,23 +1,18 @@
 # blibli-experience
 
-This is a backend project for accomplishing Blibli Future Program 4.0 phase 2. Using Spring Boot, Asynchronous Java Framework - 
-  Project Reactor and Command Pattern provided by Blibli.com. 
+This is a backend project for accomplishing Blibli Future Program 4.0 phase 2. Technology stack : Spring Boot, Asynchronous Java Framework - 
+  Project Reactor, MongoDB, Swagger, Lombok, Google Zxing and Command Pattern provided by Blibli.com. 
 
 #### How to use it:
 1. Clone the project,
 2. Run BlibliExperienceApplication,
 3. Check the docs in [swagger-ui](http://localhost:8080/experience/swagger-ui.html#)
 
-#### How to get user Id for accessing other method:
-1. Post a user on **registerUser** endpoint
-OR
-2. Login a user on **loginUser** endpoint
-
 #### Bug list (please add bug in this list if you found a bug):
 | Method Affected | Description | Date Added | Status | Last Updated |
 | --------------- |:-----------:|:----------:|:------:|:------------:| 
-| updateUserPassword | method returned "User password updated successfully." even if the old password is wrong. | 18-02-2020 | Closed | 20-02-2020 | 
-| postProduct | method error when 1 id post multiple product due to indexed email | 20-02-2020 | Closed | 24-02-2020
+| |   | |  |  | 
+|  |  | |  | 
 
 #### Bug Status (please refer to this when adding or modifying a bug)
 | Status | Description | Example |
