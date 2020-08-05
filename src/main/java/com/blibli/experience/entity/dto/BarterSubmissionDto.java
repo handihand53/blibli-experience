@@ -1,11 +1,10 @@
-package com.blibli.experience.entity.form;
+package com.blibli.experience.entity.dto;
 
 import com.blibli.experience.enums.ProductBarterCondition;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,10 +14,10 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class BarterSubmissionDataForm {
+public class BarterSubmissionDto {
 
     private UUID barterSubmissionId;
-    private UserDataForm userData;
+    private UserDto userData;
     private String barterSubmissionName;
     private String barterSubmissionBrand;
     private String barterSubmissionDescription;

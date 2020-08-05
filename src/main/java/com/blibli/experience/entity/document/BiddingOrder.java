@@ -1,6 +1,6 @@
 package com.blibli.experience.entity.document;
 
-import com.blibli.experience.entity.form.*;
+import com.blibli.experience.entity.dto.*;
 import com.blibli.experience.enums.BiddingOrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,16 +39,16 @@ public class BiddingOrder {
     private String orderTransactionId;
 
     @Field(value = BIDDING_OWNER)
-    private UserDataForm biddingOwner;
+    private UserDto biddingOwner;
 
     @Field(value = BIDDING_WINNER)
-    private UserDataForm biddingWinner;
+    private UserDto biddingWinner;
 
     @Field(value = PRODUCT_BIDDING)
-    private ProductBiddingForm productBiddingForm;
+    private ProductBiddingDto productBiddingDto;
 
     @Field(value = DELIVERY_RECEIPT)
-    private ReceiptForm deliveryReceipt;
+    private ReceiptDto deliveryReceipt;
 
     @Field(value = PAYMENT_ID)
     private UUID paymentId;

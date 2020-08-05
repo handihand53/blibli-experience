@@ -3,7 +3,7 @@ package com.blibli.experience.commandImpl.cart;
 import com.blibli.experience.command.cart.UpdateCartProductAmountCommand;
 import com.blibli.experience.entity.document.Cart;
 import com.blibli.experience.entity.document.ProductStock;
-import com.blibli.experience.entity.form.CartForm;
+import com.blibli.experience.entity.dto.CartDto;
 import com.blibli.experience.model.request.cart.UpdateCartProductAmountRequest;
 import com.blibli.experience.model.response.cart.UpdateCartProductAmountResponse;
 import com.blibli.experience.repository.CartRepository;
@@ -52,20 +52,20 @@ public class UpdateCartProductAmountCommandImpl implements UpdateCartProductAmou
     }
 
     private Cart updateCart(Cart cart, ProductStock productStock, UpdateCartProductAmountRequest request) {
-        List<CartForm> cartForms = new ArrayList<>();
-            cart.getCartForms().forEach(cartForm ->
-                    cartForms.add(checkAndUpdateAmountInCartForm(productStock, cartForm, request)));
-            cart.setCartForms(cartForms);
+        List<CartDto> cartDtos = new ArrayList<>();
+            cart.getCartDtos().forEach(cartForm ->
+                    cartDtos.add(checkAndUpdateAmountInCartForm(productStock, cartForm, request)));
+            cart.setCartDtos(cartDtos);
             cart.setLastUpdated(LocalDateTime.now());
             return cart;
     }
 
-    private CartForm checkAndUpdateAmountInCartForm(ProductStock productStock, CartForm cartForm, UpdateCartProductAmountRequest request) {
-        if (cartForm.getStockForm().getStockId().equals(request.getStockId())) {
-            if(verifyStock(productStock, cartForm, request)) {
-                cartForm.setAmount(cartForm.getAmount() + request.getAmount());
-                if(cartForm.getAmount() > 0) {
-                    return cartForm;
+    private CartDto checkAndUpdateAmountInCartForm(ProductStock productStock, CartDto cartDto, UpdateCartProductAmountRequest request) {
+        if (cartDto.getStockDto().getStockId().equals(request.getStockId())) {
+            if(verifyStock(productStock, cartDto, request)) {
+                cartDto.setAmount(cartDto.getAmount() + request.getAmount());
+                if(cartDto.getAmount() > 0) {
+                    return cartDto;
                 } else {
                  throw new RuntimeException("Amount must be at least 1, please delete this product instead.");
                 }
@@ -73,11 +73,11 @@ public class UpdateCartProductAmountCommandImpl implements UpdateCartProductAmou
                 throw new RuntimeException("Insufficient Product Stock.");
             }
         }
-        return cartForm;
+        return cartDto;
     }
 
-    private Boolean verifyStock(ProductStock productStock, CartForm cartForm, UpdateCartProductAmountRequest request) {
-        return cartForm.getAmount() + request.getAmount() <= productStock.getProductStock();
+    private Boolean verifyStock(ProductStock productStock, CartDto cartDto, UpdateCartProductAmountRequest request) {
+        return cartDto.getAmount() + request.getAmount() <= productStock.getProductStock();
     }
 
     private UpdateCartProductAmountResponse toResponse(Cart cart) {

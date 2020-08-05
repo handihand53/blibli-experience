@@ -2,7 +2,7 @@ package com.blibli.experience.entity.document;
 
 import com.blibli.experience.enums.GenderType;
 import com.blibli.experience.enums.UserRole;
-import com.blibli.experience.entity.form.AddressForm;
+import com.blibli.experience.entity.dto.AddressDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -55,7 +55,7 @@ public class User {
   private String userName;
 
   @Field(value = ADDRESS)
-  private List<AddressForm> userAddressForms;
+  private List<AddressDto> userAddressDtos;
 
   @Field(value = BIRTH_DATE)
   private LocalDate userBirthDate;

@@ -1,8 +1,7 @@
 package com.blibli.experience.entity.document;
 
-import com.blibli.experience.entity.form.BiddingForm;
-import com.blibli.experience.entity.form.UserDataForm;
-import com.blibli.experience.enums.ProductAvailableStatus;
+import com.blibli.experience.entity.dto.BiddingDto;
+import com.blibli.experience.entity.dto.UserDto;
 import com.blibli.experience.enums.ProductBiddingAvailableStatus;
 import com.blibli.experience.enums.ProductBiddingCondition;
 import com.blibli.experience.enums.ProductCategory;
@@ -51,7 +50,7 @@ public class ProductBidding {
     private UUID productBiddingId;
 
     @Field(value = USER)
-    private UserDataForm userData;
+    private UserDto userData;
 
     @Field(value = NAME)
     private String productBiddingName;
@@ -84,7 +83,7 @@ public class ProductBidding {
     private Integer nextBid;
 
     @Field(value = BIDDING_LIST)
-    private List<BiddingForm> biddingForms;
+    private List<BiddingDto> biddingDtos;
 
     @Field(value = CONDITION)
     private ProductBiddingCondition productBiddingCondition;

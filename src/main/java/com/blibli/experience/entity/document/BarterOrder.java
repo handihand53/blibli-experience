@@ -1,9 +1,9 @@
 package com.blibli.experience.entity.document;
 
-import com.blibli.experience.entity.form.BarterSubmissionDataForm;
-import com.blibli.experience.entity.form.ProductBarterDataForm;
-import com.blibli.experience.entity.form.ReceiptForm;
-import com.blibli.experience.entity.form.UserDataForm;
+import com.blibli.experience.entity.dto.BarterSubmissionDto;
+import com.blibli.experience.entity.dto.ProductBarterDto;
+import com.blibli.experience.entity.dto.ReceiptDto;
+import com.blibli.experience.entity.dto.UserDto;
 import com.blibli.experience.enums.BarterItemStatus;
 import com.blibli.experience.enums.BarterOrderStatus;
 import lombok.AllArgsConstructor;
@@ -48,28 +48,28 @@ public class BarterOrder {
     private String orderTransactionId;
 
     @Field(value = SELLING_PRODUCT)
-    private ProductBarterDataForm sellingProduct;
+    private ProductBarterDto sellingProduct;
 
     @Field(value = BUYING_PRODUCT)
-    private BarterSubmissionDataForm buyingProduct;
+    private BarterSubmissionDto buyingProduct;
 
     @Field(value = SELLER_FORM)
-    private UserDataForm sellerData;
+    private UserDto sellerData;
 
     @Field(value = BUYER_FORM)
-    private UserDataForm buyerData;
+    private UserDto buyerData;
 
     @Field(value = SELLER_TO_WAREHOUSE_RECEIPT)
-    private ReceiptForm sellerToWarehouseReceipt;
+    private ReceiptDto sellerToWarehouseReceipt;
 
     @Field(value = BUYER_TO_WAREHOUSE_RECEIPT)
-    private ReceiptForm buyerToWarehouseReceipt;
+    private ReceiptDto buyerToWarehouseReceipt;
 
     @Field(value = WAREHOUSE_TO_SELLER_RECEIPT)
-    private ReceiptForm warehouseToSellerReceipt;
+    private ReceiptDto warehouseToSellerReceipt;
 
     @Field(value = WAREHOUSE_TO_BUYER_RECEIPT)
-    private ReceiptForm warehouseToBuyerReceipt;
+    private ReceiptDto warehouseToBuyerReceipt;
 
     @Field(value = SELLER_ITEM_STATUS)
     private BarterItemStatus sellerItemStatus;

@@ -1,6 +1,6 @@
 package com.blibli.experience.model.response.productBarter;
 
-import com.blibli.experience.entity.form.UserDataForm;
+import com.blibli.experience.entity.dto.UserDto;
 import com.blibli.experience.enums.ProductBarterCondition;
 import com.blibli.experience.enums.ProductCategory;
 import lombok.AllArgsConstructor;
@@ -19,7 +19,7 @@ import java.util.UUID;
 public class PostProductBarterResponse {
 
     private UUID productBarterId;
-    private UserDataForm userData;
+    private UserDto userData;
     private String productBarterName;
     private String productBarterBrand;
     private String productBarterDescription;

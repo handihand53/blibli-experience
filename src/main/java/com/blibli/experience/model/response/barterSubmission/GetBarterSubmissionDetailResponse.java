@@ -1,7 +1,7 @@
 package com.blibli.experience.model.response.barterSubmission;
 
-import com.blibli.experience.entity.form.ProductBarterDataForm;
-import com.blibli.experience.entity.form.UserDataForm;
+import com.blibli.experience.entity.dto.ProductBarterDto;
+import com.blibli.experience.entity.dto.UserDto;
 import com.blibli.experience.enums.ProductBarterCondition;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +19,7 @@ import java.util.UUID;
 public class GetBarterSubmissionDetailResponse {
 
     private UUID barterSubmissionId;
-    private UserDataForm userData;
+    private UserDto userData;
     private String barterSubmissionName;
     private String barterSubmissionBrand;
     private String barterSubmissionDescription;
@@ -28,7 +28,7 @@ public class GetBarterSubmissionDetailResponse {
     private String barterSubmissionPackage;
     private ProductBarterCondition barterSubmissionCondition;
     private List<String> barterSubmissionImagePaths;
-    private ProductBarterDataForm barterSubmissionTargetBarter;
+    private ProductBarterDto barterSubmissionTargetBarter;
     private LocalDateTime barterSubmissionCreatedAt;
 
 }

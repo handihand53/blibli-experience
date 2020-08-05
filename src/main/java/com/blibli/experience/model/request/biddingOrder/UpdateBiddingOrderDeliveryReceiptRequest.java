@@ -1,6 +1,5 @@
 package com.blibli.experience.model.request.biddingOrder;
 
-import com.blibli.experience.entity.form.ReceiptForm;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

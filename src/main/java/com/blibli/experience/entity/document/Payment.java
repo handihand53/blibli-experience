@@ -1,6 +1,6 @@
 package com.blibli.experience.entity.document;
 
-import com.blibli.experience.entity.form.OrderDataForm;
+import com.blibli.experience.entity.dto.OrderDto;
 import com.blibli.experience.enums.PaymentType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,7 +35,7 @@ public class Payment {
     private String orderTransactionId;
 
     @Field(value = ORDER_DATA_FORM)
-    private OrderDataForm orderDataForm;
+    private OrderDto orderDto;
 
     @Field(value = PAYMENT_TYPE)
     private PaymentType paymentType;

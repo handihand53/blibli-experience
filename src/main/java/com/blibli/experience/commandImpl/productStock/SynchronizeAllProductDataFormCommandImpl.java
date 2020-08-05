@@ -3,7 +3,7 @@ package com.blibli.experience.commandImpl.productStock;
 import com.blibli.experience.command.productStock.SynchronizeAllProductDataFormCommand;
 import com.blibli.experience.entity.document.ProductMaster;
 import com.blibli.experience.entity.document.ProductStock;
-import com.blibli.experience.entity.form.ProductDataForm;
+import com.blibli.experience.entity.dto.ProductDto;
 import com.blibli.experience.repository.ProductMasterRepository;
 import com.blibli.experience.repository.ProductStockRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -36,15 +36,15 @@ public class SynchronizeAllProductDataFormCommandImpl implements SynchronizeAllP
     }
 
     private Mono<ProductStock> getProductMasterData(ProductStock productStock) {
-        return productMasterRepository.findFirstByProductId(productStock.getProductDataForm().getProductId())
+        return productMasterRepository.findFirstByProductId(productStock.getProductDto().getProductId())
                 .map(productMaster -> updateProductDataForm(productMaster, productStock));
 
     }
 
     private ProductStock updateProductDataForm(ProductMaster productMaster, ProductStock productStock) {
-        ProductDataForm updatedProductDataForm = new ProductDataForm();
-        BeanUtils.copyProperties(productMaster, updatedProductDataForm);
-        productStock.setProductDataForm(updatedProductDataForm);
+        ProductDto updatedProductDto = new ProductDto();
+        BeanUtils.copyProperties(productMaster, updatedProductDto);
+        productStock.setProductDto(updatedProductDto);
         return productStock;
     }
 

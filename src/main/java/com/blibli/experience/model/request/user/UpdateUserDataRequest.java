@@ -1,6 +1,6 @@
 package com.blibli.experience.model.request.user;
 
-import com.blibli.experience.entity.form.AddressForm;
+import com.blibli.experience.entity.dto.AddressDto;
 import com.blibli.experience.enums.GenderType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,7 +21,7 @@ public class UpdateUserDataRequest {
     @NotNull
     private UUID userId;
 
-    private List<AddressForm> userAddressForms;
+    private List<AddressDto> userAddressDtos;
     private LocalDate userBirthDate;
     private String userPhoneNumber;
     private GenderType userGender;

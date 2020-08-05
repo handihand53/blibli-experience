@@ -1,7 +1,7 @@
 package com.blibli.experience.entity.document;
 
-import com.blibli.experience.entity.form.ProductDataForm;
-import com.blibli.experience.entity.form.ShopForm;
+import com.blibli.experience.entity.dto.ProductDto;
+import com.blibli.experience.entity.dto.ShopDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -40,10 +40,10 @@ public class ProductStock {
     private UUID stockId;
 
     @Field(value = SHOP)
-    private ShopForm shopForm;
+    private ShopDto shopDto;
 
     @Field(value = PRODUCT)
-    private ProductDataForm productDataForm;
+    private ProductDto productDto;
 
     @Field(value = STOCK)
     private Integer productStock;

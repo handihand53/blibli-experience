@@ -1,4 +1,4 @@
-package com.blibli.experience.entity.form;
+package com.blibli.experience.entity.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,11 +11,11 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class StockForm {
+public class StockDto {
 
     private UUID stockId;
-    private ShopForm shopForm;
-    private ProductDataForm productDataForm;
+    private ShopDto shopDto;
+    private ProductDto productDto;
     private Integer productStock;
     private Integer productPrice;
     

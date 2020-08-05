@@ -3,9 +3,9 @@ package com.blibli.experience.commandImpl.biddingOrder;
 import com.blibli.experience.command.biddingOrder.PostBiddingOrderCommand;
 import com.blibli.experience.entity.document.BiddingOrder;
 import com.blibli.experience.entity.document.ProductBidding;
-import com.blibli.experience.entity.form.BiddingForm;
-import com.blibli.experience.entity.form.ProductBiddingForm;
-import com.blibli.experience.entity.form.UserDataForm;
+import com.blibli.experience.entity.dto.BiddingDto;
+import com.blibli.experience.entity.dto.ProductBiddingDto;
+import com.blibli.experience.entity.dto.UserDto;
 import com.blibli.experience.enums.BiddingOrderStatus;
 import com.blibli.experience.enums.ProductBiddingAvailableStatus;
 import com.blibli.experience.model.request.biddingOrder.PostBiddingOrderRequest;
@@ -47,8 +47,8 @@ public class PostBiddingOrderCommandImpl implements PostBiddingOrderCommand {
 
     private BiddingOrder toBiddingOrder(ProductBidding productBidding) {
         if (checkProductBiddingStatus(productBidding)) {
-            ProductBiddingForm productBiddingForm = new ProductBiddingForm();
-            BeanUtils.copyProperties(productBidding, productBiddingForm);
+            ProductBiddingDto productBiddingDto = new ProductBiddingDto();
+            BeanUtils.copyProperties(productBidding, productBiddingDto);
             RandomStringGenerator generator = new RandomStringGenerator.Builder()
                     .withinRange('0', '9').build();
             updateProductBiddingToOrder(productBidding);
@@ -57,7 +57,7 @@ public class PostBiddingOrderCommandImpl implements PostBiddingOrderCommand {
                     .orderTransactionId("bidding-" + generator.generate(8))
                     .biddingOwner(productBidding.getUserData())
                     .biddingWinner(getBiddingWinner(productBidding))
-                    .productBiddingForm(productBiddingForm)
+                    .productBiddingDto(productBiddingDto)
                     .paymentId(UUID.randomUUID())
                     .biddingOrderStatus(BiddingOrderStatus.WAITING_FOR_PAYMENT_FROM_BIDDING_WINNER)
                     .biddingOrderCreatedAt(LocalDateTime.now())
@@ -76,15 +76,15 @@ public class PostBiddingOrderCommandImpl implements PostBiddingOrderCommand {
         productBiddingRepository.save(productBidding).subscribe();
     }
 
-    private UserDataForm getBiddingWinner(ProductBidding productBidding) {
-        UserDataForm userDataForm = new UserDataForm();
-        for (BiddingForm biddingForm : productBidding.getBiddingForms()) {
-            if (biddingForm.getBiddingPrice().equals(productBidding.getCurrentPrice())) {
-                userDataForm = biddingForm.getUserDataForm();
+    private UserDto getBiddingWinner(ProductBidding productBidding) {
+        UserDto userDto = new UserDto();
+        for (BiddingDto biddingDto : productBidding.getBiddingDtos()) {
+            if (biddingDto.getBiddingPrice().equals(productBidding.getCurrentPrice())) {
+                userDto = biddingDto.getUserDto();
                 break;
             }
         }
-        return userDataForm;
+        return userDto;
     }
 
     private PostBiddingOrderResponse toResponse(BiddingOrder biddingOrder) {

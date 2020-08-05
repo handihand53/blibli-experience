@@ -1,6 +1,6 @@
 package com.blibli.experience.entity.document;
 
-import com.blibli.experience.entity.form.CartForm;
+import com.blibli.experience.entity.dto.CartDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -37,7 +37,7 @@ public class Cart {
     private UUID userId;
 
     @Field(value = PRODUCTS)
-    private List<CartForm> cartForms;
+    private List<CartDto> cartDtos;
 
     @Field(value = CREATED_AT)
     private LocalDateTime createdAt;

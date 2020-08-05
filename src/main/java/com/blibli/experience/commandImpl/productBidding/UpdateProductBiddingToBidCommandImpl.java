@@ -3,9 +3,8 @@ package com.blibli.experience.commandImpl.productBidding;
 import com.blibli.experience.command.productBidding.UpdateProductBiddingToBidCommand;
 import com.blibli.experience.entity.document.ProductBidding;
 import com.blibli.experience.entity.document.User;
-import com.blibli.experience.entity.form.BiddingForm;
-import com.blibli.experience.entity.form.UserDataForm;
-import com.blibli.experience.enums.ProductAvailableStatus;
+import com.blibli.experience.entity.dto.BiddingDto;
+import com.blibli.experience.entity.dto.UserDto;
 import com.blibli.experience.enums.ProductBiddingAvailableStatus;
 import com.blibli.experience.model.request.productBidding.UpdateProductBiddingToBidRequest;
 import com.blibli.experience.model.response.productBidding.UpdateProductBiddingToBidResponse;
@@ -36,37 +35,37 @@ public class UpdateProductBiddingToBidCommandImpl implements UpdateProductBiddin
 
     @Override
     public Mono<UpdateProductBiddingToBidResponse> execute(UpdateProductBiddingToBidRequest request) {
-        UserDataForm userDataForm = getUserDataForm(request);
+        UserDto userDto = getUserDataForm(request);
         return productBiddingRepository.findFirstByProductBiddingId(request.getProductBiddingId())
                 .switchIfEmpty(Mono.error(new NotFoundException("Product Bidding not found.")))
-                .map(productBidding -> updateProductBidding(productBidding, userDataForm, request))
+                .map(productBidding -> updateProductBidding(productBidding, userDto, request))
                 .flatMap(productBidding -> productBiddingRepository.save(productBidding))
                 .map(this::toResponse);
     }
 
-    private UserDataForm getUserDataForm(UpdateProductBiddingToBidRequest request) {
+    private UserDto getUserDataForm(UpdateProductBiddingToBidRequest request) {
         User user = userRepository.findFirstByUserId(request.getUserId()).block();
         if(user != null) {
-            UserDataForm userDataForm = new UserDataForm();
-            BeanUtils.copyProperties(user, userDataForm);
-            return userDataForm;
+            UserDto userDto = new UserDto();
+            BeanUtils.copyProperties(user, userDto);
+            return userDto;
         } else {
             throw new RuntimeException("User not found.");
         }
     }
 
-    private ProductBidding updateProductBidding(ProductBidding productBidding, UserDataForm userDataForm, UpdateProductBiddingToBidRequest request) {
+    private ProductBidding updateProductBidding(ProductBidding productBidding, UserDto userDto, UpdateProductBiddingToBidRequest request) {
         if(checkBidLessThanCurrentPrice(productBidding, request) && checkEndDate(productBidding)
                 && checkBidModulus(productBidding, request) && checkStatus(productBidding)) {
-            BiddingForm biddingForm = BiddingForm.builder()
-                    .userDataForm(userDataForm)
+            BiddingDto biddingDto = BiddingDto.builder()
+                    .userDto(userDto)
                     .biddingPrice(request.getBid())
                     .createdAt(LocalDateTime.now())
                     .build();
             productBidding.setCurrentPrice(request.getBid());
-            List<BiddingForm> biddingForms = productBidding.getBiddingForms();
-            biddingForms.add(biddingForm);
-            productBidding.setBiddingForms(biddingForms);
+            List<BiddingDto> biddingDtos = productBidding.getBiddingDtos();
+            biddingDtos.add(biddingDto);
+            productBidding.setBiddingDtos(biddingDtos);
             productBidding.setLastBidDate(LocalDateTime.now());
             return productBidding;
         } else {

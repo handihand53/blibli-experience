@@ -27,7 +27,7 @@ public class GetAllProductStockInShopCommandImpl implements GetAllProductStockIn
 
     @Override
     public Mono<List<GetAllProductStockInShopResponse>> execute(UUID shopId) {
-        return productStockRepository.findAllByShopForm_ShopId(shopId)
+        return productStockRepository.findAllByShopDto_ShopId(shopId)
                 .switchIfEmpty(Mono.error(new NotFoundException("Shop not found.")))
                 .map(this::toResponse)
                 .collectList();

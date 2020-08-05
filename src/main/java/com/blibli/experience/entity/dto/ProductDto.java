@@ -1,4 +1,4 @@
-package com.blibli.experience.entity.form;
+package com.blibli.experience.entity.dto;
 
 import com.blibli.experience.enums.ProductCategory;
 import lombok.AllArgsConstructor;
@@ -14,7 +14,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductDataForm {
+public class ProductDto {
 
     private UUID productId;
     private String productName;

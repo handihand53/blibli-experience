@@ -1,6 +1,6 @@
 package com.blibli.experience.entity.document;
 
-import com.blibli.experience.entity.form.AddressForm;
+import com.blibli.experience.entity.dto.AddressDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -48,7 +48,7 @@ public class Shop {
     private String shopDescription;
 
     @Field(value = ADDRESS)
-    private AddressForm shopAddress;
+    private AddressDto shopAddress;
 
     @GeoSpatialIndexed(name = LOCATION)
     private Double[] shopLocation;

@@ -27,7 +27,7 @@ public class GetAllOrderByShopIdCommandImpl implements GetAllOrderByShopIdComman
 
     @Override
     public Mono<List<GetAllOrderByShopIdResponse>> execute(UUID request) {
-        return orderRepository.findAllByShopForm_ShopId(request)
+        return orderRepository.findAllByShopDto_ShopId(request)
                 .switchIfEmpty(Mono.error(new NotFoundException("Order not found.")))
                 .map(this::toResponse)
                 .collectList();

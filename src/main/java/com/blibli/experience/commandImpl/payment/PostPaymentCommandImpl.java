@@ -3,7 +3,7 @@ package com.blibli.experience.commandImpl.payment;
 import com.blibli.experience.command.payment.PostPaymentCommand;
 import com.blibli.experience.entity.document.Order;
 import com.blibli.experience.entity.document.Payment;
-import com.blibli.experience.entity.form.OrderDataForm;
+import com.blibli.experience.entity.dto.OrderDto;
 import com.blibli.experience.enums.OrderStatus;
 import com.blibli.experience.model.request.payment.PostPaymentRequest;
 import com.blibli.experience.model.response.payment.PostPaymentResponse;
@@ -45,12 +45,12 @@ public class PostPaymentCommandImpl implements PostPaymentCommand {
     }
 
     private Payment toPayment(Order order, PostPaymentRequest request) {
-        OrderDataForm orderDataForm = new OrderDataForm();
-        BeanUtils.copyProperties(order, orderDataForm);
+        OrderDto orderDto = new OrderDto();
+        BeanUtils.copyProperties(order, orderDto);
         return Payment.builder()
                 .paymentId(order.getPaymentId())
                 .orderTransactionId(order.getOrderTransactionId())
-                .orderDataForm(orderDataForm)
+                .orderDto(orderDto)
                 .paymentType(request.getPaymentType())
                 .paymentCreatedAt(LocalDateTime.now())
                 .build();

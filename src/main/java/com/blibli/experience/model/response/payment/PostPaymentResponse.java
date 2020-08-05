@@ -1,6 +1,6 @@
 package com.blibli.experience.model.response.payment;
 
-import com.blibli.experience.entity.form.OrderDataForm;
+import com.blibli.experience.entity.dto.OrderDto;
 import com.blibli.experience.enums.PaymentType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +18,7 @@ public class PostPaymentResponse {
 
     private UUID paymentId;
     private String orderTransactionId;
-    private OrderDataForm orderDataForm;
+    private OrderDto orderDto;
     private PaymentType paymentType;
     private LocalDateTime paymentCreatedAt;
 }

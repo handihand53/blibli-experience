@@ -4,8 +4,8 @@ import com.blibli.experience.command.barterOrder.PostBarterOrderCommand;
 import com.blibli.experience.entity.document.BarterOrder;
 import com.blibli.experience.entity.document.BarterSubmission;
 import com.blibli.experience.entity.document.ProductBarter;
-import com.blibli.experience.entity.form.BarterSubmissionDataForm;
-import com.blibli.experience.entity.form.ProductBarterDataForm;
+import com.blibli.experience.entity.dto.BarterSubmissionDto;
+import com.blibli.experience.entity.dto.ProductBarterDto;
 import com.blibli.experience.enums.BarterItemStatus;
 import com.blibli.experience.enums.BarterOrderStatus;
 import com.blibli.experience.enums.ProductAvailableStatus;
@@ -16,7 +16,6 @@ import com.blibli.experience.repository.BarterSubmissionRepository;
 import com.blibli.experience.repository.ProductBarterRepository;
 import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.apache.commons.text.RandomStringGenerator;
@@ -73,15 +72,15 @@ public class PostBarterOrderCommandImpl implements PostBarterOrderCommand {
     }
 
     private BarterOrder toBarterOrder(ProductBarter productBarter, BarterSubmission barterSubmission) {
-        BarterSubmissionDataForm barterSubmissionDataForm = getBarterSubmissionDataForm(barterSubmission);
-        ProductBarterDataForm productBarterDataForm = getProductBarterDataForm(productBarter);
+        BarterSubmissionDto barterSubmissionDto = getBarterSubmissionDataForm(barterSubmission);
+        ProductBarterDto productBarterDto = getProductBarterDataForm(productBarter);
         RandomStringGenerator generator = new RandomStringGenerator.Builder()
                 .withinRange('0', '9').build();
         return BarterOrder.builder()
                 .barterOrderId(UUID.randomUUID())
                 .orderTransactionId("barter-" + generator.generate(8))
-                .sellingProduct(productBarterDataForm)
-                .buyingProduct(barterSubmissionDataForm)
+                .sellingProduct(productBarterDto)
+                .buyingProduct(barterSubmissionDto)
                 .sellerData(productBarter.getUserData())
                 .buyerData(barterSubmission.getUserData())
                 .orderStatus(BarterOrderStatus.WAITING_IN_WAREHOUSE)
@@ -91,14 +90,14 @@ public class PostBarterOrderCommandImpl implements PostBarterOrderCommand {
                 .build();
     }
 
-    private BarterSubmissionDataForm getBarterSubmissionDataForm(BarterSubmission barterSubmission) {
-        BarterSubmissionDataForm dataForm = new BarterSubmissionDataForm();
+    private BarterSubmissionDto getBarterSubmissionDataForm(BarterSubmission barterSubmission) {
+        BarterSubmissionDto dataForm = new BarterSubmissionDto();
         BeanUtils.copyProperties(barterSubmission, dataForm);
         return dataForm;
     }
 
-    private ProductBarterDataForm getProductBarterDataForm(ProductBarter productBarter) {
-        ProductBarterDataForm dataForm = new ProductBarterDataForm();
+    private ProductBarterDto getProductBarterDataForm(ProductBarter productBarter) {
+        ProductBarterDto dataForm = new ProductBarterDto();
         BeanUtils.copyProperties(productBarter, dataForm);
         return dataForm;
     }

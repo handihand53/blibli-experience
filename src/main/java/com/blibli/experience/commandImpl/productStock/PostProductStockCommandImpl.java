@@ -4,8 +4,8 @@ import com.blibli.experience.command.productStock.PostProductStockCommand;
 import com.blibli.experience.entity.document.ProductMaster;
 import com.blibli.experience.entity.document.ProductStock;
 import com.blibli.experience.entity.document.Shop;
-import com.blibli.experience.entity.form.ProductDataForm;
-import com.blibli.experience.entity.form.ShopForm;
+import com.blibli.experience.entity.dto.ProductDto;
+import com.blibli.experience.entity.dto.ShopDto;
 import com.blibli.experience.enums.ProductAvailableStatus;
 import com.blibli.experience.model.request.productStock.PostProductStockRequest;
 import com.blibli.experience.model.response.productStock.PostProductStockResponse;
@@ -57,20 +57,20 @@ public class PostProductStockCommandImpl implements PostProductStockCommand {
         // Copy request(price, id) to product Stock
         BeanUtils.copyProperties(request, productStock);
         // Copy shopForm from shop data in DB
-        productStock.setShopForm(getShopForm(request));
+        productStock.setShopDto(getShopForm(request));
         // Copy productForm from product master data in DB
-        ProductDataForm productDataForm = new ProductDataForm();
-        BeanUtils.copyProperties(productMaster, productDataForm);
-        productStock.setProductDataForm(productDataForm);
+        ProductDto productDto = new ProductDto();
+        BeanUtils.copyProperties(productMaster, productDto);
+        productStock.setProductDto(productDto);
         return productStock;
     }
 
-    private ShopForm getShopForm(PostProductStockRequest request) {
-        ShopForm shopForm = new ShopForm();
+    private ShopDto getShopForm(PostProductStockRequest request) {
+        ShopDto shopDto = new ShopDto();
         Shop shop = shopRepository.findFirstByShopId(request.getShopId()).block();
         if (shop != null) {
-            BeanUtils.copyProperties(shop, shopForm);
-            return shopForm;
+            BeanUtils.copyProperties(shop, shopDto);
+            return shopDto;
         }
         else {
             throw new RuntimeException("Shop not found.");

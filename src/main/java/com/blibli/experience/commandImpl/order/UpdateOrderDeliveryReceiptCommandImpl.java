@@ -2,7 +2,7 @@ package com.blibli.experience.commandImpl.order;
 
 import com.blibli.experience.command.order.UpdateOrderDeliveryReceiptCommand;
 import com.blibli.experience.entity.document.Order;
-import com.blibli.experience.entity.form.ReceiptForm;
+import com.blibli.experience.entity.dto.ReceiptDto;
 import com.blibli.experience.enums.OrderStatus;
 import com.blibli.experience.model.request.order.UpdateOrderDeliveryReceiptRequest;
 import com.blibli.experience.model.response.order.UpdateOrderDeliveryReceiptResponse;
@@ -37,11 +37,11 @@ public class UpdateOrderDeliveryReceiptCommandImpl implements UpdateOrderDeliver
     }
 
     private Order updateOrder(Order order, UpdateOrderDeliveryReceiptRequest request) {
-        ReceiptForm receiptForm = ReceiptForm.builder()
+        ReceiptDto receiptDto = ReceiptDto.builder()
                 .receipt(request.getDeliveryReceipt())
                 .createdAt(LocalDateTime.now())
                 .build();
-        order.setDeliveryReceipt(receiptForm);
+        order.setDeliveryReceipt(receiptDto);
         order.setOrderStatus(OrderStatus.DELIVERED_TO_CONSUMER);
         return order;
     }

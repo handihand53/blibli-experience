@@ -1,9 +1,8 @@
 package com.blibli.experience.model.response.order;
 
-import com.blibli.experience.entity.form.CartForm;
-import com.blibli.experience.entity.form.ReceiptForm;
-import com.blibli.experience.entity.form.StockForm;
-import com.blibli.experience.entity.form.UserDataForm;
+import com.blibli.experience.entity.dto.CartDto;
+import com.blibli.experience.entity.dto.ReceiptDto;
+import com.blibli.experience.entity.dto.UserDto;
 import com.blibli.experience.enums.DeliveryType;
 import com.blibli.experience.enums.OrderStatus;
 import lombok.AllArgsConstructor;
@@ -23,10 +22,10 @@ public class UpdateOrderDeliveryReceiptResponse {
 
     private UUID orderId;
     private String orderTransactionId;
-    private UserDataForm userDataForm;
-    private List<CartForm> cartForms;
+    private UserDto userDto;
+    private List<CartDto> cartDtos;
     private DeliveryType deliveryType;
-    private ReceiptForm deliveryReceipt;
+    private ReceiptDto deliveryReceipt;
     private UUID paymentId;
     private OrderStatus orderStatus;
     private LocalDateTime orderCreatedAt;

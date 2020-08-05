@@ -1,6 +1,6 @@
 package com.blibli.experience.model.response.shop;
 
-import com.blibli.experience.entity.form.AddressForm;
+import com.blibli.experience.entity.dto.AddressDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,7 +19,7 @@ public class GetShopDetailResponse {
   private String shopName;
   private UUID userId;
   private String shopDescription;
-  private AddressForm shopAddress;
+  private AddressDto shopAddress;
   private Double[] shopLocation;
   private LocalDateTime shopCreatedAt;
 

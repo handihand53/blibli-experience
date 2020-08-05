@@ -1,4 +1,4 @@
-package com.blibli.experience.entity.form;
+package com.blibli.experience.entity.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,12 +12,12 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDataForm {
+public class UserDto {
 
     private UUID userId;
     private String userEmail;
     private String userName;
-    private List<AddressForm> userAddressForms;
+    private List<AddressDto> userAddressDtos;
     private String userPhoneNumber;
     private String userIdentityId;
 

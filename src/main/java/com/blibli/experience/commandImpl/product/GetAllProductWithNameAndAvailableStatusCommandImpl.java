@@ -40,7 +40,7 @@ public class GetAllProductWithNameAndAvailableStatusCommandImpl implements GetAl
     }
 
     private Mono<ProductStock> getProductStock(ProductMaster productMaster) {
-        return productStockRepository.findFirstByProductDataForm_ProductId(productMaster.getProductId());
+        return productStockRepository.findFirstByProductDto_ProductId(productMaster.getProductId());
     }
 
     private GetAllProductWithNameAndAvailableStatusResponse toResponse(ProductStock productStock, Long count) {

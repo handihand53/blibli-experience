@@ -44,7 +44,7 @@ public class UpdateProductMasterCommandImpl implements UpdateProductMasterComman
     }
 
     private List<ProductStock> GetProductStockList(UUID productId) {
-        return productStockRepository.findAllByProductDataForm_ProductId(productId)
+        return productStockRepository.findAllByProductDto_ProductId(productId)
                 .collectList()
                 .block();
     }
@@ -52,7 +52,7 @@ public class UpdateProductMasterCommandImpl implements UpdateProductMasterComman
     private void updateProductStockData(List<ProductStock> productStockList, ProductMaster productMaster) {
         if(productStockList != null) {
             productStockList.forEach(productStock -> {
-                BeanUtils.copyProperties(productMaster, productStock.getProductDataForm());
+                BeanUtils.copyProperties(productMaster, productStock.getProductDto());
                 productStockRepository.save(productStock).subscribe();
             });
         }

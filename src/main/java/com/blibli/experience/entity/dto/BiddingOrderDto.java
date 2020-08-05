@@ -1,4 +1,4 @@
-package com.blibli.experience.entity.form;
+package com.blibli.experience.entity.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,12 +11,12 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class BiddingOrderDataForm {
+public class BiddingOrderDto {
 
     private UUID biddingOrderId;
     private String orderTransactionId;
-    private UserDataForm biddingOwner;
-    private UserDataForm biddingWinner;
-    private BiddingForm biddingForm;
+    private UserDto biddingOwner;
+    private UserDto biddingWinner;
+    private BiddingDto biddingDto;
 
 }

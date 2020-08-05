@@ -1,6 +1,6 @@
 package com.blibli.experience.entity.document;
 
-import com.blibli.experience.entity.form.UserDataForm;
+import com.blibli.experience.entity.dto.UserDto;
 import com.blibli.experience.enums.ProductAvailableStatus;
 import com.blibli.experience.enums.ProductBarterCondition;
 import com.blibli.experience.enums.ProductCategory;
@@ -44,7 +44,7 @@ public class ProductBarter {
     private UUID productBarterId;
 
     @Field(value = USER)
-    private UserDataForm userData;
+    private UserDto userData;
 
     @Field(value = NAME)
     private String productBarterName;

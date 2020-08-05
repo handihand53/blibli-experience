@@ -1,9 +1,7 @@
 package com.blibli.experience.model.response.biddingOrder;
 
-import com.blibli.experience.entity.form.BiddingForm;
-import com.blibli.experience.entity.form.ProductBiddingForm;
-import com.blibli.experience.entity.form.ReceiptForm;
-import com.blibli.experience.entity.form.UserDataForm;
+import com.blibli.experience.entity.dto.ProductBiddingDto;
+import com.blibli.experience.entity.dto.UserDto;
 import com.blibli.experience.enums.BiddingOrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,9 +19,9 @@ public class PostBiddingOrderResponse {
 
     private UUID biddingOrderId;
     private String orderTransactionId;
-    private UserDataForm biddingOwner;
-    private UserDataForm biddingWinner;
-    private ProductBiddingForm productBiddingForm;
+    private UserDto biddingOwner;
+    private UserDto biddingWinner;
+    private ProductBiddingDto productBiddingDto;
     private UUID paymentId;
     private BiddingOrderStatus biddingOrderStatus;
     private LocalDateTime biddingOrderCreatedAt;

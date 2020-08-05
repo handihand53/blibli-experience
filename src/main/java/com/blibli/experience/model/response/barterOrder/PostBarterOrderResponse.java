@@ -1,8 +1,8 @@
 package com.blibli.experience.model.response.barterOrder;
 
-import com.blibli.experience.entity.form.BarterSubmissionDataForm;
-import com.blibli.experience.entity.form.ProductBarterDataForm;
-import com.blibli.experience.entity.form.UserDataForm;
+import com.blibli.experience.entity.dto.BarterSubmissionDto;
+import com.blibli.experience.entity.dto.ProductBarterDto;
+import com.blibli.experience.entity.dto.UserDto;
 import com.blibli.experience.enums.BarterOrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,10 +20,10 @@ public class PostBarterOrderResponse {
 
     private UUID barterOrderId;
     private String orderTransactionId;
-    private ProductBarterDataForm sellingProduct;
-    private BarterSubmissionDataForm buyingProduct;
-    private UserDataForm sellerData;
-    private UserDataForm buyerData;
+    private ProductBarterDto sellingProduct;
+    private BarterSubmissionDto buyingProduct;
+    private UserDto sellerData;
+    private UserDto buyerData;
     private BarterOrderStatus orderStatus;
     private LocalDateTime barterOrderCreatedAt;
 }

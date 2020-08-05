@@ -3,13 +3,12 @@ package com.blibli.experience.commandImpl.biddingPayment;
 import com.blibli.experience.command.biddingPayment.PostBiddingPaymentCommand;
 import com.blibli.experience.entity.document.BiddingOrder;
 import com.blibli.experience.entity.document.BiddingPayment;
-import com.blibli.experience.entity.form.BiddingOrderDataForm;
+import com.blibli.experience.entity.dto.BiddingOrderDto;
 import com.blibli.experience.enums.BiddingOrderStatus;
 import com.blibli.experience.model.request.biddingPayment.PostBiddingPaymentRequest;
 import com.blibli.experience.model.response.biddingPayment.PostBiddingPaymentResponse;
 import com.blibli.experience.repository.BiddingOrderRepository;
 import com.blibli.experience.repository.BiddingPaymentRepository;
-import com.blibli.experience.repository.PaymentRepository;
 import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -49,12 +48,12 @@ public class PostBiddingPaymentCommandImpl implements PostBiddingPaymentCommand 
     }
 
     private BiddingPayment toBiddingPayment(BiddingOrder biddingOrder, PostBiddingPaymentRequest request) {
-        BiddingOrderDataForm biddingOrderDataForm = new BiddingOrderDataForm();
-        BeanUtils.copyProperties(biddingOrder, biddingOrderDataForm);
+        BiddingOrderDto biddingOrderDto = new BiddingOrderDto();
+        BeanUtils.copyProperties(biddingOrder, biddingOrderDto);
         return BiddingPayment.builder()
                 .biddingOrderPaymentId(UUID.randomUUID())
                 .orderTransactionId(biddingOrder.getOrderTransactionId())
-                .biddingOrderDataForm(biddingOrderDataForm)
+                .biddingOrderDto(biddingOrderDto)
                 .biddingOrderPaymentType(request.getPaymentType())
                 .biddingOrderPaymentCreatedAt(LocalDateTime.now())
                 .build();

@@ -1,4 +1,4 @@
-package com.blibli.experience.entity.form;
+package com.blibli.experience.entity.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,9 +11,9 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class BiddingForm {
+public class BiddingDto {
 
-    private UserDataForm userDataForm;
+    private UserDto userDto;
     private Integer biddingPrice;
     private LocalDateTime createdAt;
 

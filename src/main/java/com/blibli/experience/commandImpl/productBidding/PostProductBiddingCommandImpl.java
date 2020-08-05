@@ -3,8 +3,8 @@ package com.blibli.experience.commandImpl.productBidding;
 import com.blibli.experience.command.productBidding.PostProductBiddingCommand;
 import com.blibli.experience.entity.document.ProductBidding;
 import com.blibli.experience.entity.document.User;
-import com.blibli.experience.entity.form.BiddingForm;
-import com.blibli.experience.entity.form.UserDataForm;
+import com.blibli.experience.entity.dto.BiddingDto;
+import com.blibli.experience.entity.dto.UserDto;
 import com.blibli.experience.enums.ProductBiddingAvailableStatus;
 import com.blibli.experience.enums.UploadEnum;
 import com.blibli.experience.model.request.productBidding.PostProductBiddingRequest;
@@ -58,13 +58,13 @@ public class PostProductBiddingCommandImpl implements PostProductBiddingCommand 
 
     private ProductBidding toProductBidding(User user, PostProductBiddingRequest request) {
         if (verifyStartBid(request)) {
-            List<BiddingForm> biddingForms = new ArrayList<>();
-            UserDataForm userDataForm = new UserDataForm();
-            BeanUtils.copyProperties(user, userDataForm);
+            List<BiddingDto> biddingDtos = new ArrayList<>();
+            UserDto userDto = new UserDto();
+            BeanUtils.copyProperties(user, userDto);
             ProductBidding productBidding = ProductBidding.builder()
                     .productBiddingId(UUID.randomUUID())
-                    .userData(userDataForm)
-                    .biddingForms(biddingForms)
+                    .userData(userDto)
+                    .biddingDtos(biddingDtos)
                     .availableStatus(ProductBiddingAvailableStatus.AVAILABLE)
                     .productBiddingCreatedAt(LocalDateTime.now())
                     .build();

@@ -1,7 +1,7 @@
 package com.blibli.experience.model.response.productStock;
 
-import com.blibli.experience.entity.form.ProductDataForm;
-import com.blibli.experience.entity.form.ShopForm;
+import com.blibli.experience.entity.dto.ProductDto;
+import com.blibli.experience.entity.dto.ShopDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,8 +17,8 @@ import java.util.UUID;
 public class PostProductStockResponse {
 
     private UUID stockId;
-    private ShopForm shopForm;
-    private ProductDataForm productDataForm;
+    private ShopDto shopDto;
+    private ProductDto productDto;
     private Integer productStock;
     private Integer productPrice;
     private LocalDateTime stockCreatedAt;

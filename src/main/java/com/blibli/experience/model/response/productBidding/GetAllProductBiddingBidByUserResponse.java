@@ -1,6 +1,6 @@
 package com.blibli.experience.model.response.productBidding;
 
-import com.blibli.experience.entity.form.UserDataForm;
+import com.blibli.experience.entity.dto.UserDto;
 import com.blibli.experience.enums.BidStatus;
 import com.blibli.experience.enums.ProductBiddingCondition;
 import com.blibli.experience.enums.ProductCategory;
@@ -20,7 +20,7 @@ import java.util.UUID;
 public class GetAllProductBiddingBidByUserResponse {
 
     private UUID productBiddingId;
-    private UserDataForm userData;
+    private UserDto userData;
     private String productBiddingName;
     private String productBiddingBrand;
     private ProductCategory productCategory;

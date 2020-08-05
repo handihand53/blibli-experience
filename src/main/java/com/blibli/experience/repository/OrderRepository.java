@@ -11,8 +11,8 @@ public interface OrderRepository extends ReactiveMongoRepository<Order, UUID> {
 
     Mono<Order> findFirstByOrderId(UUID orderId);
 
-    Flux<Order> findAllByUserDataForm_UserId(UUID userId);
+    Flux<Order> findAllByUserDto_UserId(UUID userId);
 
-    Flux<Order> findAllByShopForm_ShopId(UUID shopId);
+    Flux<Order> findAllByShopDto_ShopId(UUID shopId);
 
 }

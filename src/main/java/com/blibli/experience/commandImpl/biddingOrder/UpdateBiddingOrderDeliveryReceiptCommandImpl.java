@@ -2,7 +2,7 @@ package com.blibli.experience.commandImpl.biddingOrder;
 
 import com.blibli.experience.command.biddingOrder.UpdateBiddingOrderDeliveryReceiptCommand;
 import com.blibli.experience.entity.document.BiddingOrder;
-import com.blibli.experience.entity.form.ReceiptForm;
+import com.blibli.experience.entity.dto.ReceiptDto;
 import com.blibli.experience.enums.BiddingOrderStatus;
 import com.blibli.experience.model.request.biddingOrder.UpdateBiddingOrderDeliveryReceiptRequest;
 import com.blibli.experience.model.response.biddingOrder.UpdateBiddingOrderDeliveryReceiptResponse;
@@ -38,11 +38,11 @@ public class UpdateBiddingOrderDeliveryReceiptCommandImpl implements UpdateBiddi
 
     private BiddingOrder updateBiddingOrder(BiddingOrder biddingOrder, UpdateBiddingOrderDeliveryReceiptRequest request) {
         if(checkBiddingOrderStatus(biddingOrder)) {
-            ReceiptForm receiptForm = ReceiptForm.builder()
+            ReceiptDto receiptDto = ReceiptDto.builder()
                     .receipt(request.getDeliveryReceipt())
                     .createdAt(LocalDateTime.now())
                     .build();
-            biddingOrder.setDeliveryReceipt(receiptForm);
+            biddingOrder.setDeliveryReceipt(receiptDto);
             biddingOrder.setBiddingOrderStatus(BiddingOrderStatus.DELIVERED_TO_BIDDING_OWNER);
             return biddingOrder;
         } else {

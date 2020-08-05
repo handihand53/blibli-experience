@@ -31,7 +31,7 @@ public class GetAllProductByCategoryCommandImpl implements GetAllProductByCatego
 
     @Override
     public Mono<List<GetAllProductByCategoryResponse>> execute(GetAllProductByCategoryRequest request) {
-        Long count = productStockRepository.countAllByProductDataForm_ProductCategory(request.getProductCategory()).block();
+        Long count = productStockRepository.countAllByProductDto_ProductCategory(request.getProductCategory()).block();
         return productMasterRepository.findAllByProductCategory(request.getProductCategory())
                 .switchIfEmpty(Mono.error(new NotFoundException("Product not found.")))
                 .skip(request.getSkipCount())
@@ -42,7 +42,7 @@ public class GetAllProductByCategoryCommandImpl implements GetAllProductByCatego
     }
 
     private Mono<ProductStock> getProductStock(ProductMaster productMaster) {
-        return productStockRepository.findFirstByProductDataForm_ProductId(productMaster.getProductId());
+        return productStockRepository.findFirstByProductDto_ProductId(productMaster.getProductId());
     }
 
     private GetAllProductByCategoryResponse toResponse(ProductStock productStock, Long count) {

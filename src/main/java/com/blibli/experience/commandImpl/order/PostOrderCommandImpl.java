@@ -2,9 +2,9 @@ package com.blibli.experience.commandImpl.order;
 
 import com.blibli.experience.command.order.PostOrderCommand;
 import com.blibli.experience.entity.document.*;
-import com.blibli.experience.entity.form.CartForm;
-import com.blibli.experience.entity.form.ShopForm;
-import com.blibli.experience.entity.form.UserDataForm;
+import com.blibli.experience.entity.dto.CartDto;
+import com.blibli.experience.entity.dto.ShopDto;
+import com.blibli.experience.entity.dto.UserDto;
 import com.blibli.experience.enums.OrderStatus;
 import com.blibli.experience.model.request.order.PostOrderRequest;
 import com.blibli.experience.model.response.order.PostOrderResponse;
@@ -44,9 +44,9 @@ public class PostOrderCommandImpl implements PostOrderCommand {
     public Mono<PostOrderResponse> execute(PostOrderRequest request) {
         Cart cart = getCart(request);
         List<ProductStock> productStocks = getProductStockList(request);
-        ShopForm shopForm = getShopForm(request);
+        ShopDto shopDto = getShopForm(request);
         return userRepository.findFirstByUserId(cart.getUserId())
-                .map(user -> toOrder(user, cart, shopForm, request))
+                .map(user -> toOrder(user, cart, shopDto, request))
                 .flatMap(order -> orderRepository.save(order))
                 .doOnNext(order -> subtractProductStock(order, productStocks))
                 .map(this::toResponse);
@@ -67,7 +67,7 @@ public class PostOrderCommandImpl implements PostOrderCommand {
             ProductStock productStock = productStockRepository.findFirstByStockId(uuid).block();
             if (productStock != null) {
                 productStocks.add(productStock);
-                if(!productStock.getShopForm().getShopId().equals(request.getShopId())) {
+                if(!productStock.getShopDto().getShopId().equals(request.getShopId())) {
                     throw new RuntimeException("Sorry, only 1 merchant per order. We will improve this soon :)");
                 }
             } else {
@@ -77,28 +77,28 @@ public class PostOrderCommandImpl implements PostOrderCommand {
         return productStocks;
     }
 
-    private ShopForm getShopForm(PostOrderRequest request) {
-        ShopForm shopForm = new ShopForm();
+    private ShopDto getShopForm(PostOrderRequest request) {
+        ShopDto shopDto = new ShopDto();
         Shop shop = shopRepository.findFirstByShopId(request.getShopId()).block();
         if (shop != null) {
-            BeanUtils.copyProperties(shop, shopForm);
-            return shopForm;
+            BeanUtils.copyProperties(shop, shopDto);
+            return shopDto;
         } else {
             throw new RuntimeException("Shop not found");
         }
     }
 
-    private Order toOrder(User user, Cart cart, ShopForm shopForm, PostOrderRequest request) {
+    private Order toOrder(User user, Cart cart, ShopDto shopDto, PostOrderRequest request) {
         RandomStringGenerator generator = new RandomStringGenerator.Builder()
                 .withinRange('0', '9').build();
-        UserDataForm userDataForm = new UserDataForm();
-        BeanUtils.copyProperties(user, userDataForm);
+        UserDto userDto = new UserDto();
+        BeanUtils.copyProperties(user, userDto);
         return Order.builder()
                 .orderId(UUID.randomUUID())
                 .orderTransactionId("bliblimart-" + generator.generate(8))
-                .userDataForm(userDataForm)
-                .shopForm(shopForm)
-                .cartForms(getAndUpdateCartFormList(cart, request))
+                .userDto(userDto)
+                .shopDto(shopDto)
+                .cartDtos(getAndUpdateCartFormList(cart, request))
                 .deliveryType(request.getDeliveryType())
                 .orderStatus(OrderStatus.WAITING_FOR_PAYMENT)
                 .paymentId(UUID.randomUUID())
@@ -106,30 +106,30 @@ public class PostOrderCommandImpl implements PostOrderCommand {
                 .build();
     }
 
-    private List<CartForm> getAndUpdateCartFormList(Cart cart, PostOrderRequest request) {
-        List<CartForm> cartForms = new ArrayList<>();
+    private List<CartDto> getAndUpdateCartFormList(Cart cart, PostOrderRequest request) {
+        List<CartDto> cartDtos = new ArrayList<>();
         for (UUID uuid : request.getProductStockIdList()) {
             boolean checkCartForm = false;
-            for (CartForm cartForm : cart.getCartForms()) {
-                if (uuid.equals(cartForm.getStockForm().getStockId())) {
+            for (CartDto cartDto : cart.getCartDtos()) {
+                if (uuid.equals(cartDto.getStockDto().getStockId())) {
                     checkCartForm = true;
-                    cartForms.add(cartForm);
+                    cartDtos.add(cartDto);
                 }
             }
             if (!checkCartForm) {
                 throw new RuntimeException("Product not found in cart.");
             }
         }
-        cart.getCartForms().removeAll(cartForms);
+        cart.getCartDtos().removeAll(cartDtos);
         cartRepository.save(cart).subscribe();
-        return cartForms;
+        return cartDtos;
     }
 
     private void subtractProductStock(Order order, List<ProductStock> productStockList) {
-        for (CartForm cartForm : order.getCartForms()) {
+        for (CartDto cartDto : order.getCartDtos()) {
             for (ProductStock productStock : productStockList) {
-                if (cartForm.getStockForm().getStockId().equals(productStock.getStockId())) {
-                    productStock.setProductStock(productStock.getProductStock() - cartForm.getAmount());
+                if (cartDto.getStockDto().getStockId().equals(productStock.getStockId())) {
+                    productStock.setProductStock(productStock.getProductStock() - cartDto.getAmount());
                     productStockRepository.save(productStock).subscribe();
                 }
             }

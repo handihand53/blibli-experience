@@ -2,7 +2,7 @@ package com.blibli.experience.commandImpl.cart;
 
 import com.blibli.experience.command.cart.DeleteProductInCartCommand;
 import com.blibli.experience.entity.document.Cart;
-import com.blibli.experience.entity.form.CartForm;
+import com.blibli.experience.entity.dto.CartDto;
 import com.blibli.experience.model.request.cart.DeleteProductInCartRequest;
 import com.blibli.experience.model.response.cart.DeleteProductInCartResponse;
 import com.blibli.experience.repository.CartRepository;
@@ -38,19 +38,19 @@ public class DeleteProductInCartCommandImpl implements DeleteProductInCartComman
     }
 
     private Cart updateCart(Cart cart, DeleteProductInCartRequest request) {
-        List<CartForm> cartForms = new ArrayList<>();
-        cart.getCartForms().forEach(cartForm -> {
+        List<CartDto> cartDtos = new ArrayList<>();
+        cart.getCartDtos().forEach(cartForm -> {
             if(!checkProductToRemoved(cartForm, request)) {
-                cartForms.add(cartForm);
+                cartDtos.add(cartForm);
             }
         });
-        cart.setCartForms(cartForms);
+        cart.setCartDtos(cartDtos);
         cart.setLastUpdated(LocalDateTime.now());
         return cart;
     }
 
-    private Boolean checkProductToRemoved(CartForm cartForm, DeleteProductInCartRequest request) {
-        return cartForm.getStockForm().getStockId().equals(request.getStockId());
+    private Boolean checkProductToRemoved(CartDto cartDto, DeleteProductInCartRequest request) {
+        return cartDto.getStockDto().getStockId().equals(request.getStockId());
     }
 
     private DeleteProductInCartResponse toResponse(Cart cart) {

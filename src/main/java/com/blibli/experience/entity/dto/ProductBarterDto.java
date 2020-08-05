@@ -1,4 +1,4 @@
-package com.blibli.experience.entity.form;
+package com.blibli.experience.entity.dto;
 
 import com.blibli.experience.enums.ProductAvailableStatus;
 import com.blibli.experience.enums.ProductBarterCondition;
@@ -16,10 +16,10 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductBarterDataForm {
+public class ProductBarterDto {
 
     private UUID productBarterId;
-    private UserDataForm userData;
+    private UserDto userData;
     private String productBarterName;
     private String productBarterBrand;
     private String productBarterDescription;

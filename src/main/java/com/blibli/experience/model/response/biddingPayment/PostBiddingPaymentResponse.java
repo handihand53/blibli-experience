@@ -1,6 +1,6 @@
 package com.blibli.experience.model.response.biddingPayment;
 
-import com.blibli.experience.entity.form.BiddingOrderDataForm;
+import com.blibli.experience.entity.dto.BiddingOrderDto;
 import com.blibli.experience.enums.PaymentType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +18,7 @@ public class PostBiddingPaymentResponse {
 
     private UUID biddingOrderPaymentId;
     private String orderTransactionId;
-    private BiddingOrderDataForm biddingOrderDataForm;
+    private BiddingOrderDto biddingOrderDto;
     private PaymentType biddingOrderPaymentType;
     private LocalDateTime biddingOrderPaymentCreatedAt;
 

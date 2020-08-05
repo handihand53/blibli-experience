@@ -1,4 +1,4 @@
-package com.blibli.experience.entity.form;
+package com.blibli.experience.entity.dto;
 
 import com.blibli.experience.enums.DeliveryType;
 import lombok.AllArgsConstructor;
@@ -13,12 +13,12 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderDataForm {
+public class OrderDto {
 
     private UUID orderId;
     private String orderTransactionId;
-    private UserDataForm userDataForm;
-    private List<CartForm> cartForms;
+    private UserDto userDto;
+    private List<CartDto> cartDtos;
     private DeliveryType deliveryType;
 
 }

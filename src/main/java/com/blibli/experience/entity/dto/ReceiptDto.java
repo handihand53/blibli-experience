@@ -1,20 +1,19 @@
-package com.blibli.experience.entity.form;
+package com.blibli.experience.entity.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-import java.util.UUID;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CartForm {
+public class ReceiptDto {
 
-  private Integer amount;
-  private StockForm stockForm;
+    private String receipt;
+    private LocalDateTime createdAt;
 
 }

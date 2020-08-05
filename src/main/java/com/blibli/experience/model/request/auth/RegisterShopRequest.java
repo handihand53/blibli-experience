@@ -1,6 +1,6 @@
 package com.blibli.experience.model.request.auth;
 
-import com.blibli.experience.entity.form.AddressForm;
+import com.blibli.experience.entity.dto.AddressDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -40,7 +40,7 @@ public class RegisterShopRequest {
     private String shopDescription;
 
     @NotNull
-    private AddressForm shopAddress;
+    private AddressDto shopAddress;
 
     private Double[] shopLocation;
 

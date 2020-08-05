@@ -1,9 +1,9 @@
 package com.blibli.experience.model.response.barterOrder;
 
-import com.blibli.experience.entity.form.BarterSubmissionDataForm;
-import com.blibli.experience.entity.form.ProductBarterDataForm;
-import com.blibli.experience.entity.form.ReceiptForm;
-import com.blibli.experience.entity.form.UserDataForm;
+import com.blibli.experience.entity.dto.BarterSubmissionDto;
+import com.blibli.experience.entity.dto.ProductBarterDto;
+import com.blibli.experience.entity.dto.ReceiptDto;
+import com.blibli.experience.entity.dto.UserDto;
 import com.blibli.experience.enums.BarterItemStatus;
 import com.blibli.experience.enums.BarterOrderStatus;
 import lombok.AllArgsConstructor;
@@ -22,14 +22,14 @@ public class GetAllBarterOrderByItemStatusResponse {
 
     private UUID barterOrderId;
     private String orderTransactionId;
-    private ProductBarterDataForm sellingProduct;
-    private BarterSubmissionDataForm buyingProduct;
-    private UserDataForm sellerData;
-    private UserDataForm buyerData;
-    private ReceiptForm sellerToWarehouseReceipt;
-    private ReceiptForm buyerToWarehouseReceipt;
-    private ReceiptForm warehouseToSellerReceipt;
-    private ReceiptForm warehouseToBuyerReceipt;
+    private ProductBarterDto sellingProduct;
+    private BarterSubmissionDto buyingProduct;
+    private UserDto sellerData;
+    private UserDto buyerData;
+    private ReceiptDto sellerToWarehouseReceipt;
+    private ReceiptDto buyerToWarehouseReceipt;
+    private ReceiptDto warehouseToSellerReceipt;
+    private ReceiptDto warehouseToBuyerReceipt;
     private BarterItemStatus sellerItemStatus;
     private BarterItemStatus buyerItemStatus;
     private BarterOrderStatus orderStatus;

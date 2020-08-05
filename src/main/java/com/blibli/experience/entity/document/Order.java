@@ -1,6 +1,6 @@
 package com.blibli.experience.entity.document;
 
-import com.blibli.experience.entity.form.*;
+import com.blibli.experience.entity.dto.*;
 import com.blibli.experience.enums.DeliveryType;
 import com.blibli.experience.enums.OrderStatus;
 import lombok.AllArgsConstructor;
@@ -42,19 +42,19 @@ public class Order {
     private String orderTransactionId;
 
     @Field(value = USER)
-    private UserDataForm userDataForm;
+    private UserDto userDto;
 
     @Field(value = SHOP)
-    private ShopForm shopForm;
+    private ShopDto shopDto;
 
     @Field(value = PRODUCTS)
-    private List<CartForm> cartForms;
+    private List<CartDto> cartDtos;
 
     @Field(value = DELIVERY_TYPE)
     private DeliveryType deliveryType;
 
     @Field(value = DELIVERY_RECEIPT)
-    private ReceiptForm deliveryReceipt;
+    private ReceiptDto deliveryReceipt;
 
     @Field(value = PAYMENT_ID)
     private UUID paymentId;

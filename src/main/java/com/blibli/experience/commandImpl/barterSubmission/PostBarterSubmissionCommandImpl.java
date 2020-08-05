@@ -4,8 +4,8 @@ import com.blibli.experience.command.barterSubmission.PostBarterSubmissionComman
 import com.blibli.experience.entity.document.BarterSubmission;
 import com.blibli.experience.entity.document.ProductBarter;
 import com.blibli.experience.entity.document.User;
-import com.blibli.experience.entity.form.ProductBarterDataForm;
-import com.blibli.experience.entity.form.UserDataForm;
+import com.blibli.experience.entity.dto.ProductBarterDto;
+import com.blibli.experience.entity.dto.UserDto;
 import com.blibli.experience.enums.UploadEnum;
 import com.blibli.experience.model.request.barterSubmission.PostBarterSubmissionRequest;
 import com.blibli.experience.model.response.barterSubmission.PostBarterSubmissionResponse;
@@ -44,10 +44,10 @@ public class PostBarterSubmissionCommandImpl implements PostBarterSubmissionComm
 
     @Override
     public Mono<PostBarterSubmissionResponse> execute(PostBarterSubmissionRequest request) {
-        UserDataForm userDataForm = getUserDataForm(request);
+        UserDto userDto = getUserDataForm(request);
         return productBarterRepository.findByProductBarterId(request.getProductBarterId())
                 .switchIfEmpty(Mono.error(new NotFoundException("Target barter not found.")))
-                .map(productBarter -> toBarterSubmission(productBarter, userDataForm, request))
+                .map(productBarter -> toBarterSubmission(productBarter, userDto, request))
                 .flatMap(barterSubmission -> {
                     try {
                         barterSubmission.setBarterSubmissionImagePaths(getImagePaths(request, barterSubmission));
@@ -59,32 +59,32 @@ public class PostBarterSubmissionCommandImpl implements PostBarterSubmissionComm
                 .map(this::toResponse);
     }
 
-    private UserDataForm getUserDataForm(PostBarterSubmissionRequest request) {
-        UserDataForm userDataForm = new UserDataForm();
+    private UserDto getUserDataForm(PostBarterSubmissionRequest request) {
+        UserDto userDto = new UserDto();
         User user = userRepository.findFirstByUserId(request.getUserId()).block();
         if (user != null) {
-            BeanUtils.copyProperties(user, userDataForm);
-            return userDataForm;
+            BeanUtils.copyProperties(user, userDto);
+            return userDto;
         } else {
             throw new RuntimeException("User not found.");
         }
     }
 
-    private BarterSubmission toBarterSubmission(ProductBarter productBarter, UserDataForm dataForm,
+    private BarterSubmission toBarterSubmission(ProductBarter productBarter, UserDto dataForm,
                                                 PostBarterSubmissionRequest request) {
-        ProductBarterDataForm productBarterDataForm = getProductBarterDataForm(productBarter);
+        ProductBarterDto productBarterDto = getProductBarterDataForm(productBarter);
         BarterSubmission barterSubmission = BarterSubmission.builder()
                 .barterSubmissionId(UUID.randomUUID())
                 .userData(dataForm)
-                .barterSubmissionTargetBarter(productBarterDataForm)
+                .barterSubmissionTargetBarter(productBarterDto)
                 .barterSubmissionCreatedAt(LocalDateTime.now())
                 .build();
         BeanUtils.copyProperties(request, barterSubmission);
         return barterSubmission;
     }
 
-    private ProductBarterDataForm getProductBarterDataForm(ProductBarter productBarter) {
-        ProductBarterDataForm dataForm = new ProductBarterDataForm();
+    private ProductBarterDto getProductBarterDataForm(ProductBarter productBarter) {
+        ProductBarterDto dataForm = new ProductBarterDto();
         BeanUtils.copyProperties(productBarter, dataForm);
         return dataForm;
     }

@@ -12,20 +12,20 @@ import java.util.UUID;
 @Repository
 public interface ProductStockRepository extends ReactiveMongoRepository<ProductStock, UUID> {
 
-    Mono<ProductStock> findFirstByShopForm_ShopIdAndProductDataForm_ProductId(UUID shopId, UUID productId);
+    Mono<ProductStock> findFirstByShopDto_ShopIdAndProductDto_ProductId(UUID shopId, UUID productId);
 
-    Mono<ProductStock> findByShopForm_ShopIdAndProductDataForm_ProductId(UUID shopId, UUID productId);
+    Mono<ProductStock> findByShopDto_ShopIdAndProductDto_ProductId(UUID shopId, UUID productId);
 
-    Mono<ProductStock> findByShopForm_ShopIdAndProductDataForm_ProductBarcode(UUID shopId, String barcode);
+    Mono<ProductStock> findByShopDto_ShopIdAndProductDto_ProductBarcode(UUID shopId, String barcode);
 
-    Mono<ProductStock> findFirstByProductDataForm_ProductId(UUID productId);
+    Mono<ProductStock> findFirstByProductDto_ProductId(UUID productId);
 
     Mono<ProductStock> findFirstByStockId(UUID id);
 
-    Flux<ProductStock> findAllByShopForm_ShopId(UUID id);
+    Flux<ProductStock> findAllByShopDto_ShopId(UUID id);
 
-    Flux<ProductStock> findAllByProductDataForm_ProductId(UUID productId);
+    Flux<ProductStock> findAllByProductDto_ProductId(UUID productId);
 
-    Mono<Long> countAllByProductDataForm_ProductCategory(ProductCategory productCategory);
+    Mono<Long> countAllByProductDto_ProductCategory(ProductCategory productCategory);
 
 }

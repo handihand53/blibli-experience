@@ -3,10 +3,9 @@ package com.blibli.experience.commandImpl.productBarter;
 import com.blibli.experience.command.productBarter.PostProductBarterCommand;
 import com.blibli.experience.entity.document.ProductBarter;
 import com.blibli.experience.entity.document.User;
-import com.blibli.experience.entity.form.UserDataForm;
+import com.blibli.experience.entity.dto.UserDto;
 import com.blibli.experience.enums.ProductAvailableStatus;
 import com.blibli.experience.enums.UploadEnum;
-import com.blibli.experience.model.request.barterSubmission.PostBarterSubmissionRequest;
 import com.blibli.experience.model.request.productBarter.PostProductBarterRequest;
 import com.blibli.experience.model.response.productBarter.PostProductBarterResponse;
 import com.blibli.experience.repository.ProductBarterRepository;
@@ -40,8 +39,8 @@ public class PostProductBarterCommandImpl implements PostProductBarterCommand {
 
     @Override
     public Mono<PostProductBarterResponse> execute(PostProductBarterRequest request) {
-        UserDataForm userDataForm = getUserDataForm(request);
-        return Mono.fromCallable(() -> toProductBarter(request, userDataForm))
+        UserDto userDto = getUserDataForm(request);
+        return Mono.fromCallable(() -> toProductBarter(request, userDto))
                 .flatMap(productBarter -> {
                     try {
                         productBarter.setProductBarterImagePaths(getImagePaths(request, productBarter));
@@ -53,21 +52,21 @@ public class PostProductBarterCommandImpl implements PostProductBarterCommand {
                 .map(this::toResponse);
     }
 
-    private UserDataForm getUserDataForm(PostProductBarterRequest request) {
-        UserDataForm userDataForm = new UserDataForm();
+    private UserDto getUserDataForm(PostProductBarterRequest request) {
+        UserDto userDto = new UserDto();
         User user = userRepository.findFirstByUserId(request.getUserId()).block();
         if (user != null) {
-            BeanUtils.copyProperties(user, userDataForm);
-            return userDataForm;
+            BeanUtils.copyProperties(user, userDto);
+            return userDto;
         } else {
             throw new RuntimeException("User not found.");
         }
     }
 
-    private ProductBarter toProductBarter(PostProductBarterRequest request, UserDataForm userDataForm) {
+    private ProductBarter toProductBarter(PostProductBarterRequest request, UserDto userDto) {
         ProductBarter productBarter = ProductBarter.builder()
                 .productBarterId(UUID.randomUUID())
-                .userData(userDataForm)
+                .userData(userDto)
                 .availableStatus(ProductAvailableStatus.AVAILABLE)
                 .productBarterCreatedAt(LocalDateTime.now())
                 .build();

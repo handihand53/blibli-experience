@@ -27,7 +27,7 @@ public class GetAllOrderByUserIdCommandImpl implements GetAllOrderByUserIdComman
 
     @Override
     public Mono<List<GetAllOrderByUserIdResponse>> execute(UUID request) {
-        return orderRepository.findAllByUserDataForm_UserId(request)
+        return orderRepository.findAllByUserDto_UserId(request)
                 .switchIfEmpty(Mono.error(new NotFoundException("Order not found.")))
                 .map(this::toResponse)
                 .collectList();

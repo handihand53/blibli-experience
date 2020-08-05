@@ -1,7 +1,6 @@
 package com.blibli.experience.entity.document;
 
-import com.blibli.experience.entity.form.BiddingOrderDataForm;
-import com.blibli.experience.entity.form.OrderDataForm;
+import com.blibli.experience.entity.dto.BiddingOrderDto;
 import com.blibli.experience.enums.PaymentType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,7 +35,7 @@ public class BiddingPayment {
     private String orderTransactionId;
 
     @Field(value = BIDDING_ORDER_DATA_FORM)
-    private BiddingOrderDataForm biddingOrderDataForm;
+    private BiddingOrderDto biddingOrderDto;
 
     @Field(value = PAYMENT_TYPE)
     private PaymentType biddingOrderPaymentType;

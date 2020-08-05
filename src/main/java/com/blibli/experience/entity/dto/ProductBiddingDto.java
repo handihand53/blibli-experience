@@ -1,4 +1,4 @@
-package com.blibli.experience.entity.form;
+package com.blibli.experience.entity.dto;
 
 import com.blibli.experience.enums.ProductBiddingCondition;
 import com.blibli.experience.enums.ProductCategory;
@@ -15,7 +15,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductBiddingForm {
+public class ProductBiddingDto {
 
     private UUID productBiddingId;
     private String productBiddingName;

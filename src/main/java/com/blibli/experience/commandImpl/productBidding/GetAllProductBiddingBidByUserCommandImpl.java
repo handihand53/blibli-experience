@@ -2,7 +2,7 @@ package com.blibli.experience.commandImpl.productBidding;
 
 import com.blibli.experience.command.productBidding.GetAllProductBiddingBidByUserCommand;
 import com.blibli.experience.entity.document.ProductBidding;
-import com.blibli.experience.entity.form.BiddingForm;
+import com.blibli.experience.entity.dto.BiddingDto;
 import com.blibli.experience.enums.BidStatus;
 import com.blibli.experience.enums.ProductBiddingAvailableStatus;
 import com.blibli.experience.model.response.productBidding.GetAllProductBiddingBidByUserResponse;
@@ -49,9 +49,9 @@ public class GetAllProductBiddingBidByUserCommandImpl implements GetAllProductBi
     }
 
     private BidStatus getBidStatus(ProductBidding productBidding, UUID request) {
-        for (BiddingForm biddingForm : productBidding.getBiddingForms()) {
-            if(productBidding.getCurrentPrice().equals(biddingForm.getBiddingPrice()) &&
-            request.equals(biddingForm.getUserDataForm().getUserId())) {
+        for (BiddingDto biddingDto : productBidding.getBiddingDtos()) {
+            if(productBidding.getCurrentPrice().equals(biddingDto.getBiddingPrice()) &&
+            request.equals(biddingDto.getUserDto().getUserId())) {
                 return BidStatus.WINNING;
             }
         }

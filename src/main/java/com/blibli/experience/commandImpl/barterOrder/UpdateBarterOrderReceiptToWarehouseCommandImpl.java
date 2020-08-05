@@ -2,7 +2,7 @@ package com.blibli.experience.commandImpl.barterOrder;
 
 import com.blibli.experience.command.barterOrder.UpdateBarterOrderReceiptToWarehouseCommand;
 import com.blibli.experience.entity.document.BarterOrder;
-import com.blibli.experience.entity.form.ReceiptForm;
+import com.blibli.experience.entity.dto.ReceiptDto;
 import com.blibli.experience.enums.BarterItemStatus;
 import com.blibli.experience.enums.BarterOrderStatus;
 import com.blibli.experience.enums.BarterRoleEnum;
@@ -39,15 +39,15 @@ public class UpdateBarterOrderReceiptToWarehouseCommandImpl implements UpdateBar
     }
 
     private BarterOrder updateBarterOrder(BarterOrder barterOrder, UpdateBarterOrderReceiptToWarehouseRequest request) {
-        ReceiptForm receiptForm = ReceiptForm.builder()
+        ReceiptDto receiptDto = ReceiptDto.builder()
                 .receipt(request.getReceipt())
                 .createdAt(LocalDateTime.now())
                 .build();
         if(request.getBarterRoleEnum().equals(BarterRoleEnum.SELLER)) {
-            barterOrder.setSellerToWarehouseReceipt(receiptForm);
+            barterOrder.setSellerToWarehouseReceipt(receiptDto);
             barterOrder.setSellerItemStatus(BarterItemStatus.SENT_TO_WAREHOUSE);
         } else if(request.getBarterRoleEnum().equals(BarterRoleEnum.BUYER)) {
-            barterOrder.setBuyerToWarehouseReceipt(receiptForm);
+            barterOrder.setBuyerToWarehouseReceipt(receiptDto);
             barterOrder.setBuyerItemStatus(BarterItemStatus.SENT_TO_WAREHOUSE);
         }
         if(barterOrder.getSellerItemStatus().equals(BarterItemStatus.SENT_TO_WAREHOUSE) &&
