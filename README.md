@@ -6,7 +6,7 @@ This is a backend project for accomplishing Blibli Future Program 4.0 phase 2. T
 #### How to use it:
 1. Clone the project,
 2. Run BlibliExperienceApplication,
-3. Check the docs in [swagger-ui](http://localhost:8080/experience/swagger-ui.html#)
+3. Check the docs in [swagger-ui](http://localhost:8080/experience/swagger-ui.html#).
 
 #### Bug list (please add bug in this list if you found a bug):
 | Method Affected | Description | Date Added | Status | Last Updated |
