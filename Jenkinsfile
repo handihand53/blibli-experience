@@ -15,7 +15,7 @@ pipeline {
         }
         stage('Run app') {
             steps {
-                sh 'docker run -p 8080:8185 blibli-Experience'
+                sh 'docker run -p 8080:8185 blibliexperience'
             }
         }
     }
